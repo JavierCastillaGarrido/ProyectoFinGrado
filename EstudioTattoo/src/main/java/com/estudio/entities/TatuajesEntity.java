@@ -21,6 +21,12 @@ public class TatuajesEntity {
     
     @Column(name = "Color")
     private Integer color;
+    
+    @Column(name = "Tamano")
+    private double tamano;
+    
+    @Column(name = "Precio")
+    private double precio;
 	
 	public TatuajesEntity() {
 		super();
@@ -31,17 +37,21 @@ public class TatuajesEntity {
 		this.idTatuajes = idTatuajes;
 	}
 
-	public TatuajesEntity(Integer idTatuajes, String descripcion, Integer color) {
+	public TatuajesEntity(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio) {
 		super();
 		this.idTatuajes = idTatuajes;
 		this.descripcion = descripcion;
 		this.color = color;
+		this.tamano = tamano;
+		this.precio = precio;
 	}
-	
-	public TatuajesEntity(String descripcion, Integer color) {
+
+	public TatuajesEntity(String descripcion, Integer color, double tamano, double precio) {
 		super();
 		this.descripcion = descripcion;
 		this.color = color;
+		this.tamano = tamano;
+		this.precio = precio;
 	}
 
 	public Integer getIdTatuajes() {
@@ -66,6 +76,22 @@ public class TatuajesEntity {
 
 	public void setColor(Integer color) {
 		this.color = color;
+	}
+
+	public double getTamano() {
+		return tamano;
+	}
+
+	public void setTamano(double tamano) {
+		this.tamano = tamano;
+	}
+
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 
 }

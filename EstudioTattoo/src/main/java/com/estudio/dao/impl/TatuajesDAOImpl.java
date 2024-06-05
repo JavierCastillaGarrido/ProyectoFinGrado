@@ -18,17 +18,17 @@ public class TatuajesDAOImpl implements ITatuajesDAO {
 	private ITatuajesRepository tatuajesRepository;
 	
 	@Override
-	public List<TatuajesDTO> buscarTatuajes(Integer id, String descripcion, Integer color)
+	public List<TatuajesDTO> buscarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio)
 			throws ClassNotFoundException, SQLException {
 		
-		return tatuajesRepository.buscarTatuajes(id, descripcion, descripcion);
+		return tatuajesRepository.buscarTatuajes(idTatuajes, descripcion, color, tamano, precio);
 		
 	}
 
 	@Override
-	public Integer insertarTatuajes(String descripcion, Integer color) throws ClassNotFoundException, SQLException {
+	public Integer insertarTatuajes(String descripcion, Integer color, double tamano, double precio) throws ClassNotFoundException, SQLException {
 		
-		TatuajesEntity te = new TatuajesEntity(descripcion, color);
+		TatuajesEntity te = new TatuajesEntity(descripcion, color, tamano, precio);
 		tatuajesRepository.save(te);
 		
 		return te.getIdTatuajes();
@@ -36,10 +36,10 @@ public class TatuajesDAOImpl implements ITatuajesDAO {
 	}
 
 	@Override
-	public Integer actualizarTatuajes(Integer id, String descripcion, Integer color)
+	public Integer actualizarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio)
 			throws ClassNotFoundException, SQLException {
 
-		TatuajesEntity te = new TatuajesEntity(id, descripcion, color);
+		TatuajesEntity te = new TatuajesEntity(idTatuajes, descripcion, color, tamano, precio);
 		tatuajesRepository.save(te);
 		
 		return te.getIdTatuajes();

@@ -17,26 +17,49 @@ public class TatuajesService implements ITatuajesService{
 	ITatuajesDAO tatuajesDAOImpl; 
 	
 	@Override
-	public List<TatuajesDTO> buscarTatuajes(Integer id, String descripcion, Integer color)
+	public List<TatuajesDTO> buscarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio)
 			throws ClassNotFoundException, SQLException {
 		
-		return tatuajesDAOImpl.buscarTatuajes(id, descripcion, color);
+		return tatuajesDAOImpl.buscarTatuajes(idTatuajes, descripcion, color, tamano, precio);
 		
 	}
 
 	@Override
-	public Integer insertarTatuajes(String descripcion, Integer color) throws ClassNotFoundException, SQLException {
+	public Integer insertarTatuajes(String descripcion, Integer color, double tamano, double precio) throws ClassNotFoundException, SQLException {
 		
-		return tatuajesDAOImpl.insertarTatuajes(descripcion, color);
+		precio = calcularPrecio(color, tamano);
+		
+		return tatuajesDAOImpl.insertarTatuajes(descripcion, color, tamano, precio);
 		
 	}
 
 	@Override
-	public Integer actualizarTatuajes(Integer id, String descripcion, Integer color)
+	public Integer actualizarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio)
 			throws ClassNotFoundException, SQLException {
 		
-		return tatuajesDAOImpl.actualizarTatuajes(id, descripcion, color);
+		precio = calcularPrecio(color, tamano);
 		
+		return tatuajesDAOImpl.actualizarTatuajes(idTatuajes, descripcion, color, tamano, precio);
+		
+	}
+
+	public double calcularPrecio(Integer color, double tamano) {
+		
+		double precio = 50.00;
+		
+		if (color == 1) {
+			precio += 15.00;
+		}
+		
+		if (tamano <= 7) {
+			precio += 5;
+		}else if(tamano >7 && tamano<=15) {
+			precio += 15;
+		}else if(tamano > 15){
+			precio += 30;
+		}
+		
+		return precio;
 	}
 
 }

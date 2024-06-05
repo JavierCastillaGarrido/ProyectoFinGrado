@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.estudio.dtos.CitasDTO;
 
-public interface ICItasDAO {
+public interface ICitasDAO {
 
 	public List<CitasDTO> buscarCitas(Integer id, String fecha, Integer cliente, Integer tatuador,  Integer tatuajes, Integer activo)throws ClassNotFoundException, SQLException;
 

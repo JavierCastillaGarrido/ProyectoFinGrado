@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.estudio.dao.ICItasDAO;
+import com.estudio.dao.ICitasDAO;
 import com.estudio.dtos.CitasDTO;
 import com.estudio.entities.CitasEntity;
 import com.estudio.entities.ClientesEntity;
@@ -15,7 +15,7 @@ import com.estudio.entities.TatuajesEntity;
 import com.estudio.repositories.ICitasRepository;
 
 @Component
-public class CitasDAOImpl implements ICItasDAO{
+public class CitasDAOImpl implements ICitasDAO{
 
 	@Autowired
 	private ICitasRepository citasRepository;

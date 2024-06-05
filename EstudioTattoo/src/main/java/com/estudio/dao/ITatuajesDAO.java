@@ -9,10 +9,10 @@ import com.estudio.dtos.TatuajesDTO;
 
 public interface ITatuajesDAO {
 
-	public List<TatuajesDTO> buscarTatuajes(Integer id, String descripcion, Integer color) throws ClassNotFoundException, SQLException;
+	public List<TatuajesDTO> buscarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio) throws ClassNotFoundException, SQLException;
 	
-	public Integer insertarTatuajes(String descripcion, Integer color) throws ClassNotFoundException, SQLException;
+	public Integer insertarTatuajes(String descripcion, Integer color, double tamano, double precio) throws ClassNotFoundException, SQLException;
 	
-	public Integer actualizarTatuajes(Integer id, String descripcion, Integer color) throws ClassNotFoundException, SQLException;
+	public Integer actualizarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio) throws ClassNotFoundException, SQLException;
 	
 }

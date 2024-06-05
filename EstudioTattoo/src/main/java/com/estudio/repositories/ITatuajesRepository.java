@@ -16,10 +16,14 @@ public interface ITatuajesRepository extends CrudRepository<TatuajesEntity, Inte
 			   + " FROM com.estudio.entities.TatuajesEntity te "
 			   + "					WHERE te.idTatuajes = :id "
 			   + " 					AND te.descripcion LIKE CONCAT ('%', :descripcion, '%') "
-			   + " 					AND te.color = :color ")
+			   + " 					AND te.color = :color "
+			   + "					AND te.tamano >= :tamano "
+			   + "					AND te.precio >= :precio ")
 	public List<TatuajesDTO> buscarTatuajes(
-		@Param("id") Integer id,
+		@Param("id") Integer idTatuajes,
 		@Param("descripcion") String descripcion,
-		@Param("color") String color);
-	
+		@Param("color") Integer color,
+		@Param("tamano") double tamano,
+		@Param("precio") double precio);
 }
+
