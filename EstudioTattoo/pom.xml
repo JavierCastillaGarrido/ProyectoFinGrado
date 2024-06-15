@@ -10,9 +10,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>EstudioTattoo</artifactId>
+	<artifactId>BackEstudio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>EstudioTattoo</name>
+	<name>BackEstudio</name>
 	<description>Empresa de estudio de tatuajes</description>
 	<properties>
 		<java.version>17</java.version>
