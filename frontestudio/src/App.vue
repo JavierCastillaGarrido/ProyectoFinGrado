@@ -22,6 +22,18 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0;
+}
+
+.pagina {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 10px;
+  width: 100vw;
+  height: 100vh;
+}
+
 .menu {
   flex: 0 0 auto;
   display: flex;
