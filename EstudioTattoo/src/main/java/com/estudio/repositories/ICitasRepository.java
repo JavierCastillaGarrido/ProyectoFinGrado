@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.estudio.dtos.CitasDTO;
 import com.estudio.entities.CitasEntity;
 
+@Repository
 public interface ICitasRepository extends CrudRepository<CitasEntity, Integer>{
 
 	@Query(value = "SELECT new com.estudio.dtos.ClientesDTO "

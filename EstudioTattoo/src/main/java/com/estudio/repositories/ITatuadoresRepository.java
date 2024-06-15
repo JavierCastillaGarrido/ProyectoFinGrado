@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.estudio.dtos.TatuadoresDTO;
 import com.estudio.entities.TatuadoresEntity;
 
+@Repository
 public interface ITatuadoresRepository extends CrudRepository<TatuadoresEntity, Integer>{
 
 	@Query(value="SELECT new com.estudio.dtos.TatuadoresDTO "
