@@ -13,14 +13,15 @@ import com.estudio.entities.ImagenesEntity;
 @Repository
 public interface IImagenesRepository extends CrudRepository<ImagenesEntity, Integer>{
 
+	/* IS NULL OR = si viene el parametro como null lo ignora y no realiza la comprobacion y filtra por el resto */
 	@Query(value = "SELECT new com.estudio.dtos.ImagenesDTO "
-			   + "(ie.idImagen, te.idTatuadores, ie.Descripcion, te.Imagenes)"
-			   + " FROM com.estudio.entities.ImagenesEntity ie,"
-			   + "		com.estudio.entities.TatuadoresEntity te "
-			   + "					WHERE CAST (ie.idImagen AS string) LIKE CONCAT ('%', :id, '%') "
-			   + " 					AND CAST (ie.tatuador AS string) LIKE CONCAT ('%', :tatuador, '%') "
-			   + " 					AND ie.descripcion LIKE CONCAT ('%', :descrip, '%') "
-			   + " 					AND ie.imagenes LIKE CONCAT ('%', :imagenes, '%') ")
+			   + "(ie.idImagen, te.idTatuadores, ie.descripcion, ie.imagenes)"
+			   + " FROM ImagenesEntity ie "
+			   + "		JOIN ie.tatuador te "
+			   + "					WHERE (:id IS NULL OR ie.idImagen = :id) "
+			   + " 					AND (:tatuador IS NULL OR te.idTatuadores = :tatuador) "
+			   + "					AND (:descrip IS NULL OR ie.descripcion LIKE CONCAT('%', :descrip, '%')) "
+               + "					AND (:imagenes IS NULL OR ie.imagenes LIKE CONCAT('%', :imagenes, '%'))")	
 	public List<ImagenesDTO> buscarImagenes(
 			@Param("id") Integer idImagen, 
 			@Param("tatuador") Integer tatuador, 

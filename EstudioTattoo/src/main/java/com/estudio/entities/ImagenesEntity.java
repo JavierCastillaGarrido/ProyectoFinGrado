@@ -26,10 +26,10 @@ public class ImagenesEntity {
     private TatuadoresEntity tatuador;
 	
 	@Column(name = "Descripcion")
-    private String Descripcion;
+    private String descripcion;
 	
     @Column(name = "Imagenes")
-    private String Imagenes;
+    private String imagenes;
     
 	public ImagenesEntity() {
 		super();
@@ -40,19 +40,12 @@ public class ImagenesEntity {
 		this.idImagen = idImagen;
 	}
 
-	public ImagenesEntity(TatuadoresEntity tatuador, String descripcion, String imagenes) {
-		super();
-		this.tatuador = tatuador;
-		Descripcion = descripcion;
-		Imagenes = imagenes;
-	}
-
 	public ImagenesEntity(Integer idImagen, TatuadoresEntity tatuador, String descripcion, String imagenes) {
 		super();
 		this.idImagen = idImagen;
 		this.tatuador = tatuador;
-		Descripcion = descripcion;
-		Imagenes = imagenes;
+		this.descripcion = descripcion;
+		this.imagenes = imagenes;
 	}
 
 	public Integer getIdImagen() {
@@ -72,20 +65,19 @@ public class ImagenesEntity {
 	}
 
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 
 	public String getImagenes() {
-		return Imagenes;
+		return imagenes;
 	}
 
 	public void setImagenes(String imagenes) {
-		Imagenes = imagenes;
+		this.imagenes = imagenes;
 	}
-
 	
 }

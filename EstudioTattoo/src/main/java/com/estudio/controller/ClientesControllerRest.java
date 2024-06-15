@@ -68,7 +68,7 @@ public class ClientesControllerRest {
 	
 	/********************************* INSERTAR CLIENTES ******************************************/
 
-	@PostMapping("tatuadores")
+	@PostMapping("clientes")
 	public ResponseEntity insertarClientes (@RequestBody ClientesEntity clientes)throws ClassNotFoundException, SQLException, NamingException{
 		
 		Integer resul = clientesService.insertarClientes(clientes.getNombre(), clientes.getApellidos(), clientes.getTelefono(), clientes.getEmail(), clientes.getPassword());
@@ -82,7 +82,7 @@ public class ClientesControllerRest {
 	
 	/********************************* ACTUALIZAR TATUADORES ******************************************/
 
-	@PutMapping("tatuadores")
+	@PutMapping("clientes")
 	public ResponseEntity actualizarClientes (@RequestBody ClientesEntity clientes)throws ClassNotFoundException, SQLException, NamingException{
 		
 		Integer resul = clientesService.actualizarClientes(clientes.getIdClientes(), clientes.getNombre(), clientes.getApellidos(), clientes.getTelefono(), clientes.getEmail(), clientes.getPassword());

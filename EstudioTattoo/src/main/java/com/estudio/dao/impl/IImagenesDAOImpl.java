@@ -20,6 +20,13 @@ public class IImagenesDAOImpl implements IImagenesDAO{
 	public List<ImagenesDTO> buscarImagenes(Integer idImagen, Integer tatuador, String descripcion, String imagenes)
 			throws ClassNotFoundException, SQLException {
 		
+		if (descripcion == "") {
+			descripcion = null;
+		}
+		if (imagenes == "") {
+			imagenes = null;
+		}
+		
 		return imagenRepository.buscarImagenes(idImagen, tatuador, descripcion, imagenes);
 		
 	}
