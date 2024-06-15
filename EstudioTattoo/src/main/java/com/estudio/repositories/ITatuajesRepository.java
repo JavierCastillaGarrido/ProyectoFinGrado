@@ -13,10 +13,12 @@ import com.estudio.entities.TatuajesEntity;
 @Repository
 public interface ITatuajesRepository extends CrudRepository<TatuajesEntity, Integer>{
 
+	/* IS NULL OR = si viene el parametro como null lo ignora y no realiza la comprobacion y filtra por el resto */
+	
 	@Query(value = "SELECT new com.estudio.dtos.TatuajesDTO "
 			   + "(te.idTatuajes, te.descripcion, te.color)"
 			   + " FROM com.estudio.entities.TatuajesEntity te "
-			   + "					WHERE te.idTatuajes = :id "
+			   + "					WHERE (:id IS NULL OR te.idTatuajes = :id)"
 			   + " 					AND te.descripcion LIKE CONCAT ('%', :descripcion, '%') "
 			   + " 					AND te.color = :color "
 			   + "					AND te.tamano >= :tamano "

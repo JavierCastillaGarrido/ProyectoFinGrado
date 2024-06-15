@@ -13,10 +13,12 @@ import com.estudio.entities.ClientesEntity;
 @Repository
 public interface IClientesRepository extends CrudRepository<ClientesEntity, Integer>{
 
+	/* IS NULL OR = si viene el parametro como null lo ignora y no realiza la comprobacion y filtra por el resto */
+	
 	@Query(value = "SELECT new com.estudio.dtos.ClientesDTO "
 			   + "(ce.idClientes, ce.nombre, ce.apellidos, ce.telefono, ce.email, ce.password)"
 			   + " FROM com.estudio.entities.ClientesEntity ce "
-			   + "					WHERE ce.idClientes = :id "
+			   + "					WHERE (:id IS NULL OR ce.idClientes = :id) "
 			   + " 					AND ce.nombre LIKE CONCAT ('%', :nombre, '%') "
 			   + " 					AND ce.apellidos LIKE CONCAT ('%', :apellidos, '%') "
 			   + " 					AND ce.telefono LIKE CONCAT ('%', :telefono, '%') "

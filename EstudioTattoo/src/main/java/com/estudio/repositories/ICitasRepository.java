@@ -13,17 +13,19 @@ import com.estudio.entities.CitasEntity;
 @Repository
 public interface ICitasRepository extends CrudRepository<CitasEntity, Integer>{
 
+	/* IS NULL OR = si viene el parametro como null lo ignora y no realiza la comprobacion y filtra por el resto */
+	
 	@Query(value = "SELECT new com.estudio.dtos.ClientesDTO "
 			   + "(ce.idCitas, ce.fecha, cle.idClientes, te.idTatuadores, tae.idTatuajes, ce.activo)"
 			   + " FROM CitasEntity ce "
 			   + "		JOIN ce.cliente cle "
 			   + "		JOIN ce.tatuador te  "
 			   + "		JOIN ce.tatuajes tae "
-			   + "					WHERE CAST (ce.idCitas AS string) LIKE CONCAT ('%', :id, '%') "
+			   + "					WHERE (:id IS NULL OR ce.idCitas = :id) "
 			   + " 					AND ce.fecha LIKE CONCAT ('%', :fecha, '%') "
-			   + " 					AND CAST (cle.idClientes AS string) LIKE CONCAT ('%', :cliente, '%') "
-			   + " 					AND CAST (te.idTatuadores AS string) LIKE CONCAT ('%', :tatuador, '%') "
-			   + " 					AND CAST (tae.idTatuajes AS string) LIKE CONCAT ('%', :tatuajes, '%') "
+			   + " 					AND (:cliente IS NULL OR cle.idClientes = :cliente) "
+			   + " 					AND (:tatuador IS NULL OR te.idTatuadores = :tatuador) "
+			   + " 					AND (:tatuajes IS NULL OR tae.idTatuajes = :tatuajes) "
 			   + " 					AND ce.activo = :activo ")
 	public List<CitasDTO> buscarCitas(
 		@Param("id") Integer id,
