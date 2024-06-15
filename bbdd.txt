@@ -77,3 +77,31 @@ CREATE TABLE `tiendatattoos`.`imagenestatus` (
     ON UPDATE NO ACTION
 );
 
+INSERT INTO clientes (Nombre, Apellidos, Telefono, Email, Password)
+VALUES
+    ('Juan', 'García', '123456789', 'juangarcia@example.com', 'clave123'),
+    ('María', 'López', '159752346', 'marialopez@example.com', 'password456'),
+    ('Pedro', 'Martínez', '987654321', 'pedromartinez@example.com', 'mipass');
+    
+INSERT INTO tatuadores (Nombre, Apellidos, Email, Especialidad, Activo)
+VALUES
+    ('Ana', 'Rodríguez', 'anarodriguez@example.com', 'Aquarela', 1),
+    ('Carlos', 'Gómez', 'carlosgomez@example.com', 'Blackwork', 1),
+    ('Sofía', 'Hernández', 'sofiahernandez@example.com', 'Realismo', 0);
+
+INSERT INTO tatuajes (Descripcion, Color, Tamano, Precio)
+VALUES
+    ('Flor', 1, 15.50, 100.00),
+    ('Dragón', 0, 25.75, 150.00),
+    ('Calavera', 1, 20.00, 120.00);
+INSERT INTO tatuajes (Descripcion, Color, Tamano, Precio)
+VALUES
+    ('Flor', 1, 15.50, 100.00),
+    ('Dragón', 0, 25.75, 150.00),
+    ('Calavera', 1, 20.00, 120.00);
+INSERT INTO imagenestatus (ID_Tatuadores, Descripcion, Imagenes)
+VALUES
+    (1, 'Diseños previos', 'imagen1.jpg,imagen2.jpg'),
+    (2, 'Ejemplos de trabajo', 'ejemplo1.jpg,ejemplo2.jpg'),
+    (3, 'Portafolio personal', 'portafolio1.jpg,portafolio2.jpg');
+
