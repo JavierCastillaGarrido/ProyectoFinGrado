@@ -4,6 +4,7 @@ import Inicio from '../views/InicioVista.vue';
 import Galeria from '../views/GaleriaVista.vue';
 import Tatuadores from '../views/TatuadoresVista.vue';
 import About from '../views/AboutVista.vue';
+import Login from '../components/LoginComponent.vue';
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: '/nosotros',
     name: 'Nosotros',
     component: About
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   }
 ]
 

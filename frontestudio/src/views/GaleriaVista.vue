@@ -2,14 +2,26 @@
     <div>
         <h1>GALERIA</h1>
     </div>
-  </template>
+</template>
   
-  <script>
-  export default {
+<script>
+export default {
+    name: "galeriaVista", 
+    data() {
+        return {
+            images: {}
+        }
+    },
+    methods: {
+        recogerImagenes() {
+            fetch("http://localhost:8080/imagenes")
+            .then(response => response.json())
+            .then(json => this.imagenes = json)
+        },
+        
+    }
+
+}
+</script>
   
-  }
-  </script>
-  
-  <style>
-  
-  </style>
+<style scoped></style>

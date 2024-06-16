@@ -52,6 +52,7 @@ public class ClientesControllerRest {
 		
 		ClientesEntity cliente = clientesRepository.findById(idClientes).get();
 		
+		System.out.println(idClientes + "id");
 		return new ResponseEntity<>(cliente, HttpStatus.OK);
 		
 	}
@@ -61,6 +62,7 @@ public class ClientesControllerRest {
 		
 		Iterable<ClientesEntity> cliente = clientesRepository.findAll();
 		
+		System.out.println("todo");
 		return cliente;
 		
 	}

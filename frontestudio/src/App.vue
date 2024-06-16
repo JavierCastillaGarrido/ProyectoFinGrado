@@ -5,7 +5,8 @@
         <router-link to="/" class="objMenu">Home</router-link> |
         <router-link to="/galeria" class="objMenu">Galeria</router-link> |
         <router-link to="/tatuadores" class="objMenu">Tatuadores</router-link> |
-        <router-link to="/nosotros" class="objMenu">Sobre Nosotros</router-link>
+        <router-link to="/nosotros" class="objMenu">Sobre Nosotros</router-link> |
+        <router-link to="/login" class="objMenu">Login</router-link>
       </nav>
     </div>
     <router-view />
@@ -35,25 +36,25 @@ body {
 }
 
 .menu {
-    background-color: rgba(51, 51, 51, 0.8);
-    padding: 10px 0;
-    text-align: center;
-    height: 75px;
-    font-size: 3em;
+  background-color: rgba(51, 51, 51, 0.8);
+  padding: 10px 0;
+  text-align: center;
+  height: 75px;
+  font-size: 3em;
 }
 
 .menu nav {
-    display: inline-block;
+  display: inline-block;
 }
 
 .objMenu {
-    color: white;
-    text-decoration: none; 
-    margin: 0 15px; 
-    font-size: 18px; 
+  color: white;
+  text-decoration: none; 
+  margin: 0 15px; 
+  font-size: 18px; 
 }
 
 .objMenu:hover {
-    color: #ff6347;
+  color: #ff6347;
 }
 </style>

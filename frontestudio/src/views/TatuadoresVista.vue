@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <h1>TATUADORES</h1>
-    </div>
-  </template>
+  <div>
+    <h1>TATUADORES</h1>
+  </div>
+</template>
   
-  <script>
-  export default {
+<script>
+    export default {
+
+    };
+</script>
   
-  }
-  </script>
-  
-  <style>
-  
-  </style>
+<style scoped>
+
+</style>
