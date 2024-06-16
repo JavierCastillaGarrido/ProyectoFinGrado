@@ -24,30 +24,36 @@ export default {
 <style>
 body {
   margin: 0;
+  background-image: url("assets/fondo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .pagina {
-  display: grid;
-  grid-template-rows: repeat(7, 1fr);
-  gap: 10px;
-  width: 100vw;
   height: 100vh;
 }
 
 .menu {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: row;
-  background-color: #3f51b5;
-  color: #fff;
+    background-color: rgba(51, 51, 51, 0.8);
+    padding: 10px 0;
+    text-align: center;
+    height: 75px;
+    font-size: 3em;
 }
+
+.menu nav {
+    display: inline-block;
+}
+
 .objMenu {
-  padding: 10px;
-  color: #fff;
-  text-decoration: none;
-  transition: background-color 0.3s;
+    color: white;
+    text-decoration: none; 
+    margin: 0 15px; 
+    font-size: 18px; 
 }
+
 .objMenu:hover {
-  background-color: #6573c3;
+    color: #ff6347;
 }
 </style>

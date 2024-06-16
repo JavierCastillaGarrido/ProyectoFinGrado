@@ -11,5 +11,11 @@ export default {
 </script>
 
 <style>
+h1 {
+  color: white;
+  text-align: center;
+  margin-top: 10%;
+  font-size: 10em;
+}
 
 </style>
