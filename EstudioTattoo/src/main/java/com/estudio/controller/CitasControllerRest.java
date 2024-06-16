@@ -48,7 +48,7 @@ public class CitasControllerRest {
 		
 	}
 	
-	@GetMapping(value="citas/{id}")
+	@GetMapping(value="citas/{idCitas}")
 	public ResponseEntity<CitasEntity> obtenerCitasPorId(@PathVariable("idCitas")Integer idCitas){
 		
 		CitasEntity cita = citasRepository.findById(idCitas).get();

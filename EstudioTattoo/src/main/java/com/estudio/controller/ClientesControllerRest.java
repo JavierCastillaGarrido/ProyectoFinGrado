@@ -47,12 +47,11 @@ public class ClientesControllerRest {
 		
 	}
 	
-	@GetMapping(value="clientes/{id}")
+	@GetMapping(value="clientes/{idClientes}")
 	public ResponseEntity<ClientesEntity> obtenerClientesPorId(@PathVariable("idClientes")Integer idClientes){
 		
 		ClientesEntity cliente = clientesRepository.findById(idClientes).get();
 		
-		System.out.println(idClientes + "id");
 		return new ResponseEntity<>(cliente, HttpStatus.OK);
 		
 	}
@@ -61,8 +60,7 @@ public class ClientesControllerRest {
 	public Iterable<ClientesEntity> obtenerTodosClientes() {
 		
 		Iterable<ClientesEntity> cliente = clientesRepository.findAll();
-		
-		System.out.println("todo");
+
 		return cliente;
 		
 	}

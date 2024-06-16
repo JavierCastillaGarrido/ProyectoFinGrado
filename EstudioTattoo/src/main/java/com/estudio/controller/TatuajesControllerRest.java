@@ -45,7 +45,7 @@ public class TatuajesControllerRest {
 		return tatu;
 	}
 	
-	@GetMapping(value="tatuajes/{id}")
+	@GetMapping(value="tatuajes/{idTatuajes}")
 	public ResponseEntity<TatuajesEntity> obtenerTatuajesPorId(@PathVariable("idTatuajes")Integer idTatuajes){
 		
 		TatuajesEntity tatu = tatuajesRepository.findById(idTatuajes).get();
