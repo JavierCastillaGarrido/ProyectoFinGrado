@@ -48,6 +48,8 @@ public class CitasControllerRest {
 		
 	}
 	
+	//http://localhost:8080/tiendaTattoos/citas
+	
 	@GetMapping(value="citas/{idCitas}")
 	public ResponseEntity<CitasEntity> obtenerCitasPorId(@PathVariable("idCitas")Integer idCitas){
 		
@@ -56,6 +58,8 @@ public class CitasControllerRest {
 		return new ResponseEntity<>(cita, HttpStatus.OK);
 		
 	}
+	
+	//http://localhost:8080/tiendaTattoos/citas
 	
 	@GetMapping("citas")
 	public Iterable<CitasEntity> obtenerTodosCitas() {

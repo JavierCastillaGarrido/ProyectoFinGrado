@@ -47,6 +47,8 @@ public class ClientesControllerRest {
 		
 	}
 	
+	//http://localhost:8080/tiendaTattoos/clientes/2
+	
 	@GetMapping(value="clientes/{idClientes}")
 	public ResponseEntity<ClientesEntity> obtenerClientesPorId(@PathVariable("idClientes")Integer idClientes){
 		
@@ -55,6 +57,8 @@ public class ClientesControllerRest {
 		return new ResponseEntity<>(cliente, HttpStatus.OK);
 		
 	}
+	
+	//http://localhost:8080/tiendaTattoos/clientes
 	
 	@GetMapping("clientes")
 	public Iterable<ClientesEntity> obtenerTodosClientes() {

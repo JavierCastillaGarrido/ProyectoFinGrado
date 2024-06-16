@@ -40,6 +40,8 @@ public class ImagenesControllerRest {
 		
 	}
 
+	//http://localhost:8080/tiendaTattoos/imagenes/2
+	
 	@GetMapping(value="imagenes/{idImagen}")
 	public ResponseEntity<ImagenesEntity> obtenerImagenesPorId(@PathVariable("idImagen")Integer idImagen){
 		
@@ -48,6 +50,8 @@ public class ImagenesControllerRest {
 		return new ResponseEntity<>(img, HttpStatus.OK);
 		
 	}
+	
+	//http://localhost:8080/tiendaTattoos/imagenes
 	
 	@GetMapping("imagenes")
 	public Iterable<ImagenesEntity> obtenerTodosImagenes() {

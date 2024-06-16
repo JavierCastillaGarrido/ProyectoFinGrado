@@ -48,6 +48,8 @@ public class TatuadoresControllerRest {
 		
 	}
 	
+	//http://localhost:8080/tiendaTattoos/tatuadores/2
+	
 	@GetMapping(value="tatuadores/{idTatuadores}")
 	public ResponseEntity<TatuadoresEntity> obtenerTatuadoresPorId(@PathVariable("idTatuadores")Integer idTatuadores){
 		
@@ -56,6 +58,8 @@ public class TatuadoresControllerRest {
 		return new ResponseEntity<>(tatuado, HttpStatus.OK);
 		
 	}
+	
+	//http://localhost:8080/tiendaTattoos/tatuadores
 	
 	@GetMapping("tatuadores")
 	public Iterable<TatuadoresEntity> obtenerTodosTatuadores() {
