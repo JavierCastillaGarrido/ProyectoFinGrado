@@ -19,6 +19,7 @@ CREATE TABLE `tatuadores` (
   `Apellidos` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
   `Especialidad` VARCHAR(45) NULL,
+  `Descripcion` VARCHAR(1000) NULL,
   `Activo` INT NOT NULL,
   PRIMARY KEY (`ID_Tatuadores`));
 
@@ -83,11 +84,11 @@ VALUES
     ('María', 'López', '159752346', 'marialopez@example.com', 'password456'),
     ('Pedro', 'Martínez', '987654321', 'pedromartinez@example.com', 'mipass');
     
-INSERT INTO tatuadores (Nombre, Apellidos, Email, Especialidad, Activo)
+INSERT INTO tatuadores (Nombre, Apellidos, Email, Especialidad, Descripcion, Activo)
 VALUES
-    ('Ana', 'Rodríguez', 'anarodriguez@example.com', 'Aquarela', 1),
-    ('Carlos', 'Gómez', 'carlosgomez@example.com', 'Blackwork', 1),
-    ('Sofía', 'Hernández', 'sofiahernandez@example.com', 'Realismo', 0);
+    ('Ana', 'Rodríguez', 'anarodriguez@example.com', 'Aquarela', 'Ana Rodríguez es una talentosa tatuadora especializada en el estilo de acuarela. Con más de 10 años de experiencia en el mundo del tatuaje, Ana ha perfeccionado su técnica para crear obras de arte vibrantes y llenas de vida, que parecen pintadas directamente sobre la piel. Su pasión por los colores y su habilidad para crear transiciones suaves y efectos de degradado hacen que sus tatuajes sean verdaderamente únicos y apreciados por sus clientes.Ana se inspira en la naturaleza y el arte contemporáneo, fusionando ambos mundos para ofrecer diseños personalizados que capturan la esencia y personalidad de cada cliente. Su atención meticulosa al detalle y su compromiso con la calidad aseguran que cada tatuaje no solo sea hermoso, sino también duradero y realizado con los más altos estándares de higiene y seguridad. ', 1),
+    ('Carlos', 'Gómez', 'carlosgomez@example.com', 'Blackwork', 'Carlos Gómez es un destacado tatuador especializado en el estilo de Blackwork. Con una carrera que abarca una década, Carlos ha desarrollado una maestría única en el uso de tinta negra para crear tatuajes impactantes y duraderos. Su enfoque se caracteriza por la precisión en los detalles y la profundidad de los contrastes, logrando piezas que van desde patrones geométricos y mandalas hasta escenas complejas y abstractas. Carlos encuentra su inspiración en el arte tribal, el diseño contemporáneo y la naturaleza, fusionando estos elementos para ofrecer tatuajes que son tanto poderosos como elegantes. Su habilidad para trabajar con sombras, líneas gruesas y finas, y espacios negativos permite que cada tatuaje sea una obra de arte personalizada, adaptada a la visión y deseos de cada cliente.', 1),
+    ('Sofía', 'Hernández', 'sofiahernandez@example.com', 'Realismo', 'Sofía Hernández es una talentosa tatuadora especializada en el estilo de Realismo. Con 15 años de experiencia en el arte del tatuaje, Sofía ha desarrollado una habilidad excepcional para capturar la esencia de sus sujetos con una precisión asombrosa. Su dominio de los detalles y su capacidad para crear sombras y texturas realistas hacen que sus tatuajes parezcan cobrar vida en la piel. Inspirada por la belleza de la vida cotidiana y las complejidades del mundo natural, Sofía se dedica a transformar fotografías y recuerdos en impresionantes obras de arte. Desde retratos detallados hasta escenas complejas, su trabajo refleja una profunda comprensión de la luz, la sombra y la proporción, resultando en piezas que son tan realistas que parecen salirse del cuerpo. ', 0);
 
 INSERT INTO tatuajes (Descripcion, Color, Tamano, Precio)
 VALUES
@@ -104,4 +105,3 @@ VALUES
     (1, 'Diseños previos', 'imagen1.jpg,imagen2.jpg'),
     (2, 'Ejemplos de trabajo', 'ejemplo1.jpg,ejemplo2.jpg'),
     (3, 'Portafolio personal', 'portafolio1.jpg,portafolio2.jpg');
-

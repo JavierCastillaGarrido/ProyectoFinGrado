@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>GALERIA</h1>
+        <h1 class="tituloPag">GALERIA</h1>
         <div class="cuadroimagen">
             <img :src="img" alt="imagen">
             <img :src="img2" alt="imagen">

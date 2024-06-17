@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>SOBRE NOSOTROS</h1>
+    <h1 class="tituloPag">SOBRE NOSOTROS</h1>
   </div>
 </template>
 
