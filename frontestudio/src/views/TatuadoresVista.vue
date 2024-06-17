@@ -3,7 +3,7 @@
     <h1 class="tituloPag">TATUADORES</h1>
     <div id="tarjetasTatuadores">
       <div v-for="(item, index) in listaTatuadores" :key="index" class="tarjeta">
-        <img src="https://picsum.photos/200/200" alt="">
+        <img :src="item.imagen" alt="">
         <div class="contenidoTarjeta">
           <h2>{{ item.Nombre }} {{ item.Apellidos }}</h2>
           <p>{{ item.Descripcion }}</p>
@@ -26,15 +26,19 @@
         }
       },
       methods: {
-        listarTatuadores(){
+        listarTatuadores() {
           fetch('http://localhost:8080/tiendaTattoos/tatuadores')
             .then(response => response.json())
-            .then(json => this.listaTatuadores = json)
-            //Falta meter en la lista Tatuadores un objeto con las imagenes
-        },
-        pedircita(){
-
+            .then(json => {
+              this.listaTatuadores = json;
+              this.listaTatuadores.forEach((element, index) => {
+                element.imagen = this.imagenes[index % this.imagenes.length];
+              });
+            });
         }
+      },
+      created() {
+       this.listarTatuadores(); 
       }
     };
 </script>
