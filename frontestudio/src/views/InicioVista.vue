@@ -3,9 +3,42 @@
     <div id="imagenLogo">
       <img src="../assets/Logo.png" alt="logo">
     </div>
-    <h1>Drawtatoo</h1>
     <div id="texto"> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad dignissimos laudantium dolorem, non, in ipsam reprehenderit dolore accusantium tempora eveniet accusamus consequuntur doloremque blanditiis hic rem optio ea. Eaque impedit itaque consequatur, doloribus inventore, aperiam magnam necessitatibus saepe modi tenetur ratione? Repellendus expedita accusantium facere. Nisi non aspernatur ea ab inventore commodi architecto optio, porro animi et consequatur veniam quia voluptates nobis, quidem, tenetur assumenda facere. Similique iure doloremque porro a iusto nostrum ducimus blanditiis molestiae hic sed saepe magnam maiores illo, illum labore amet possimus error, at eius? Unde facere, consectetur quos autem adipisci perspiciatis doloremque quasi fugit voluptas? Corrupti ipsa quod et porro error accusantium libero, culpa deserunt nostrum ipsum recusandae! Perspiciatis vitae exercitationem minus eum nostrum est! Consectetur, dolor dicta. Dolores dolorum quia voluptatum doloremque nobis totam quisquam perspiciatis qui laudantium laborum harum modi ipsum incidunt, tempore ipsa dolore inventore quas accusantium. Temporibus numquam reprehenderit quae repudiandae omnis porro magni maiores veniam. Illo explicabo quibusdam pariatur eveniet, ab delectus adipisci. Cumque placeat optio ratione ea necessitatibus facilis nobis magnam aliquid reprehenderit quas aperiam provident id deserunt quisquam consectetur officia mollitia excepturi corrupti asperiores, fuga possimus quidem. Voluptatibus, dolorum? Perferendis at quis fugiat earum nulla quo adipisci pariatur voluptate soluta ea, quae, sunt optio quam sapiente quasi vero quibusdam amet quisquam. Qui veritatis eaque, beatae, est ipsum tempore fuga cupiditate saepe obcaecati ab recusandae ipsa veniam voluptate, numquam itaque asperiores? Inventore mollitia ipsa facere obcaecati ullam ut quo expedita reiciendis, architecto odit alias ab! Cumque aut nobis excepturi.</p>
+      <div>
+        <h2 class="bienvenida">¡Bienvenidos a DrawTattoo!</h2>
+        <p>
+          Estamos encantados de que hayas decidido visitar nuestra página web. En DrawTattoo, nos apasiona el arte del tatuaje y nos dedicamos a ofrecerte las mejores experiencias y servicios en el mundo del tatuaje. Permítenos guiarte a través de los distintos sitios de nuestra página web para que puedas explorar todo lo que tenemos para ofrecer.
+        </p>
+      </div>
+      <div>
+        <h2 class="titulo">
+          Galería
+        </h2>
+        <p>
+          Nuestra Galería es el lugar perfecto para inspirarte. Aquí podrás ver una extensa colección de tatuajes realizados por nuestros talentosos artistas. Desde intrincados diseños en blanco y negro hasta vibrantes piezas a todo color, nuestra galería te muestra la diversidad y la calidad de nuestro trabajo. Navega por nuestras categorías y encuentra el estilo que más te atraiga.
+        </p>
+      </div>
+      <div>
+        <h2 class="titulo">
+          Tatuadores
+        </h2>
+        <p>
+          En la sección de Tatuadores, te presentamos a los artistas que forman parte de la familia DrawTattoo. Cada uno de nuestros tatuadores tiene su propia especialidad y estilo único. Aquí podrás conocer más sobre ellos, ver ejemplos de sus trabajos anteriores y descubrir qué tipo de tatuaje es su especialidad. Ya sea que busques realismo, tradicional, geométrico, o cualquier otro estilo, tenemos al tatuador perfecto para ti.
+        </p>
+      </div>
+      <div>
+        <h2 class="titulo">
+          Sobre Nosotros
+        </h2>
+        <p>
+          En la sección de Más Información, podrás aprender más sobre nosotros y nuestra filosofía. Nos esforzamos por crear un ambiente acogedor y profesional, donde cada cliente se sienta cómodo y seguro. Aquí encontrarás detalles sobre nuestras políticas de higiene y seguridad, la historia de nuestro estudio, y testimonios de clientes satisfechos. Además, ofrecemos respuestas a las preguntas más frecuentes para que tengas toda la información que necesitas antes de tomar la decisión de tatuarte con nosotros.
+        </p>
+      </div>
+      <div>
+        <p>
+          Gracias por visitar DrawTattoo. Esperamos que disfrutes explorando nuestra página web y que encuentres la inspiración y el tatuador perfecto para tu próximo tatuaje. Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos. ¡Estamos aquí para ayudarte a llevar tu visión artística a la realidad!
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +56,7 @@ export default {
   flex-direction: column;
   text-align: center;
   color: white;
-  padding: 5% 0.01%;
+  padding: 5% 0.01% 2%;
 }
 
 #imagenLogo img{
@@ -33,22 +66,31 @@ export default {
 
 h1 {
   font-size: 10em;
-  font-family: 'Times New Roman', Times, serif;
   margin-top: 0;
 }
 
 #texto{
-  margin: 2.5% auto 2.5%;
-  width: 80%;
+  margin: 1% auto 2.5%;
+  width: 70%;
   color: black;
   background-color: azure;
   border-radius: 18px;
   
 }
 
+#texto h2{
+  margin-top: 2%;
+  padding: 1%;
+}
+
+.bienvenida{
+  font-size: 30px;
+}
+
 #texto p{
-  padding: 2% 5%;
+  padding: 1% 5% 2%;
   text-align: justify;
+  font-size: 20px;
 }
 
 </style>
