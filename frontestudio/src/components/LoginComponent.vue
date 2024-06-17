@@ -68,9 +68,12 @@ export default {
   
 <style scoped>
 .login-container {
+  padding: 2%;
+  background-color: white;
   text-align: center;
-  margin: 20px auto;
-  max-width: 300px;
+  margin: 5% auto 17.9%;
+  width: 20%;
+  border-radius: 18px;
 }
 
 .form-group {
@@ -85,7 +88,7 @@ export default {
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 3% 5%;
   margin: 5%;
   background-color: #007bff;
   color: #fff;

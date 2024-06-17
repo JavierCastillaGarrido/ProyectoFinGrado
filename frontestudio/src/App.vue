@@ -19,21 +19,17 @@
         </div>
       </nav> 
     </div>
-    <router-view />
+    <div id="vistas">
+      <router-view />
+    </div>
     <div id="footer">
       <div class="copy">
         ©2023-2024 Drawtatoo - Javier - Jorge | Drawtatoo es una empresa de tatuajes | All rights reserved - Todos los derechos reservados
       </div>
-      <div class="redes">
-        <div>
-          <a href="#"><img src="assets/icon-facebook.png" alt="face"></a>
-        </div>
-        <div>
-          <a href="#"><img src="assets/icon-instagram.png" alt="insta"></a>
-        </div>
-        <div>
-          <a href="#"><img src="assets/icon-twitter.png" alt="twt"></a>
-        </div>
+      <div class="redes">   
+          <a href="#"><img src="./assets/icon-facebook.png" alt="face"></a>
+          <a href="#"><img src="./assets/icon-instagram.png" alt="insta"></a>
+          <a href="#"><img src="./assets/icon-twitter.png" alt="twt"></a>
       </div>
     </div>
   </div>
@@ -54,6 +50,7 @@ html, body {
       overflow: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;  
+      font-family: 'Times New Roman', Times, serif;
 }
 
 html::-webkit-scrollbar, body::-webkit-scrollbar {
@@ -82,13 +79,13 @@ a{
   flex-direction: column;
   background-color: rgba(51, 51, 51, 0.8);
   align-items: center;
-  height: 6vh;
+  height: 7%;
 }
 
 nav{
   display: flex;
   flex-direction: row;
-  width: 60%;
+  width: 65%;
   margin: auto;
 }
 
@@ -105,13 +102,12 @@ nav{
 }
 
 .objMenu a{
-  padding: 2% 25%;
+  padding: 2% 15%;
   color: white;
   font-size: 20px; 
 }
 
 .objMenu a:hover {
-  padding: 2% 23%;
   transition: 0.5s;
   color: #fd5437;
   font-size: 21px; 
@@ -130,10 +126,20 @@ nav{
 }
 
 .redes{
+  width: 20%;
   display: flex;
   flex-direction: row;
-  margin: auto;
-  justify-content: space-between;
+  
+}
+
+.redes a{
+  width: 10%;
+  margin: 0 2%;
+  align-items: center;
+}
+
+.redes a img{
+  width: 100%;
 }
 
 </style>
