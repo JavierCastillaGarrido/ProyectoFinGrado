@@ -1,7 +1,7 @@
 <template>
   <div id="contenerdorInicio">
     <div id="imagenLogo">
-      <img src="../assets/Logo.png" alt="logo">
+      <img src="../assets/logo.png" alt="logo">
     </div>
     <h1>Drawtatoo</h1>
     <div id="texto"> 
