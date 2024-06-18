@@ -28,6 +28,9 @@ public class TatuadoresEntity {
     @Column(name = "Especialidad")
     private String especialidad;
     
+    @Column(name = "Descripcion")
+    private String descripcion;
+    
     @Column(name = "Activo")
     private Integer activo;
 	
@@ -40,24 +43,26 @@ public class TatuadoresEntity {
 		this.idTatuadores = idTatuadores;
 	}
 
-	public TatuadoresEntity(Integer idTatuadores, String nombre, String apellidos, String email, String especialidad,
+	public TatuadoresEntity(String nombre, String apellidos, String email, String especialidad, String descripcion,
 			Integer activo) {
+		super();
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.email = email;
+		this.especialidad = especialidad;
+		this.descripcion = descripcion;
+		this.activo = activo;
+	}
+
+	public TatuadoresEntity(Integer idTatuadores, String nombre, String apellidos, String email, String especialidad,
+			String descripcion, Integer activo) {
 		super();
 		this.idTatuadores = idTatuadores;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.especialidad = especialidad;
-		this.activo = activo;
-	}
-	
-	public TatuadoresEntity(String nombre, String apellidos, String email, String especialidad,
-			Integer activo) {
-		super();
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.email = email;
-		this.especialidad = especialidad;
+		this.descripcion = descripcion;
 		this.activo = activo;
 	}
 
@@ -101,6 +106,14 @@ public class TatuadoresEntity {
 		this.especialidad = especialidad;
 	}
 
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	public Integer getActivo() {
 		return activo;
 	}
@@ -108,5 +121,5 @@ public class TatuadoresEntity {
 	public void setActivo(Integer activo) {
 		this.activo = activo;
 	}
-
+	
 }

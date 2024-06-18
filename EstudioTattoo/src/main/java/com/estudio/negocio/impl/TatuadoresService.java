@@ -18,25 +18,25 @@ public class TatuadoresService implements ITatuadoresService{
 	
 	@Override
 	public List<TatuadoresDTO> buscarTatuadores(Integer id, String nombre, String apellidos, String email,
-			String especialidad, Integer activo) throws ClassNotFoundException, SQLException {
+			String especialidad, String descripcion, Integer activo) throws ClassNotFoundException, SQLException {
 		
-		return tatuadoresDAOImpl.buscarTatuadores(id, nombre, apellidos, email, especialidad, activo);
+		return tatuadoresDAOImpl.buscarTatuadores(id, nombre, apellidos, email, especialidad, descripcion, activo);
 		
 	}
 
 	@Override
-	public Integer insertarTatuador(String nombre, String apellidos, String email, String especialidad, Integer activo)
+	public Integer insertarTatuador(String nombre, String apellidos, String email, String especialidad, String descripcion, Integer activo)
 			throws ClassNotFoundException, SQLException {
 		
-		return tatuadoresDAOImpl.insertarTatuador(nombre, apellidos, email, especialidad, activo);
+		return tatuadoresDAOImpl.insertarTatuador(nombre, apellidos, email, especialidad, descripcion, activo);
 		
 	}
 
 	@Override
-	public Integer actualizarTatudor(Integer id, String nombre, String apellidos, String email, String especialidad,
+	public Integer actualizarTatudor(Integer id, String nombre, String apellidos, String email, String especialidad, String descripcion, 
 			Integer activo) throws ClassNotFoundException, SQLException {
 		
-		return tatuadoresDAOImpl.actualizarTatudor(id, nombre, apellidos, email, especialidad, activo);
+		return tatuadoresDAOImpl.actualizarTatudor(id, nombre, apellidos, email, especialidad, descripcion, activo);
 		
 	}
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="formulario">
     <h1>Iniciar sesión</h1>
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
@@ -67,7 +67,7 @@ export default {
 </script>
   
 <style scoped>
-.login-container {
+.formulario {
   padding: 2%;
   background-color: white;
   text-align: center;

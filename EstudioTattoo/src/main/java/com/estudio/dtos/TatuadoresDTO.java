@@ -7,6 +7,7 @@ public class TatuadoresDTO {
     private String apellidos;
     private String email;
     private String especialidad;
+    private String descripcion;
     private Integer activo;
 	
 	public TatuadoresDTO() {
@@ -14,16 +15,17 @@ public class TatuadoresDTO {
 	}
 
 	public TatuadoresDTO(Integer idTatuadores, String nombre, String apellidos, String email, String especialidad,
-			Integer activo) {
+			String descripcion, Integer activo) {
 		super();
 		this.idTatuadores = idTatuadores;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.especialidad = especialidad;
+		this.descripcion = descripcion;
 		this.activo = activo;
 	}
-	
+
 	public Integer getIdTatuadores() {
 		return idTatuadores;
 	}
@@ -64,6 +66,14 @@ public class TatuadoresDTO {
 		this.especialidad = especialidad;
 	}
 
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	public Integer getActivo() {
 		return activo;
 	}
@@ -71,5 +81,5 @@ public class TatuadoresDTO {
 	public void setActivo(Integer activo) {
 		this.activo = activo;
 	}
-
+	
 }

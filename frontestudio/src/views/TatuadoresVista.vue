@@ -5,9 +5,10 @@
       <div v-for="(item, index) in listaTatuadores" :key="index" class="tarjeta">
         <img :src="item.imagen" alt="">
         <div class="contenidoTarjeta">
-          <h2>{{ item.Nombre }} {{ item.Apellidos }}</h2>
-          <p>{{ item.Descripcion }}</p>
-          <button v-if="booleana" :click="pedircita()">Pedir cita</button>
+          <h2>{{ item.nombre }} {{ item.apellidos }}</h2>
+          <p>{{ item.descripcion }}</p>
+          <button @click="pedircita(item)">Pedir cita</button>
+
         </div>
       </div>
     </div>
@@ -18,6 +19,7 @@
 <script>
     export default {
       props: {},
+      emits: {},
       data() {
         return { 
           listaTatuadores: [],
@@ -35,6 +37,9 @@
                 element.imagen = this.imagenes[index % this.imagenes.length];
               });
             });
+        },
+        pedircita(){
+          console.log("clickauto:");
         }
       },
       created() {
@@ -77,14 +82,26 @@
 
 .tarjeta img{
   border-radius: 50%;
-  margin-right: 3%;
+  margin: 3%;
 }
+
+.tarjeta p {
+  text-align: justify;
+  margin-right: 5%;
+}
+
 .contenidoTarjeta button{
-  margin: 1% 3%;
+  margin: 1%;
   border: 0;
   color: white;
-  background-color: #007bff;
+  background-color: rgba(51, 51, 51, 0.8);
   padding: 1% 2%;
+}
+
+.contenidoTarjeta button:hover{
+  cursor: pointer;
+  transition: 0.5s;
+  background-color: #fd5437;
 }
 
 </style>

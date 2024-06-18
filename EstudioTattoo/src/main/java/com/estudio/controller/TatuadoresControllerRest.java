@@ -33,24 +33,23 @@ public class TatuadoresControllerRest {
 	
 	/********************************* LISTAR TATUADORES ******************************************/
 
-	@GetMapping(value="tatuadores", params = {"idTatuadores","nombre","apellidos","email","especialidad","activo"})
+	@GetMapping(value="tatuadores", params = {"idTatuadores","nombre","apellidos","email","especialidad","descripcion","activo"})
 	public List<TatuadoresDTO> obtenerTatuadoresConFiltros(
 			@RequestParam (value="idTatuajes",required=false) Integer idTatuadores,
 			@RequestParam (value="nombre",required=false)String nombre,
 			@RequestParam (value="apellidos",required=false)String apellidos,
 			@RequestParam (value="email",required=false)String email,
 			@RequestParam (value="especialidad",required=false)String especialidad,
+			@RequestParam (value="descripcion",required=false)String descripcion,
 			@RequestParam (value="activo",required=false)Integer activo){
 		
-		List<TatuadoresDTO> tatuado = tatuadoresRepository.buscarTatuadores(idTatuadores, nombre, apellidos, email, especialidad, activo);
+		List<TatuadoresDTO> tatuado = tatuadoresRepository.buscarTatuadores(idTatuadores, nombre, apellidos, email, especialidad, descripcion, activo);
 		
 		return tatuado;
 		
 	}
 	
-	//http://localhost:8080/tiendaTattoos/tatuadores/2
-	
-	@GetMapping(value="tatuadores/{idTatuadores}")
+	@GetMapping(value="tatuadores/{id}")
 	public ResponseEntity<TatuadoresEntity> obtenerTatuadoresPorId(@PathVariable("idTatuadores")Integer idTatuadores){
 		
 		TatuadoresEntity tatuado = tatuadoresRepository.findById(idTatuadores).get();
@@ -58,8 +57,6 @@ public class TatuadoresControllerRest {
 		return new ResponseEntity<>(tatuado, HttpStatus.OK);
 		
 	}
-	
-	//http://localhost:8080/tiendaTattoos/tatuadores
 	
 	@GetMapping("tatuadores")
 	public Iterable<TatuadoresEntity> obtenerTodosTatuadores() {
@@ -75,7 +72,7 @@ public class TatuadoresControllerRest {
 	@PostMapping("tatuadores")
 	public ResponseEntity insertarTatuadores (@RequestBody TatuadoresEntity tatuadores)throws ClassNotFoundException, SQLException, NamingException{
 		
-		Integer resul = tatuadoresService.insertarTatuador(tatuadores.getNombre(), tatuadores.getApellidos(), tatuadores.getEmail(), tatuadores.getEspecialidad(), tatuadores.getActivo());
+		Integer resul = tatuadoresService.insertarTatuador(tatuadores.getNombre(), tatuadores.getApellidos(), tatuadores.getEmail(), tatuadores.getEspecialidad(), tatuadores.getDescripcion(), tatuadores.getActivo());
 		
 		if (resul >=1) {			
 			return new ResponseEntity<>("Tatuador insertado correctamente", HttpStatus.OK);
@@ -89,7 +86,7 @@ public class TatuadoresControllerRest {
 	@PutMapping("tatuadores")
 	public ResponseEntity actualizarTatuadores (@RequestBody TatuadoresEntity tatuadores)throws ClassNotFoundException, SQLException, NamingException{
 		
-		Integer resul = tatuadoresService.actualizarTatudor(tatuadores.getIdTatuadores(), tatuadores.getNombre(), tatuadores.getApellidos(), tatuadores.getEmail(), tatuadores.getEspecialidad(), tatuadores.getActivo());
+		Integer resul = tatuadoresService.actualizarTatudor(tatuadores.getIdTatuadores(), tatuadores.getNombre(), tatuadores.getApellidos(), tatuadores.getEmail(), tatuadores.getEspecialidad(), tatuadores.getDescripcion(), tatuadores.getActivo());
 		
 		if (resul >=1) {			
 			return new ResponseEntity<>("Tatuador actualizado correctamente", HttpStatus.OK);
