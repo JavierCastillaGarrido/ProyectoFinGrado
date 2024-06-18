@@ -105,10 +105,11 @@ nav{
   padding: 2% 15%;
   color: white;
   font-size: 20px; 
+  transition: 1s;
 }
 
 .objMenu a:hover {
-  transition: 0.5s;
+  transition: 1s;
   color: #fd5437;
   font-size: 21px; 
 }
