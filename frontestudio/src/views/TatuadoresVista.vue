@@ -7,9 +7,11 @@
         <div class="contenidoTarjeta">
           <h2>{{ item.nombre }} {{ item.apellidos }}</h2>
           <p>{{ item.descripcion }}</p>
-          <button @click="pedircita(item)">Pedir cita</button>
-
+          <button @click="mostrarcita(item.idTatuadores)">Pedir cita</button>
         </div>
+      </div>
+      <div :hidden="booleana">
+            <PedirCita :id="idTatuadores"></PedirCita>
       </div>
     </div>
   </div>
@@ -17,14 +19,20 @@
 </template>
   
 <script>
+
+import PedirCita from '@/components/PedirCita.vue';
+
     export default {
       props: {},
-      emits: {},
+      components:{
+        PedirCita
+      },
       data() {
         return { 
           listaTatuadores: [],
           imagenes: ["https://picsum.photos/200/200", "https://picsum.photos/200/200/", "https://picsum.photos/200/200//"],
-          booleana: true
+          booleana: true,
+          idTatuadores: ""
         }
       },
       methods: {
@@ -35,11 +43,13 @@
               this.listaTatuadores = json;
               this.listaTatuadores.forEach((element, index) => {
                 element.imagen = this.imagenes[index % this.imagenes.length];
+                console.log(element);
               });
             });
         },
-        pedircita(){
-          console.log("clickauto:");
+        mostrarcita(id){
+            this.booleana = false;
+            this.idTatuadores = id;
         }
       },
       created() {
