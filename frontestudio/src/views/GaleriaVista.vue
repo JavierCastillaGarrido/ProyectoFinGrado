@@ -4,7 +4,7 @@
     <div class="galeria">
       <div class="cuadroimagen">
         <div v-for="elem in imagenes" :key="elem.ID_Imagen">
-          <img :src="elem.Imagenes" alt="tattoo" />
+          <img :src="'data:image/png;base64,' + elem.imagenes" alt="tattoo" />
         </div>
         <div>
           <img src="../assets/ImagenesTattoos/1.webp" alt="tattoo3" />
@@ -44,18 +44,9 @@ export default {
   },
   methods: {
     recogerImagenes() {
-      fetch("http://localhost:8080/tiendaTattoos/imagenes")
-        .then((response) => response.json())
-        .then(json => {
-          this.imagenes = json;
-          this.imagenes.forEach((element) => {
-            let prueba = element.imagenes;
-            console.log(prueba);
-            console.log(element.imagenes);
-            element.imagenes = "data:image/png;base64," + prueba;
-            console.log(element.imagenes);
-          })
-        });
+        fetch('http://localhost:8080/tiendaTattoos/imagenes')
+                    .then(response => response.json())
+                    .then(json => this.imagenes = json);
     },
   },
   created() {

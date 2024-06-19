@@ -21,7 +21,7 @@
                     <label for="color">Color:</label><br>
                     <input type="checkbox" name="color" id="color" v-model="color" :on-change="calcularPrecio()"> <br><br>
                     <label for="tamano">Tamaño:</label><br>
-                    <input type="text" required v-model="tamano" pattern="[0-9.]" placeholder="ejem: 5.2" :on-change="calcularPrecio()"> <br><br>
+                    <input type="number" required v-model="tamano" placeholder="ejem: 5.2" :on-change="calcularPrecio()"> <br><br>
                     <label for="precio">Precio Total:</label> <br>
                     <input type="text" name="precio" id="precio" v-model="precio" disabled>
                 </div>
@@ -41,7 +41,7 @@
                 
                 </div>
             </div>
-            <button type="button" class="botonCita">Pedir cita</button>
+            <button type="button" class="botonCita" @click="pedirCita() ">Pedir cita</button>
         </div>
     </div>
 </template>
@@ -62,7 +62,7 @@
                 email: "",
                 descrip: "",
                 color: null,
-                tamano: 0,
+                tamano: "",
                 precio: 0,
                 fecha: ""    
 
@@ -93,7 +93,7 @@
                     .then(json => this.listaTatuajes = json);
             },
             calcularPrecio(){
-                if(this.tamano == 0) {
+                if(this.tamano == 0 || this.tamano === "") {
                     return;
                 }
                 var c;
