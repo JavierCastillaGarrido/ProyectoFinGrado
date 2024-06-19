@@ -7,25 +7,25 @@
           <img :src="'data:image/png;base64,' + elem.imagenes" alt="tattoo" />
         </div>
         <div>
-          <img src="../assets/ImagenesTattoos/1.webp" alt="tattoo3" />
+            <img src="../assets/ImagenesTattoos/realista2.jpg" alt="tattoo8" />
         </div>
         <div>
-          <img src="../assets/ImagenesTattoos/2.jpg" alt="tattoo4" />
+            <img src="../assets/ImagenesTattoos/2.jpg" alt="tattoo4" />
         </div>
         <div>
-          <img src="../assets/ImagenesTattoos/realista.jpg" alt="tattoo5" />
+            <img src="../assets/ImagenesTattoos/realista.jpg" alt="tattoo5" />
         </div>
         <div>
-          <img src="../assets/ImagenesTattoos/acuarela.jpg" alt="tattoo6" />
+            <img src="../assets/ImagenesTattoos/1.webp" alt="tattoo3" />
         </div>
         <div>
-          <img src="../assets/ImagenesTattoos/acuarela2.jpg" alt="tattoo7" />
+            <img src="../assets/ImagenesTattoos/7.webp" alt="tattoo9" />
         </div>
         <div>
-          <img src="../assets/ImagenesTattoos/7.webp" alt="tattoo9" />
+            <img src="../assets/ImagenesTattoos/acuarela2.jpg" alt="tattoo7" />
         </div>
         <div>
-          <img src="../assets/ImagenesTattoos/realista2.jpg" alt="tattoo8" />
+            <img src="../assets/ImagenesTattoos/acuarela.jpg" alt="tattoo6" />
         </div>
       </div>
     </div>

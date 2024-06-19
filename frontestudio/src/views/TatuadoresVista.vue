@@ -90,7 +90,7 @@ import PedirCita from '@/components/PedirCita.vue';
 
 .tarjeta{
   width: 70%;
-  background-color: white;
+  background-color: rgba(248, 212, 197, 0.7);
   margin: auto;
   padding: 2%;
   display: flex;

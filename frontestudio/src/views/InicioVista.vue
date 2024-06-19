@@ -55,7 +55,7 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: center;
-  color: white;
+  color: rgb(255, 255, 255);
   padding: 5% 0.01% 2%;
 }
 
@@ -73,7 +73,7 @@ h1 {
   margin: 1% auto 2.5%;
   width: 70%;
   color: black;
-  background-color: azure;
+  background-color: rgb(248, 212, 197, 0.9);
   border-radius: 18px;
   
 }

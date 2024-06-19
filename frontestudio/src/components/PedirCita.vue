@@ -10,7 +10,7 @@
                     <label for="apellidos">Apellidos: </label><br>
                     <input type="text" name="apellidos" id="apellidos" v-model="apellidos" required> <br><br>
                     <label for="telefono">Teléfono: </label><br>
-                    <input type="text" name="telefono" id="telefono" v-model="telefono" required> <br><br>
+                    <input type="tel" name="telefono" id="telefono" v-model="telefono" required> <br><br>
                     <label for="email">Correo electronico: </label><br>
                     <input type="email" name="email" id="email" v-model="email" required> <br><br>
                 </div>
@@ -82,15 +82,20 @@
 
                 fetch('http://localhost:8080/tiendaTattoos/tatuadores')
                     .then(response => response.json())
-                    .then(json => this.listaTatuadores = json);
+                    .then(json => {this.listaTatuadores = json
+                        console.log(this.listaTatuadores)
+                    });
 
                 fetch('http://localhost:8080/tiendaTattoos/clientes')
                     .then(response => response.json())
                     .then(json => this.listaClientes = json);
 
+
                 fetch('http://localhost:8080/tiendaTattoos/tatuajes')
                     .then(response => response.json())
-                    .then(json => this.listaTatuajes = json);
+                    .then(json => {this.listaTatuajes = json
+                        console.log(this.listaTatuajes)
+                    });
             },
             calcularPrecio(){
                 if(this.tamano == 0 || this.tamano === "") {
@@ -125,40 +130,137 @@
                 });
             },
             pedirCita(){
-                
-            }
 
-            /*pedirCita() {
-            // Aquí puedes manejar la lógica para enviar el formulario de cita.
-            // Ejemplo de un POST request
-            const nuevaCita = {
-                nombrec: this.nombrec,
-                apellidos: this.apellidos,
-                telefono: this.telefono,
-                email: this.email,
-                descrip: this.descrip,
-                color: this.color,
-                tamano: this.tamano,
-                nomTatuador: this.nomTatuador,
-                fecha: this.fecha
-            };
-            
-            fetch('http://localhost:8080/tiendaTattoos/citas', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(nuevaCita)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Aquí puedes manejar la respuesta exitosa, tal vez limpiando el formulario o mostrando un mensaje de éxito.
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                // Aquí puedes manejar errores.
-            });*/
+// Meter comprobacion que sea fecha mayor que el dia q es 
+
+                var nuevaCita = {
+                    fecha: this.fecha,
+                    activo: 1,
+                    cliente: 0,
+                    tatuador: 0,
+                    tatuajes: 0
+                }
+
+                /*********************************** GESTIÓN DEL CLIENTE ***************************/
+
+                let regis = false;
+
+                this.listaClientes.forEach(element => {
+                    if (element.nombre.toLowerCase() === this.nombrec.toLowerCase() && element.apellidos.toLowerCase() == this.apellidos.toLowerCase()){
+                        regis = true;
+                        nuevaCita.cliente = element.idClientes
+                    }
+                });
+
+                var cliente = {}
+
+                if (regis){
+
+                    cliente = {
+                        idClientes: nuevaCita.cliente,
+                        nombre: this.nombrec,
+                        apellidos: this.apellidos,
+                        telefono: this.telefono,
+                        email: this.email,
+                    }
+
+                    fetch('http://localhost:8080/tiendaTattoos/clientes', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(cliente)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        this.nombrec = "",
+                        this.apellidos = "",
+                        this.telefono = "",
+                        this.email = ""
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
+                }else{
+
+                    cliente = {
+                        nombre: this.nombrec,
+                        apellidos: this.apellidos,
+                        telefono: this.telefono,
+                        email: this.email,
+                        password: ""
+                    }
+
+                    cliente.password = prompt("Introduce una contraseña: ");
+
+                    fetch('http://localhost:8080/tiendaTattoos/clientes', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(cliente)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        this.nombrec = "",
+                        this.apellidos = "",
+                        this.telefono = "",
+                        this.email = ""
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
+                    fetch('http://localhost:8080/tiendaTattoos/clientes/' + this.listaClientes.length)
+                    .then(response => response.json())
+                    .then(json => nuevaCita.cliente = json.idClientes);
+
+                }
+
+                /*********************************** GESTIÓN DEL TATUAJE ***************************/
+
+                regis = false;
+
+                var tatuaje = {
+                    descripcion: this.descrip,
+                    color: this.color,
+                    tamano: this.tamano,
+                    precio: this.precio,
+                };
+
+                fetch('http://localhost:8080/tiendaTattoos/tatuajes', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(tatuaje)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        this.descrip = "",
+                        this.color = null,
+                        this.tamano = "",
+                        this.precio = 0
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                });
+
+                fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + this.listaTatuajes.length)
+                .then(response => response.json())
+                .then(json => nuevaCita.tatuajes = json.idTatuajes);
+
+                fetch('http://localhost:8080/tiendaTattoos/tatuadores?nombre=' + this.nomTatuador)
+                .then(response => response.json())
+                .then(json => nuevaCita.tatuador = json.idTatuadores);
+
+                this.fecha = "";
+                this.nomTatuador = "";
+            }
         },
         created(){
             this.listarCitas();
@@ -191,12 +293,12 @@
 
 .botonCita:hover{
     transition: 1s;
-    background-color: #fd5437;
+    background-color: #fc8b77;
 }
 
 .formulario{
     text-align: center;
-    background-color: white;
+    background-color: rgb(248, 212, 197);
     border-radius: 18px;
     display: flex;
     flex-direction: column;
@@ -210,6 +312,8 @@
 .info input, select{
     width: 60%;
     margin: 1%;
+    background-color: rgb(245, 193, 178);
+    border: 1px solid rgb(248, 174, 154);
 }
 
 .infoclient, .infoTatus, .infoCitas{

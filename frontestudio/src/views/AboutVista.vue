@@ -78,7 +78,7 @@ export default {
   width: 70%;
   padding: 2%;
   margin: auto;
-  background-color: white;
+  background-color: rgba(248, 212, 197, 0.7);
 }
 
 .textoSobre h2{
