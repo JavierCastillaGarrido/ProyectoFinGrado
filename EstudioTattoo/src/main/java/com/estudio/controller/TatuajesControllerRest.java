@@ -8,14 +8,17 @@ import javax.naming.NamingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estudio.dtos.ColorTamanoDTO;
 import com.estudio.dtos.TatuajesDTO;
 import com.estudio.entities.TatuajesEntity;
 import com.estudio.negocio.ITatuajesService;
@@ -95,5 +98,19 @@ public class TatuajesControllerRest {
 			return new ResponseEntity<>("Tatuaje no se actualizado correctamente", HttpStatus.NOT_IMPLEMENTED);
 		}
 	}
+	
+	/********************************* 	CALCULAR PRECIO ******************************************/
+	
+	@PostMapping("calcularPrecio")
+	public @ResponseBody Double calcularPrecio(ModelMap model, @RequestBody ColorTamanoDTO colorTamano)throws ClassNotFoundException, SQLException {
+		Integer color = colorTamano.getColor();
+        double tamano = colorTamano.getTamano();
+
+        double precio = tatuajesService.calcularPrecio(color, tamano);
+        return precio;
+        
+	}
+	
+	
 	
 }

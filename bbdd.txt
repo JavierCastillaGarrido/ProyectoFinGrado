@@ -68,7 +68,7 @@ CREATE TABLE `tiendatattoos`.`imagenestatus` (
   `ID_Imagen` INT NOT NULL AUTO_INCREMENT,
   `ID_Tatuadores` INT NOT NULL,
   `Descripcion` VARCHAR(45) NULL,
-  `Imagenes` VARCHAR(1000) NULL,
+  `Imagenes` VARCHAR(2000) NULL,
   PRIMARY KEY (`ID_Imagen`),
   INDEX `ID_Tatuadores_idx` (`ID_Tatuadores` ASC) VISIBLE,
   CONSTRAINT `ID_Tatuadores_Imagen`

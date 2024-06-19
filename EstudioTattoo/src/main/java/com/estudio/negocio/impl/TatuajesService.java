@@ -45,7 +45,7 @@ public class TatuajesService implements ITatuajesService{
 
 	public double calcularPrecio(Integer color, double tamano) {
 		
-		double precio = 50.00;
+		double precio = 60.00;
 		
 		if (color == 1) {
 			precio += 15.00;

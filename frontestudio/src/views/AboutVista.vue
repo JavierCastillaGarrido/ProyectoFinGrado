@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="vistaSobre">
     <h1 class="tituloPag">SOBRE NOSOTROS</h1>
     <div class="contenedorSobre">
       <div class="textoSobre">

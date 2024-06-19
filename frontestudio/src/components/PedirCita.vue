@@ -19,10 +19,12 @@
                     <label for="descrip">Descripción del tatuaje: </label><br>
                     <input type="text" name="descrip" id="descrip" v-model="descrip" required> <br><br>
                     <label for="color">Color:</label><br>
-                    <input type="checkbox" name="color" id="color"> <br><br>
+                    <input type="checkbox" name="color" id="color" v-model="color" :on-change="calcularPrecio()"> <br><br>
                     <label for="tamano">Tamaño:</label><br>
-                    <input type="number" min="0" required>
+                    <input type="text" required v-model="tamano" pattern="[0-9.]" placeholder="ejem: 5.2" :on-change="calcularPrecio()">
                     <!-- Mirar Java para ver como poner lo del precio automaticamente -->
+                     <label for="precio">Precio Total:</label>
+                     <input type="text" name="precio" id="precio" v-model="precio" disabled>
                 </div>
                 <div class="infoCitas">
                     <h2>Información Cita</h2>
@@ -37,7 +39,7 @@
                     </select> <br><br> 
         
                     <label for="fecha">Fecha de Cita:</label><br>
-                    <input type="date" name="fecha" id="fecha" required>
+                    <input type="date" name="fecha" id="fecha" required v-model="fecha">
                 
                 </div>
             </div>
@@ -57,12 +59,14 @@
                 listaClientes:[],
                 listaTatuajes:[],
                 nombrec:"",
-                apellidos:"",
-                telefono:"",
-                email:"",
-                descrip:"",
+                apellidos: "",
+                telefono: "",
+                email: "",
+                descrip: "",
                 color: null,
-                tamano: 0
+                tamano: 0,
+                precio: 0,
+                fecha: ""    
 
             }
         },
@@ -90,6 +94,24 @@
                     .then(response => response.json())
                     .then(json => this.listaTatuajes = json);
             },
+            calcularPrecio(){
+                var datos ={
+                    color: this.color,
+                    tamano: this.tamano
+                };
+                if(this.color === null || this.tamano == 0) {
+                    return;
+                }
+                fetch('http://localhost:8080/tiendaTattoos/calcularPrecio', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(datos) 
+                }).then(response => response.text()) 
+                  .then(data => {
+                    this.precio = data;
+                })
+            }
+
             /*pedirCita() {
             // Aquí puedes manejar la lógica para enviar el formulario de cita.
             // Ejemplo de un POST request

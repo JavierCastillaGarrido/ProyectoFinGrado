@@ -13,5 +13,5 @@ public interface ITatuajesService {
 	
 	public Integer actualizarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio) throws ClassNotFoundException, SQLException;
 	
-	
+	public double calcularPrecio(Integer color, double tamano);
 }
