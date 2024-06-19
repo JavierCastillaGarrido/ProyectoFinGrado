@@ -32,7 +32,7 @@
                         <option value="" selected disabled>Seleccione una tatuador</option>
                         <option v-for="item in listaTatuadores" :key="item.idTatuadores" :value="item.nombre"> {{ item.nombre }}</option>
                     </select>  
-                    <select name="tatuador" id="tatuador" v-if="(nomTatuador != '')" disabled required>
+                    <select name="tatuador" id="tatuador" v-if="(nomTatuador != '')" required>
                         <option :value="nomTatuador" selected >{{ nomTatuador }}</option>
                     </select> <br><br> 
         
