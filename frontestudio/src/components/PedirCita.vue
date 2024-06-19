@@ -30,8 +30,8 @@
                     <!-- No cambia el nombre al pulsar el boton -->
                     <select name="tatuador" id="tatuador" v-if="(nomTatuador == '')" v-model="nomTatuador" required>
                         <option value="" selected disabled>Seleccione una tatuador</option>
-                        <option v-for="item in listaTatuadores" :key="item.idTatuadores" :value="item.name"> {{ item.name }}</option>
-                    </select> 
+                        <option v-for="item in listaTatuadores" :key="item.idTatuadores" :value="item.nombre"> {{ item.nombre }}</option>
+                    </select>  
                     <select name="tatuador" id="tatuador" v-if="(nomTatuador != '')" disabled required>
                         <option :value="nomTatuador" selected >{{ nomTatuador }}</option>
                     </select> <br><br> 
@@ -54,6 +54,8 @@
                 nomTatuador: "",
                 listaCitas:[],
                 listaTatuadores:[],
+                listaClientes:[],
+                listaTatuajes:[],
                 nombrec:"",
                 apellidos:"",
                 telefono:"",
@@ -64,9 +66,14 @@
 
             }
         },
+        /* reaccionar a los cambios en el nombreTatuadores y actualiza automaticamente */
+        watch: {
+            nombreTatuadores: function(newVal) {
+                this.nomTatuador = newVal;
+            }
+        },
         methods:{
             listarCitas() {
-
                 fetch('http://localhost:8080/tiendaTattoos/citas')
                     .then(response => response.json())
                     .then(json => this.listaCitas = json);
@@ -74,10 +81,50 @@
                 fetch('http://localhost:8080/tiendaTattoos/tatuadores')
                     .then(response => response.json())
                     .then(json => this.listaTatuadores = json);
+
+                fetch('http://localhost:8080/tiendaTattoos/clientes')
+                    .then(response => response.json())
+                    .then(json => this.listaClientes = json);
+
+                fetch('http://localhost:8080/tiendaTattoos/tatuajes')
+                    .then(response => response.json())
+                    .then(json => this.listaTatuajes = json);
             },
+            /*pedirCita() {
+            // Aquí puedes manejar la lógica para enviar el formulario de cita.
+            // Ejemplo de un POST request
+            const nuevaCita = {
+                nombrec: this.nombrec,
+                apellidos: this.apellidos,
+                telefono: this.telefono,
+                email: this.email,
+                descrip: this.descrip,
+                color: this.color,
+                tamano: this.tamano,
+                nomTatuador: this.nomTatuador,
+                fecha: this.fecha
+            };
+            
+            fetch('http://localhost:8080/tiendaTattoos/citas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(nuevaCita)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Aquí puedes manejar la respuesta exitosa, tal vez limpiando el formulario o mostrando un mensaje de éxito.
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Aquí puedes manejar errores.
+            });*/
         },
         created(){
             this.listarCitas();
+            this.nomTatuador = this.nombreTatuadores;
         }
     }
 </script>
