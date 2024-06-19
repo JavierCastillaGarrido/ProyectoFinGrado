@@ -101,7 +101,7 @@ public class TatuajesControllerRest {
 	
 	/********************************* 	CALCULAR PRECIO ******************************************/
 	
-	@PostMapping("calcularPrecio")
+	@PostMapping("tatuajes/calcularPrecio")
 	public @ResponseBody Double calcularPrecio(ModelMap model, @RequestBody ColorTamanoDTO colorTamano)throws ClassNotFoundException, SQLException {
 		Integer color = colorTamano.getColor();
         double tamano = colorTamano.getTamano();
