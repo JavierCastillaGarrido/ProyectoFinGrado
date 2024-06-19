@@ -21,15 +21,13 @@
                     <label for="color">Color:</label><br>
                     <input type="checkbox" name="color" id="color" v-model="color" :on-change="calcularPrecio()"> <br><br>
                     <label for="tamano">Tamaño:</label><br>
-                    <input type="text" required v-model="tamano" pattern="[0-9.]" placeholder="ejem: 5.2" :on-change="calcularPrecio()">
-                    <!-- Mirar Java para ver como poner lo del precio automaticamente -->
-                     <label for="precio">Precio Total:</label>
-                     <input type="text" name="precio" id="precio" v-model="precio" disabled>
+                    <input type="text" required v-model="tamano" pattern="[0-9.]" placeholder="ejem: 5.2" :on-change="calcularPrecio()"> <br><br>
+                    <label for="precio">Precio Total:</label> <br>
+                    <input type="text" name="precio" id="precio" v-model="precio" disabled>
                 </div>
                 <div class="infoCitas">
                     <h2>Información Cita</h2>
                     <label for="tatuador">Nombre del Tatudor:</label><br>
-                    <!-- No cambia el nombre al pulsar el boton -->
                     <select name="tatuador" id="tatuador" v-if="(nomTatuador == '')" v-model="nomTatuador" required>
                         <option value="" selected disabled>Seleccione una tatuador</option>
                         <option v-for="item in listaTatuadores" :key="item.idTatuadores" :value="item.nombre"> {{ item.nombre }}</option>
@@ -95,21 +93,36 @@
                     .then(json => this.listaTatuajes = json);
             },
             calcularPrecio(){
-                var datos ={
-                    color: this.color,
-                    tamano: this.tamano
-                };
-                if(this.color === null || this.tamano == 0) {
+                if(this.tamano == 0) {
                     return;
                 }
-                fetch('http://localhost:8080/tiendaTattoos/calcularPrecio', {
+                var c;
+                if(this.color){
+                    c = 1;
+                }else{
+                    c = 0;
+                }
+
+                var datos ={
+                    color: c,
+                    tamano: this.tamano
+                };
+                fetch('http://localhost:8080/tiendaTattoos/tatuajes/calcularPrecio', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(datos) 
-                }).then(response => response.text()) 
-                  .then(data => {
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor: ' + response.statusText);
+                    }
+                    return response.text(); 
+                })
+                .then(data => {
                     this.precio = data;
                 })
+                .catch(error => {
+                    console.error('Error al calcular el precio:', error);
+                });
             }
 
             /*pedirCita() {
