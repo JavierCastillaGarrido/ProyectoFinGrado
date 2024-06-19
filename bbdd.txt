@@ -98,10 +98,16 @@ VALUES
 INSERT INTO tatuajes (Descripcion, Color, Tamano, Precio)
 VALUES
     ('Flor', 1, 15.50, 100.00),
-    ('Dragón', 0, 25.75, 150.00),
+    ('Dragón', 1, 25.75, 150.00),
     ('Calavera', 1, 20.00, 120.00);
 INSERT INTO imagenestatus (ID_Tatuadores, Descripcion, Imagenes)
 VALUES
     (1, 'Diseños previos', 'imagen1.jpg,imagen2.jpg'),
     (2, 'Ejemplos de trabajo', 'ejemplo1.jpg,ejemplo2.jpg'),
     (3, 'Portafolio personal', 'portafolio1.jpg,portafolio2.jpg');
+INSERT INTO citas (Fecha, Activo, ID_Clientes, ID_Tatuadores, ID_Tatuajes)
+VALUES
+    ('2024-07-01', 1, 1, 2, 3),
+    ('2024-07-05', 1, 2, 3, 1),
+    ('2024-07-10', 1, 3, 1, 2);
+
