@@ -123,6 +123,9 @@
                 .catch(error => {
                     console.error('Error al calcular el precio:', error);
                 });
+            },
+            pedirCita(){
+                
             }
 
             /*pedirCita() {
