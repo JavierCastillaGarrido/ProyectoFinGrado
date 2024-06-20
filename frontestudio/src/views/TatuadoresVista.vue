@@ -121,4 +121,34 @@ import PedirCita from '@/components/PedirCita.vue';
   background-color: #fd5437;
 }
 
+@media screen and (max-width: 768px) {
+ .tarjeta{
+  flex-direction: column;
+ }
+
+ .contenidoTarjeta h2{ 
+  text-align: center;
+  width: 100%;
+ }
+
+ .contenidoTarjeta button{
+  width: 100%;
+  padding: 2%;
+}
+ .tituloPag{
+  width: 40%;
+ }
+}
+
+@media screen and (max-width: 480px) {
+  .tituloPag{
+    width: 80%;
+  }
+
+  .contenidoTarjeta p{ 
+    text-align: center;
+  }
+
+}
+
 </style>

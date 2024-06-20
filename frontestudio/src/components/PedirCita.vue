@@ -6,7 +6,7 @@
                 <div class="infoclient">
                     <h2>Información cliente</h2>
                     <label for="nombrec">Nombre: </label><br>
-                    <input type="text" name="nombrec" id="nombrec" v-model="nombrec" required autofocus> <br><br>
+                    <input type="text" name="nombrec" id="nombrec" v-model="nombrec" required> <br><br>
                     <label for="apellidos">Apellidos: </label><br>
                     <input type="text" name="apellidos" id="apellidos" v-model="apellidos" required> <br><br>
                     <label for="telefono">Teléfono: </label><br>
@@ -336,6 +336,26 @@
 .infoclient, .infoTatus, .infoCitas{
     width: 33%;
     align-self: center;
+}
+
+@media screen and (max-width: 768px) {
+    .info{
+        flex-direction: column;
+    }
+    .infoclient{
+        width: 100%;
+    }
+    .infoCitas{
+        width: 100%;
+        margin-bottom: 5%;
+    }
+    .infoTatus{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+  
 }
 
 </style>

@@ -93,4 +93,31 @@ h1 {
   font-size: 20px;
 }
 
+@media screen and (max-width: 768px) {
+  #imagenLogo img{
+    border-radius: 50%;
+    width: 25%;
+  }
+
+  #texto h2{
+    margin-top: 4%;
+    padding: 1%;
+  }
+
+  #texto p{
+    padding: 1% 6% 2%;
+    text-align: justify;
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #imagenLogo img{
+    width: 40%;
+  }
+  #texto p{
+    text-align: center;
+  }
+}
+
 </style>

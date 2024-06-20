@@ -80,4 +80,21 @@ export default {
   height: 100%;
   width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+  .cuadroimagen {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    margin: 4% auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .cuadroimagen {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: 4% auto;
+  }
+}
+
 </style>

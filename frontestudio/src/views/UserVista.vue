@@ -68,7 +68,7 @@
 
 .fondoCitas{
     background-color: rgba(51, 51, 51, 0.8);
-    margin-bottom: 2%;
+    margin-bottom: 21%;
 }
 
 .listadoCitas{

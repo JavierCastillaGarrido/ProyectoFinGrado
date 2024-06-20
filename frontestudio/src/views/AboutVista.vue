@@ -86,4 +86,19 @@ export default {
   margin: 2% auto;
 }
 
+@media screen and (max-width: 768px) {
+  .textoSobre{
+    padding: 1% 6% 2%;
+    text-align: justify;
+    font-size: 20px;
+  }
+  
+}
+
+@media screen and (max-width: 480px) {
+  .textoSobre{
+    text-align: center;
+  }
+}
+
 </style>

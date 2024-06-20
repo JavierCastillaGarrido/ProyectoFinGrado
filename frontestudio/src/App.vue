@@ -100,7 +100,6 @@ body {
   background-position: center center;
 }
 
-
 a{
   text-decoration: none;
 }
@@ -109,19 +108,18 @@ a{
   height: 100vh;
 }
 
-#menu, #footer{
+#menu{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: rgba(51, 51, 51, 0.8);
-  align-items: center;
-  height: 7%;
+  height: 8%;
 }
 
 nav{
   display: flex;
   flex-direction: row;
-  width: 65%;
-  margin: auto;
+  align-items: center;
+  width: 100%;
 }
 
 .objMenu{
@@ -151,8 +149,11 @@ nav{
 }
 
 #footer{
-  clear: both;
+  display: flex;
   flex-direction: row;
+  background-color: rgba(51, 51, 51, 0.8);
+  align-items: center;
+  height: 7%;
 }
 
 .copy{
@@ -179,4 +180,60 @@ nav{
   width: 100%;
 }
 
+@media screen and (max-width: 768px) {
+
+  
+  #menu{
+    flex-direction: column;
+    height: auto;
+  }
+
+  nav{
+    flex-direction: column;
+  }
+
+  .objMenu{
+    width: 70%;
+    border-right: 0px;
+    border-bottom: 2px solid black;
+  }
+  .nolinea{
+    border: 0;
+  }
+
+  #footer{
+    flex-direction: column;
+    height: auto;
+  }
+
+  .copy{
+    width: 90%;
+    margin-top: 1%;
+    font-size: small;
+  }
+  
+  .redes{
+    width: 50%;
+    align-self: center;
+    justify-content: space-between;
+    margin: 1% auto;
+  }
+}
+@media screen and (max-width: 480px) {
+  
+  .objMenu{
+    padding: 2%;
+  }
+
+  .objMenu{
+    width: 100%;
+  }
+  
+  .redes{
+    width: 80%;
+    align-self: center;
+    justify-content: space-between;
+    margin: 5% auto;
+  }
+}
 </style>

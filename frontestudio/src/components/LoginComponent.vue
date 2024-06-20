@@ -1,7 +1,7 @@
 <template>
   <div class="formulario">
     <h1>{{titulo}}</h1>
-    <form @submit.prevent="cambiarInici()">
+    <div class="contenido">
       <div class="form-group" v-if="registro">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" v-model="nombre" class="form-control" required />
@@ -27,12 +27,13 @@
         <input type="password" id="password" v-model="password2" class="form-control" required />
       </div>
       <div>
-        <button type="submit" class="btn btn-primary" @click="confirmarInicioSesion()" v-if="!registro">Iniciar sesión</button>
-        <button type="submit" class="btn btn-primary" @click="cambiarInici()">Registrarse</button>
+        <button type="button" class="btn btn-primary" @click="confirmarInicioSesion()" v-if="!registro">Iniciar sesión</button>
+        <button type="button" class="btn btn-primary" @click="cambiarInici()">Registrarse</button>
       </div>
-      <p v-if="registro" @click="cambiarInici()" class="sicuenta">Tengo una cuenta</p>
-      <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
-    </form>
+    </div>
+    <p v-if="registro" @click="cambiarInici()" class="sicuenta">Tengo una cuenta</p>
+    <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
+    
   </div>
 </template>
   
@@ -155,14 +156,18 @@ export default {
   
 <style scoped>
 .formulario {
-  padding: 2%;
-  background-color: rgb(248, 212, 197);
+  display: flex;
+  flex-direction: column;
   text-align: center;
   margin: 5% auto 17.9%;
-  width: 20%;
+  width: 30%;
   border-radius: 18px;
 }
-
+.contenido{
+  width: 80%;
+  margin: auto;
+  background-color: rgb(248, 212, 197);
+}
 .sicuenta{
   cursor: pointer;
 }
@@ -186,15 +191,32 @@ export default {
 .btn {
   padding: 3% 5%;
   margin: 5%;
-  background-color: #007bff;
-  color: #fff;
+  color: white;
+  background-color: rgba(51, 51, 51, 0.8);
+  transition: 1s;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
+.btn:hover{
+  transition: 1s;
+  background-color: #fd5437;
+}
+
 .error-message {
-  color: red;
+  background-color: red;
   margin-top: 10px;
 }
+
+@media screen and (max-width: 1024px) {
+  .formulario {
+    margin: 5% auto 35.5%;
+    width: 40%;
+  }
+  .contenido{
+    padding: 2%;
+  }
+}
+
 </style>
