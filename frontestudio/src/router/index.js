@@ -5,6 +5,7 @@ import Galeria from '../views/GaleriaVista.vue';
 import Tatuadores from '../views/TatuadoresVista.vue';
 import About from '../views/AboutVista.vue';
 import Login from '../components/LoginComponent.vue';
+import User from '../views/UserVista.vue';
 
 const routes = [
   {
@@ -31,11 +32,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/user/:email',
+    name: 'User',
+    component: User
   }
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes
 })
 

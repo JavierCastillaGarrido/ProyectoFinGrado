@@ -2,25 +2,26 @@
   <div class="pagina">
     <div id="menu">
       <nav>
-        <div class="objMenu">
+        <div class="objMenu" @click="cambiarVistaLogeado(0)">
           <router-link to="/">Home</router-link> 
         </div>
-        <div class="objMenu">
+        <div class="objMenu" @click="cambiarVistaLogeado(0)">
           <router-link to="/galeria">Galeria</router-link> 
         </div>
-        <div class="objMenu"> 
+        <div class="objMenu" @click="cambiarVistaLogeado(0)"> 
           <router-link to="/tatuadores">Tatuadores</router-link> 
         </div>
-        <div class="objMenu">
+        <div class="objMenu" @click="cambiarVistaLogeado(0)">
           <router-link to="/nosotros">Sobre Nosotros</router-link> 
         </div>
-        <div class="objMenu nolinea">
-          <router-link to="/login">Login</router-link>
+        <div class="objMenu nolinea" @click="cambiarVistaLogeado(1)">
+          <a>{{texto}}</a>
         </div>
       </nav> 
     </div>
     <div id="vistas">
-      <router-view />
+      <router-view v-if="mostrar"/>
+      <login v-if="mostrarlog" @usuarioLogeado="cambiarLogin"></login>
     </div>
     <div id="footer">
       <div class="copy">
@@ -36,11 +37,45 @@
 </template>
 
 <script>
+import login from "./components/LoginComponent.vue";
+
 export default {
-  data() {
-    return {};
+  components:{
+    login
   },
-  methods: {},
+  data() {
+    return {
+      login: false,
+      mostrar: true,
+      mostrarlog: false, 
+      texto: "Login",
+      email: ""
+    };
+  },
+  methods: {
+    cambiarLogin(email){
+      this.email = email;
+      this.login = true;
+      this.texto = "User";
+      this.mostrar = false;
+      this.mostrarlog = false;
+      this.$router.push({name:"User", params: {email: this.email}});
+    },
+    async cambiarVistaLogeado(boolean){
+      if (boolean === 1) {
+        this.mostrar = false;
+        this.mostrarlog = true;
+      }else{
+        if (!this.mostrar){
+          this.mostrar = true;
+        }
+        this.mostrarlog = false;
+      }
+    }
+  },
+  created(){
+       this.email = "";
+  }
 };
 </script>
 
@@ -106,6 +141,7 @@ nav{
   color: white;
   font-size: 20px; 
   transition: 1s;
+  cursor: pointer;
 }
 
 .objMenu a:hover {

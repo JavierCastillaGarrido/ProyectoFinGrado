@@ -76,7 +76,7 @@
             }
         },
         methods:{
-            listarCitas() {
+            rellenarListas() {
                 fetch('http://localhost:8080/tiendaTattoos/citas')
                     .then(response => response.json())
                     .then(json => this.listaCitas = json);
@@ -232,7 +232,7 @@
                     .then(data => console.log('Success:', data))
                     .catch((error) => console.error('Error f:', error));
 
-                await this.listarCitas();
+                await this.rellenarListas();
 
                 let respuTatu = await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + (this.listaTatuajes.length));
                 let nuevoTatu = await respuTatu.json();
@@ -274,7 +274,7 @@
             }
         },
         created(){
-            this.listarCitas();
+            this.rellenarListas();
             this.nomTatuador = this.nombreTatuadores;
 
             let hoy = new Date();

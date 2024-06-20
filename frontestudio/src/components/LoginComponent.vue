@@ -1,7 +1,7 @@
 <template>
   <div class="formulario">
     <h1>{{titulo}}</h1>
-    <form >
+    <form @submit.prevent="cambiarInici()">
       <div class="form-group" v-if="registro">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" v-model="nombre" class="form-control" required />
@@ -42,7 +42,6 @@ export default {
     return {
       listaClientes: [],
       errorMessage: null,
-      login: false,
       registro: false,
       titulo: "Iniciar sesión",
       nombre:"",
@@ -71,14 +70,21 @@ export default {
     },
     confirmarInicioSesion(){
       this.errorMessage = "";
+      let log = false;
       for (let i = 0; i < this.listaClientes.length; i++) {
         if (this.listaClientes[i].email === this.email && this.listaClientes[i].password === this.password) {
-            this.login = true;
-            //hacer emit
-            break;
+          log = true;
         }
       }
-      this.errorMessage = "Error al iniciar sesion";
+      if (log) {
+        this.emitirLogin();
+      }else {
+        this.errorMessage = "Error al iniciar sesion";
+        this.password = "";
+      }
+    },
+    emitirLogin(){
+      this.$emit("usuarioLogeado" , this.email);
     },
     confirmarResgistroSesion(){
       let registrar = true;
@@ -112,7 +118,7 @@ export default {
           email: this.email,
           password: this.password
         }
-        console.log("hola2");
+        
         fetch('http://localhost:8080/tiendaTattoos/clientes', {
           method: 'POST',
           headers: {
