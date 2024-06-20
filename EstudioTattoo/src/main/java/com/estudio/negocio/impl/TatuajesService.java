@@ -17,7 +17,7 @@ public class TatuajesService implements ITatuajesService{
 	ITatuajesDAO tatuajesDAOImpl; 
 	
 	@Override
-	public List<TatuajesDTO> buscarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio)
+	public List<TatuajesDTO> buscarTatuajes(Integer idTatuajes, String descripcion, String color, double tamano, double precio)
 			throws ClassNotFoundException, SQLException {
 		
 		return tatuajesDAOImpl.buscarTatuajes(idTatuajes, descripcion, color, tamano, precio);
@@ -25,19 +25,19 @@ public class TatuajesService implements ITatuajesService{
 	}
 
 	@Override
-	public Integer insertarTatuajes(String descripcion, Integer color, double tamano, double precio) throws ClassNotFoundException, SQLException {
+	public Integer insertarTatuajes(String descripcion, String color, double tamano, double precio) throws ClassNotFoundException, SQLException {
 		
-		precio = calcularPrecio(color, tamano);
+		precio = calcularPrecio(Integer.parseInt(color), tamano);
 		
 		return tatuajesDAOImpl.insertarTatuajes(descripcion, color, tamano, precio);
 		
 	}
 
 	@Override
-	public Integer actualizarTatuajes(Integer idTatuajes, String descripcion, Integer color, double tamano, double precio)
+	public Integer actualizarTatuajes(Integer idTatuajes, String descripcion, String color, double tamano, double precio)
 			throws ClassNotFoundException, SQLException {
 		
-		precio = calcularPrecio(color, tamano);
+		precio = calcularPrecio(Integer.parseInt(color), tamano);
 		
 		return tatuajesDAOImpl.actualizarTatuajes(idTatuajes, descripcion, color, tamano, precio);
 		

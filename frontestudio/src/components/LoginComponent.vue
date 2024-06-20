@@ -1,18 +1,36 @@
 <template>
   <div class="formulario">
-    <h1>Iniciar sesión</h1>
-    <form @submit.prevent="handleSubmit">
+    <h1>{{titulo}}</h1>
+    <form >
+      <div class="form-group" v-if="registro">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" v-model="nombre" class="form-control" required />
+      </div>
+      <div class="form-group" v-if="registro">
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" v-model="apellidos" class="form-control" required />
+      </div>
+      <div class="form-group" v-if="registro">
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" v-model="telefono" class="form-control" required />
+      </div>
       <div class="form-group">
-        <label for="username">Nombre de usuario:</label>
-        <input type="text" id="username" v-model="username" class="form-control" required />
+        <label for="username">Correo electrónico:</label>
+        <input type="email" id="email" v-model="email" class="form-control" required />
       </div>
       <div class="form-group">
         <label for="password">Contraseña:</label>
         <input type="password" id="password" v-model="password" class="form-control" required />
       </div>
-      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-      <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
-      <button type="submit" class="btn btn-primary">Registrarse</button>
+      <div class="form-group" v-if="registro">
+        <label for="password">Confirma la contraseña:</label>
+        <input type="password" id="password" v-model="password2" class="form-control" required />
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary" @click="confirmarInicioSesion()" v-if="!registro">Iniciar sesión</button>
+        <button type="submit" class="btn btn-primary" @click="cambiarInici()">Registrarse</button>
+      </div>
+      <p v-if="registro" @click="cambiarInici()" class="sicuenta">Tengo una cuenta</p>
       <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
     </form>
   </div>
@@ -22,58 +40,130 @@
 export default {
   data() {
     return {
-      username: "",
-      password: "",
+      listaClientes: [],
       errorMessage: null,
+      login: false,
+      registro: false,
+      titulo: "Iniciar sesión",
+      nombre:"",
+      apellidos:"",
+      telefono:"",
+      email: "",
+      password: "",
+      password2: ""
     };
   },
   methods: {
-    handleSubmit() {
-      // Implementar la lógica de login aquí
-      // fetch para login
-      //       async function handleLogin() {
-      //   const username = document.getElementById('username').value;
-      //   const password = document.getElementById('password').value;
-      //   try {
-      //     const response = await fetch('/login', {
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       body: JSON.stringify({
-      //         username,
-      //         password,
-      //       }),
-      //     });
-      //     if (response.ok) {
-      //       const data = await response.json();
-      //       // Handle login success
-      //       console.log('Login successful!', data);
-      //       // Redireccionar a la página principal o realizar otra acción
-      //     } else {
-      //       const error = await response.json();
-      //       // Handle login error
-      //       console.error('Login failed:', error);
-      //       alert('Error al iniciar sesión: ' + error.message);
-      //     }
-      //   } catch (error) {
-      //     console.error('Error al realizar la petición:', error);
-      //     alert('Error de red. Inténtalo de nuevo más tarde.');
-      //   }
-      // }
+    cambiarInici(){
+      if (this.registro) {
+        this.confirmarResgistroSesion();
+      }else {
+        this.registro=true;
+        this.errorMessage = null;
+        this.titulo = "Resgistrarse";
+        this.nombre = "";
+        this.apellidos = "";
+        this.telefono ="";
+        this.email = ""
+        this.password = "";
+        this.password2 = "";
+      }
+    },
+    confirmarInicioSesion(){
+      this.errorMessage = "";
+      for (let i = 0; i < this.listaClientes.length; i++) {
+        if (this.listaClientes[i].email === this.email && this.listaClientes[i].password === this.password) {
+            this.login = true;
+            //hacer emit
+            break;
+        }
+      }
+      this.errorMessage = "Error al iniciar sesion";
+    },
+    confirmarResgistroSesion(){
+      let registrar = true;
+
+      for (let i = 0; i < this.listaClientes.length; i++) {
+        if (this.listaClientes[i].email === this.email) {
+            this.errorMessage = "Este correo ya tiene una cuenta";
+            this.registro = false,
+            this.titulo = "Iniciar sesión";
+            this.nombre = "";
+            this.apellidos = "";
+            this.telefono ="";
+            this.password = "";
+            this.password2 = "";
+            registrar = false;
+        }
+      }
+
+      if (this.password !== this.password2) {
+        this.errorMessage = "No coinciden las contraseñas";
+        this.password = "";
+        this.password2 ="";
+        registrar = false;
+      }
+
+      if (registrar) {
+        let cliente = {
+          nombre: this.nombre,
+          apellidos: this.apellidos,
+          telefono: this.telefono,
+          email: this.email,
+          password: this.password
+        }
+        console.log("hola2");
+        fetch('http://localhost:8080/tiendaTattoos/clientes', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cliente)
+        })
+        .then(response => response.json())
+        .then(data => console.log('Success:', data))
+        .catch((error) => console.error('Error:', error));
+
+        this.registro = false,
+        this.titulo = "Iniciar sesión";
+        this.nombre = "";
+        this.apellidos = "";
+        this.telefono ="";
+        this.password2 = "";
+        this.errorMessage = "Resgistrado Correctamente Inicie sesión";
+        this.listarClientes();
+      }
+    },
+    listarClientes() {
+      fetch('http://localhost:8080/tiendaTattoos/clientes')
+        .then(response => response.json())
+        .then(json => this.listaClientes = json);
+        this.errorMessage = "";
     },
   },
+  created(){
+       this.listarClientes();
+  }
 };
 </script>
   
 <style scoped>
 .formulario {
   padding: 2%;
-  background-color: white;
+  background-color: rgb(248, 212, 197);
   text-align: center;
   margin: 5% auto 17.9%;
   width: 20%;
   border-radius: 18px;
+}
+
+.sicuenta{
+  cursor: pointer;
+}
+
+.formulario input, select, textarea{
+  background-color: rgb(245, 193, 178);
+  border: 1px solid rgb(248, 174, 154);
 }
 
 .form-group {

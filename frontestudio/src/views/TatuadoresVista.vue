@@ -43,7 +43,6 @@ import PedirCita from '@/components/PedirCita.vue';
               this.listaTatuadores = json;
               this.listaTatuadores.forEach((element, index) => {
                 element.imagen = this.imagenes[index % this.imagenes.length];
-                console.log(element);
               });
             });
         },

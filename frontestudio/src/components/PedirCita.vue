@@ -17,11 +17,11 @@
                 <div class="infoTatus">
                     <h2>Información Tatuaje</h2>
                     <label for="descrip">Descripción del tatuaje: </label><br>
-                    <input type="text" name="descrip" id="descrip" v-model="descrip" required> <br><br>
+                    <textarea name="descrip" id="descrip" cols="33" rows="3" v-model="descrip" required placeholder="Un dragon en el hombro/ una flor en la muñeca"></textarea> <br><br>
                     <label for="color">Color:</label><br>
                     <input type="checkbox" name="color" id="color" v-model="color" :on-change="calcularPrecio()"> <br><br>
                     <label for="tamano">Tamaño:</label><br>
-                    <input type="number" required v-model="tamano" placeholder="ejem: 5.2" :on-change="calcularPrecio()"> <br><br>
+                    <input type="number" required v-model="tamano" placeholder="ejem: 5.2" :on-change="calcularPrecio()" min="0"> <br><br>
                     <label for="precio">Precio Total:</label> <br>
                     <input type="text" name="precio" id="precio" v-model="precio" disabled>
                 </div>
@@ -37,7 +37,7 @@
                     </select> <br><br> 
         
                     <label for="fecha">Fecha de Cita:</label><br>
-                    <input type="date" name="fecha" id="fecha" required v-model="fecha">
+                    <input type="date" name="fecha" id="fecha" required v-model="fecha" :min="fechaHoy" :on-change="comprobarFecha()">
                 
                 </div>
             </div>
@@ -52,6 +52,7 @@
         data(){
             return{
                 nomTatuador: "",
+                fechaHoy: "",
                 listaCitas:[],
                 listaTatuadores:[],
                 listaClientes:[],
@@ -82,9 +83,7 @@
 
                 fetch('http://localhost:8080/tiendaTattoos/tatuadores')
                     .then(response => response.json())
-                    .then(json => {this.listaTatuadores = json
-                        console.log(this.listaTatuadores)
-                    });
+                    .then(json => this.listaTatuadores = json);
 
                 fetch('http://localhost:8080/tiendaTattoos/clientes')
                     .then(response => response.json())
@@ -93,23 +92,15 @@
 
                 fetch('http://localhost:8080/tiendaTattoos/tatuajes')
                     .then(response => response.json())
-                    .then(json => {this.listaTatuajes = json
-                        console.log(this.listaTatuajes)
-                    });
+                    .then(json => this.listaTatuajes = json);
             },
             calcularPrecio(){
                 if(this.tamano == 0 || this.tamano === "") {
                     return;
                 }
-                var c;
-                if(this.color){
-                    c = 1;
-                }else{
-                    c = 0;
-                }
 
                 var datos ={
-                    color: c,
+                    color: this.color ? 1 : 0,
                     tamano: this.tamano
                 };
                 fetch('http://localhost:8080/tiendaTattoos/tatuajes/calcularPrecio', {
@@ -129,9 +120,18 @@
                     console.error('Error al calcular el precio:', error);
                 });
             },
-            pedirCita(){
 
-// Meter comprobacion que sea fecha mayor que el dia q es 
+            comprobarFecha(){
+                for (let i = 0; i < this.listaCitas.length; i++) {
+                    if (this.listaCitas[i].fecha === this.fecha) {
+                        alert("Fecha no disponible. Seleccione otra porfavor");
+                        this.fecha = "";
+                        break;
+                    }
+                }
+            },
+
+            async pedirCita(){
 
                 var nuevaCita = {
                     fecha: this.fecha,
@@ -146,15 +146,17 @@
                 let regis = false;
 
                 this.listaClientes.forEach(element => {
-                    if (element.nombre.toLowerCase() === this.nombrec.toLowerCase() && element.apellidos.toLowerCase() == this.apellidos.toLowerCase()){
+                    if (element.email.toLowerCase() === this.email.toLowerCase()){
                         regis = true;
                         nuevaCita.cliente = element.idClientes
                     }
                 });
 
-                var cliente = {}
+                var cliente;
 
                 if (regis){
+
+                    let clienteSele = this.listaClientes[(nuevaCita.cliente)-1]
 
                     cliente = {
                         idClientes: nuevaCita.cliente,
@@ -162,9 +164,10 @@
                         apellidos: this.apellidos,
                         telefono: this.telefono,
                         email: this.email,
+                        password: clienteSele.password
                     }
 
-                    fetch('http://localhost:8080/tiendaTattoos/clientes', {
+                    await fetch('http://localhost:8080/tiendaTattoos/clientes', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -172,16 +175,8 @@
                         body: JSON.stringify(cliente)
                     })
                     .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        this.nombrec = "",
-                        this.apellidos = "",
-                        this.telefono = "",
-                        this.email = ""
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
+                    .then(data => console.log('Success:', data))
+                    .catch((error) => console.error('Error:', error));
 
                 }else{
 
@@ -190,12 +185,10 @@
                         apellidos: this.apellidos,
                         telefono: this.telefono,
                         email: this.email,
-                        password: ""
+                        password: prompt("Introduce una contraseña: ")
                     }
 
-                    cliente.password = prompt("Introduce una contraseña: ");
-
-                    fetch('http://localhost:8080/tiendaTattoos/clientes', {
+                    await fetch('http://localhost:8080/tiendaTattoos/clientes', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -203,35 +196,32 @@
                         body: JSON.stringify(cliente)
                     })
                     .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        this.nombrec = "",
-                        this.apellidos = "",
-                        this.telefono = "",
-                        this.email = ""
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
+                    .then(data => console.log('Success:', data))
+                    .catch((error) => console.error('Error:', error));
 
-                    fetch('http://localhost:8080/tiendaTattoos/clientes/' + this.listaClientes.length)
-                    .then(response => response.json())
-                    .then(json => nuevaCita.cliente = json.idClientes);
-
+                    
+                    let respuCli = await fetch('http://localhost:8080/tiendaTattoos/clientes/' + this.listaClientes.length);
+                    let nuevoCliente = await respuCli.json();
+                    nuevaCita.cliente = nuevoCliente.idClientes;
+                    
                 }
+
+                this.nombrec = "";
+                this.apellidos = "";
+                this.telefono = "";
+                this.email = "";
+                regis = false;
 
                 /*********************************** GESTIÓN DEL TATUAJE ***************************/
 
-                regis = false;
-
                 var tatuaje = {
                     descripcion: this.descrip,
-                    color: this.color,
+                    color: this.color ? 1 : 0,
                     tamano: this.tamano,
                     precio: this.precio,
                 };
 
-                fetch('http://localhost:8080/tiendaTattoos/tatuajes', {
+                await fetch('http://localhost:8080/tiendaTattoos/tatuajes', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -239,32 +229,59 @@
                         body: JSON.stringify(tatuaje)
                     })
                     .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        this.descrip = "",
-                        this.color = null,
-                        this.tamano = "",
-                        this.precio = 0
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
+                    .then(data => console.log('Success:', data))
+                    .catch((error) => console.error('Error f:', error));
+
+                await this.listarCitas();
+
+                let respuTatu = await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + (this.listaTatuajes.length));
+                let nuevoTatu = await respuTatu.json();
+                nuevaCita.tatuajes = nuevoTatu.idTatuajes;
+
+                this.descrip = "",
+                this.color = null,
+                this.tamano = "",
+                this.precio = 0;
+   
+                if(this.nomTatuador === ""){
+                    alert("Seleccione un tatuador");
+                    return;
+                }
+
+                this.listaTatuadores.forEach(element => {
+                    if (element.nombre.toLowerCase() === this.nomTatuador.toLowerCase()) {
+                        nuevaCita.tatuador = element.idTatuadores;
+                    }
                 });
-
-                fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + this.listaTatuajes.length)
-                .then(response => response.json())
-                .then(json => nuevaCita.tatuajes = json.idTatuajes);
-
-                fetch('http://localhost:8080/tiendaTattoos/tatuadores?nombre=' + this.nomTatuador)
-                .then(response => response.json())
-                .then(json => nuevaCita.tatuador = json.idTatuadores);
 
                 this.fecha = "";
                 this.nomTatuador = "";
+                
+                await fetch('http://localhost:8080/tiendaTattoos/citas', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(nuevaCita)
+                    })
+                    .then(response => response.json())
+                    .then(data => {console.log('Success:', data)
+                        alert("Cita pedida correctamente, Muchas gracias.")
+                    })
+                    .catch((error) => console.error('Error:', error));
+                
+                
             }
         },
         created(){
             this.listarCitas();
             this.nomTatuador = this.nombreTatuadores;
+
+            let hoy = new Date();
+            let dia = String(hoy.getDate()).padStart(2, '0');
+            let mes = String(hoy.getMonth() + 1).padStart(2, '0');
+            let año = hoy.getFullYear();
+            this.fechaHoy = `${año}-${mes}-${dia}`;
         }
     }
 </script>
@@ -309,7 +326,7 @@
     flex-direction: row;
 }
 
-.info input, select{
+.info input, select, textarea{
     width: 60%;
     margin: 1%;
     background-color: rgb(245, 193, 178);

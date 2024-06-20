@@ -39,7 +39,7 @@ public class TatuajesControllerRest {
 	public List<TatuajesDTO> obtenerTatuajesConFiltros(
 			@RequestParam (value="idTatuajes",required=false)Integer idTatuajes,
 			@RequestParam (value="descripcion",required=false)String descripcion,
-			@RequestParam (value="color",required=false)Integer color,
+			@RequestParam (value="color",required=false)String color,
 			@RequestParam (value="tamano",required=false)double tamano,
 			@RequestParam (value="precio",required=false)double precio) {
 		
@@ -75,7 +75,7 @@ public class TatuajesControllerRest {
 	@PostMapping("tatuajes")
 	public ResponseEntity insertarTatuaje(@RequestBody TatuajesEntity tatuajes)throws ClassNotFoundException, SQLException, NamingException {
 		
-		Integer resul = tatuajesService.insertarTatuajes(tatuajes.getDescripcion(), tatuajes.getColor(), tatuajes.getTamano(), tatuajes.getPrecio());
+		Integer resul = tatuajesService.insertarTatuajes(tatuajes.getDescripcion(), tatuajes.getColor().toString(), tatuajes.getTamano(), tatuajes.getPrecio());
 		
 		if (resul >=1) {			
 			return new ResponseEntity<>("Tatuaje insertado correctamente", HttpStatus.OK);
@@ -90,7 +90,7 @@ public class TatuajesControllerRest {
 	@PutMapping("tatuajes")
 	public ResponseEntity actualizarTatuaje(@RequestBody TatuajesEntity tatuajes)throws ClassNotFoundException, SQLException, NamingException {
 		
-		Integer resul = tatuajesService.actualizarTatuajes(tatuajes.getIdTatuajes(), tatuajes.getDescripcion(), tatuajes.getColor(), tatuajes.getTamano(), tatuajes.getPrecio());
+		Integer resul = tatuajesService.actualizarTatuajes(tatuajes.getIdTatuajes(), tatuajes.getDescripcion(), tatuajes.getColor().toString(), tatuajes.getTamano(), tatuajes.getPrecio());
 
 		if (resul >=1) {			
 			return new ResponseEntity<>("Tatuaje actualizado correctamente", HttpStatus.OK);

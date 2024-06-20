@@ -26,7 +26,7 @@ public interface ITatuajesRepository extends CrudRepository<TatuajesEntity, Inte
 	public List<TatuajesDTO> buscarTatuajes(
 		@Param("id") Integer idTatuajes,
 		@Param("descripcion") String descripcion,
-		@Param("color") Integer color,
+		@Param("color") String color,
 		@Param("tamano") double tamano,
 		@Param("precio") double precio);
 }
