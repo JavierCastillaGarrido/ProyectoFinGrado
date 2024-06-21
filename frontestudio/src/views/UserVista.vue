@@ -13,6 +13,7 @@
                         <th>Descripción</th>
                         <th>Tamaño</th>
                         <th>Precio</th>
+                        <th>Editar Fecha Cita</th>
                     </tr>
                     <tr class="citas" v-for="(item, index) in listaMostrar" :key="index">
                         <td> {{ item.idCitas }} </td>
@@ -22,8 +23,24 @@
                         <td> {{ item.tatuajes.descripcion }} </td>
                         <td> {{ item.tatuajes.tamano }} cm</td>
                         <td> {{ item.tatuajes.precio }} €</td>
+                        <td v-if="item.fecha > fechaHoy"> <button type="button" @click="mostrarFormuEdit(item)" >Editar</button> </td>
                     </tr>
                 </table>
+                <div v-if="boolean" class="formularioEditCita">
+                    <label for="fecha">Nueva Fecha:</label><br>
+                    <input type="date" name="fecha" id="fecha" required v-model="fecha" :min="fechaHoy" @change="comprobarFecha()"> <br><br>
+                    <label for="tatuador">Tatuador:</label> <br>
+                    <select name="tatuador" id="tatuador" v-model="tatuador" required>
+                        <option v-for="item in listaTatuadores" :key="item.idTatuadores" :value="item.nombre"> {{ item.nombre }}</option>
+                    </select> <br><br>
+                    <label for="descripcion">Descripción:</label><br>
+                    <textarea name="descrip" id="descrip" cols="33" rows="3" v-model="descrip" required placeholder="Un dragon en el hombro/ una flor en la muñeca"></textarea> <br><br>
+                    <label for="tamano">Tamaño:</label><br>
+                    <input type="number" required v-model="tamano" placeholder="ejem: 5.2" min="0"> <br><br>
+                    <label for="color">Color:</label><br>
+                    <input type="checkbox" name="color" id="color" v-model="color" :checked="color"> <br><br>
+                    <button type="button" class="editCita" @click="editarCita()">Editar Cita</button>
+                </div>
             </div>
         </div>
     </div>
@@ -36,32 +53,97 @@
         return { 
             listaCitas: [],
             listaMostrar: [],
-            email:""
+            listaTatuadores: [], 
+            email:"",
+            fecha:"",
+            tatuador: "",
+            tamano: "",
+            color: null,
+            fechaHoy:"",
+            descrip: "",
+            CitaSelec: "",
+            boolean: false,
         }
-      },
-      methods: {
-        async rellenarListaCitas(){
-            await fetch('http://localhost:8080/tiendaTattoos/citas')
-                .then(response => response.json())
-                .then(json => {this.listaCitas = json
-                    console.log(this.listaCitas);
-                });
-                
-            for (let i = 0; i < this.listaCitas.length; i++) {
-                if ((this.listaCitas[i].cliente.email) === this.email) {
-                    this.listaMostrar.push(this.listaCitas[i]);
+        },
+        methods: {
+            mostrarFormuEdit(item){
+                this.boolean = true;
+                this.CitaSelec = item;
+                this.fecha = item.fecha;
+                this.tatuador = item.tatuador.nombre;
+                this.tamano = item.tatuajes.tamano;
+                this.color = (item.tatuajes.color == 1) ? true : false;
+                this.color = item.tatuajes.color;
+                this.descrip = item.tatuajes.descripcion;
+            },
+            async rellenarListaCitas(){
+                await fetch('http://localhost:8080/tiendaTattoos/citas')
+                    .then(response => response.json())
+                    .then(json => this.listaCitas = json);
+                    
+                for (let i = 0; i < this.listaCitas.length; i++) {
+                    if ((this.listaCitas[i].cliente.email) === this.email) {
+                        this.listaMostrar.push(this.listaCitas[i]);
+                    }
                 }
-            }
 
-            console.log(this.listaMostrar);
+                fetch('http://localhost:8080/tiendaTattoos/tatuadores')
+                    .then(response => response.json())
+                    .then(json => this.listaTatuadores = json);
 
+            },
+            editarCita(){
+
+                this.CitaSelec.fecha = this.fecha;
+                for (let i = 0; i < this.listaTatuadores.length; i++) {
+                    if (this.listaTatuadores[i].nombre === this.tatuador) {
+                        this.CitaSelec.tatuador = this.listaTatuadores[i];
+                        break;
+                    }
+                }
+                this.CitaSelec.tatuajes.descripcion = this.descrip;
+                this.CitaSelec.tatuajes.tamano = this.tamano;
+                this.CitaSelec.tatuajes.color = (this.color == true) ? 1 : 0;
+
+                fetch('http://localhost:8080/tiendaTattoos/citas', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.CitaSelec)
+                })
+                .then(response => response.json())
+                .then(data => {console.log('Success:', data)
+                    alert("Cita editada correctamente, Muchas gracias.")
+                })
+                .catch((error) => console.error('Error:', error));
+
+                this.boolean = false;
+            },
+            comprobarFecha(){
+                if(this.boolean) {
+                    for (let i = 0; i < this.listaCitas.length; i++) {
+                        if (this.listaCitas[i].fecha === this.fecha) {
+                            alert("Fecha no disponible. Seleccione otra porfavor");
+                            this.fecha = "";
+                            break;
+                        }
+                    }
+                }else{
+                    this.boolean = true;
+                }
+            },
+        },   
+        created() {
+            this.email = this.$route.params.email;
+            this.rellenarListaCitas();
+            let hoy = new Date();
+            let dia = String(hoy.getDate()).padStart(2, '0');
+            let mes = String(hoy.getMonth() + 1).padStart(2, '0');
+            let año = hoy.getFullYear();
+            this.fechaHoy = `${año}-${mes}-${dia}`;
         }
-      },
-      created() {
-        this.email = this.$route.params.email;
-        this.rellenarListaCitas();
-      }
-    }
+}
 </script>
 
 <style>
@@ -102,4 +184,37 @@ th{
 th,td{
     padding: 1%;
 }
+
+.formularioEditCita{
+    text-align: center;
+    width: 50%;
+    margin: 2% auto;
+}
+
+.formularioEditCita input, select, textarea{
+    text-align: center;
+    width: 60%;
+    margin: 1%;
+    background-color: rgb(245, 193, 178);
+    border: 1px solid rgb(248, 174, 154);
+}
+
+.editCita{
+    cursor: pointer;
+    margin: 2% auto;
+    width: 80%;
+    padding: 1% 5%;
+    border: 0px;
+    border-radius: 18px;
+    color: white;
+    font-size: larger;
+    background-color: rgba(51, 51, 51, 0.8);
+    transition: 1s;
+}
+
+.editCita:hover{
+    transition: 1s;
+    background-color: #fc8b77;
+}
+
 </style>

@@ -38,7 +38,6 @@
         
                     <label for="fecha">Fecha de Cita:</label><br>
                     <input type="date" name="fecha" id="fecha" required v-model="fecha" :min="fechaHoy" :on-change="comprobarFecha()">
-                
                 </div>
             </div>
             <button type="button" class="botonCita" @click="pedirCita() ">Pedir cita</button>
