@@ -1,10 +1,15 @@
 package com.estudio.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,6 +38,10 @@ public class TatuadoresEntity {
     
     @Column(name = "Activo")
     private Integer activo;
+    
+    @OneToMany(mappedBy = "tatuador")
+    @JsonBackReference
+    private List<CitasEntity> citas;
 	
 	public TatuadoresEntity() {
 		super();
@@ -64,6 +73,19 @@ public class TatuadoresEntity {
 		this.especialidad = especialidad;
 		this.descripcion = descripcion;
 		this.activo = activo;
+	}
+
+	public TatuadoresEntity(Integer idTatuadores, String nombre, String apellidos, String email, String especialidad,
+			String descripcion, Integer activo, List<CitasEntity> citas) {
+		super();
+		this.idTatuadores = idTatuadores;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.email = email;
+		this.especialidad = especialidad;
+		this.descripcion = descripcion;
+		this.activo = activo;
+		this.citas = citas;
 	}
 
 	public Integer getIdTatuadores() {

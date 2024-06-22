@@ -1,10 +1,15 @@
 package com.estudio.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,6 +34,10 @@ public class ClientesEntity {
     
     @Column(name = "Password")
     private String password;
+    
+    @OneToMany(mappedBy = "cliente")
+    @JsonBackReference
+    private List<CitasEntity> citas;
     
 	public ClientesEntity() {
 		super();
@@ -58,6 +67,18 @@ public class ClientesEntity {
 		this.telefono = telefono;
 		this.email = email;
 		this.password = password;
+	}
+
+	public ClientesEntity(Integer idClientes, String nombre, String apellidos, String telefono, String email,
+			String password, List<CitasEntity> citas) {
+		super();
+		this.idClientes = idClientes;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.telefono = telefono;
+		this.email = email;
+		this.password = password;
+		this.citas = citas;
 	}
 
 	public Integer getIdClientes() {
