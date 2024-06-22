@@ -9,9 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.estudio.dao.ICitasDAO;
 import com.estudio.dtos.CitasDTO;
-import com.estudio.entities.ClientesEntity;
-import com.estudio.entities.TatuadoresEntity;
-import com.estudio.entities.TatuajesEntity;
+import com.estudio.entities.CitasEntity;
 import com.estudio.negocio.ICitasService;
 import com.estudio.repositories.ICitasRepository;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -36,7 +34,7 @@ public class CitasService implements ICitasService{
 	public List<CitasDTO> buscarCitas(Integer id, String fecha, Integer cliente, Integer tatuador, Integer tatuajes,
 			Integer activo) throws ClassNotFoundException, SQLException {
 		
-		List<CitasDTO> citas = citasRepository;
+		Iterable<CitasEntity> citas = citasRepository.findAll();
 		
 		System.out.println(citas + "patata");
 		
@@ -46,7 +44,7 @@ public class CitasService implements ICitasService{
 			e.printStackTrace();
 		}
 		
-		return citas;
+		return citasDAOImpl.buscarCitas(id, fecha, cliente, tatuador, tatuajes, activo);
 	}
 
 	@Override
@@ -55,7 +53,7 @@ public class CitasService implements ICitasService{
 		
 		Integer inse = citasDAOImpl.insertarCitas(fecha, cliente, tatuador, tatuajes, activo);
 		
-		List<CitasDTO> citas = buscarCitas(activo, fecha, cliente, tatuador, tatuajes, activo);
+		Iterable<CitasEntity> citas = citasRepository.findAll();
 		
 		try {
 			generarPdfCitas(citas);
@@ -72,7 +70,7 @@ public class CitasService implements ICitasService{
 		
 		Integer actua = citasDAOImpl.actualizarCitas(id, fecha, cliente, tatuador, tatuajes, activo);
 		
-		List<CitasDTO> citas = buscarCitas(activo, fecha, cliente, tatuador, tatuajes, activo);
+		Iterable<CitasEntity> citas = citasRepository.findAll();
 		
 		try {
 			generarPdfCitas(citas);
@@ -89,7 +87,7 @@ public class CitasService implements ICitasService{
 		return citasDAOImpl.borrarCitas(id);
 	}
 
-	private void generarPdfCitas(List<CitasDTO> citas) throws FileNotFoundException {
+	private void generarPdfCitas(Iterable<CitasEntity> citas) throws FileNotFoundException {
 		PdfWriter writer = new PdfWriter(des);
 		PdfDocument pdfDoc = new PdfDocument(writer);
 		Document document = new Document(pdfDoc);
@@ -112,20 +110,20 @@ public class CitasService implements ICitasService{
 	    table.addHeaderCell(new Cell().add(new Paragraph("Color")));
 	    table.addHeaderCell(new Cell().add(new Paragraph("Precio")));
 	    
-	    for (CitasDTO cita : citas) {
+	    for (CitasEntity cita : citas) {
 	        table.addCell(new Cell().add(new Paragraph(cita.getIdCitas().toString())));
 	        table.addCell(new Cell().add(new Paragraph(cita.getFecha())));
-	        table.addCell(new Cell().add(new Paragraph(new ClientesEntity( cita.getCliente()).getNombre() )));
-	        table.addCell(new Cell().add(new Paragraph(new TatuadoresEntity( cita.getTatuador()).getNombre() )));
-	        table.addCell(new Cell().add(new Paragraph(new TatuajesEntity( cita.getTatuajes()).getDescripcion() )));
+	        table.addCell(new Cell().add(new Paragraph(cita.getCliente().getNombre() )));
+	        table.addCell(new Cell().add(new Paragraph(cita.getTatuador().getNombre() )));
+	        table.addCell(new Cell().add(new Paragraph(cita.getTatuajes().getDescripcion() )));
 	        
-	        String tamano = "" + new TatuajesEntity(cita.getTatuajes()).getTamano();
+	        String tamano = "" + cita.getTatuajes().getTamano();
 	        table.addCell(new Cell().add(new Paragraph(tamano)));
 	        
 	        
-	        table.addCell(new Cell().add(new Paragraph(new TatuajesEntity(cita.getTatuajes()).getColor().toString())));
+	        table.addCell(new Cell().add(new Paragraph(cita.getTatuajes().getColor().toString())));
 	        
-	        String precio = "" + new TatuajesEntity(cita.getTatuajes()).getPrecio();
+	        String precio = "" + cita.getTatuajes().getPrecio();
 	        table.addCell(new Cell().add(new Paragraph(precio))); 
 	    }
 	    
