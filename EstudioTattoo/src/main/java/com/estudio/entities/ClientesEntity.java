@@ -10,12 +10,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "clientes")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idClientes")
 public class ClientesEntity {
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +40,8 @@ public class ClientesEntity {
 	 private String password;
 
 	 @OneToMany(mappedBy = "cliente")
+	 @JsonBackReference
 	 private List<CitasEntity> citas;
-	    
-	 @Column(name = "Activo")
-	 private Integer activo;
     
 	public ClientesEntity() {
 		super();
