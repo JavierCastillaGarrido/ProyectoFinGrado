@@ -33,7 +33,7 @@ public class CitasControllerRest {
 	
 	/********************************* LISTAR CITAS ******************************************/
 	
-	@GetMapping("/citas")
+	@GetMapping("/citas/all")
 	public Iterable<CitasEntity> obtenerTodosCitas() {
 		
 		Iterable<CitasEntity> cita = citasRepository.findAll();
@@ -49,9 +49,9 @@ public class CitasControllerRest {
 			@RequestParam (value="cliente",required=false)Integer cliente,
 			@RequestParam (value="tatuador",required=false)Integer tatuador,
 			@RequestParam (value="tatuajes",required=false)Integer tatuajes,
-			@RequestParam (value="activo",required=false)Integer activo){
+			@RequestParam (value="activo",required=false)Integer activo) throws ClassNotFoundException, SQLException{
 		
-		List<CitasDTO> cita = citasRepository.buscarCitas(idCitas, fecha, cliente, tatuador, tatuajes, activo);
+		List<CitasDTO> cita = citasService.buscarCitas(idCitas, fecha, cliente, tatuador, tatuajes, activo);
 		
 		return cita;
 		

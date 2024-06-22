@@ -13,6 +13,7 @@ import com.estudio.entities.ClientesEntity;
 import com.estudio.entities.TatuadoresEntity;
 import com.estudio.entities.TatuajesEntity;
 import com.estudio.negocio.ICitasService;
+import com.estudio.repositories.ICitasRepository;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -23,16 +24,19 @@ import com.itextpdf.layout.element.Table;
 @Component
 public class CitasService implements ICitasService{
 	
-    String des = "..\\..\\RegistroDeCitas.pdf";
+    String des = "..\\RegistroDeCitas.pdf";
 
 	@Autowired
 	ICitasDAO citasDAOImpl;
+	
+	@Autowired
+	private ICitasRepository citasRepository;
 	
 	@Override
 	public List<CitasDTO> buscarCitas(Integer id, String fecha, Integer cliente, Integer tatuador, Integer tatuajes,
 			Integer activo) throws ClassNotFoundException, SQLException {
 		
-		List<CitasDTO> citas = citasDAOImpl.buscarCitas(id, fecha, cliente, tatuador, tatuajes, activo);
+		List<CitasDTO> citas = citasRepository;
 		
 		System.out.println(citas + "patata");
 		

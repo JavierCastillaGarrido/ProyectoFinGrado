@@ -13,7 +13,7 @@ import com.estudio.entities.CitasEntity;
 @Repository
 public interface ICitasRepository extends CrudRepository<CitasEntity, Integer>{
 	
-	@Query(value = "SELECT new com.estudio.dtos.ClientesDTO "
+	@Query(value = "SELECT new com.estudio.dtos.CitasDTO "
 			   + "(ce.idCitas, ce.fecha, cle.idClientes, te.idTatuadores, tae.idTatuajes, ce.activo)"
 			   + " FROM CitasEntity ce "
 			   + "		JOIN ce.cliente cle "
