@@ -3,7 +3,8 @@ package com.estudio.entities;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tatuajes")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idTatuajes")
 public class TatuajesEntity {
 
 	@Id
@@ -35,7 +37,6 @@ public class TatuajesEntity {
     private double precio;
     
     @OneToMany(mappedBy = "tatuajes")
-    @JsonBackReference
     private List<CitasEntity> citas;
 	
 	public TatuajesEntity() {

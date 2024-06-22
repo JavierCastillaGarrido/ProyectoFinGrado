@@ -2,7 +2,6 @@ package com.estudio.entities;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,33 +10,38 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "clientes")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idClientes")
 public class ClientesEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Clientes")
-    private Integer idClientes;
-    
-    @Column(name = "Nombre")
-    private String nombre;
-    
-    @Column(name = "Apellidos")
-    private String apellidos;
-    
-    @Column(name = "Telefono")
-    private String telefono;
-    
-    @Column(name = "Email")
-    private String email;
-    
-    @Column(name = "Password")
-    private String password;
-    
-    @OneToMany(mappedBy = "cliente")
-    @JsonBackReference
-    private List<CitasEntity> citas;
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @Column(name = "ID_Clientes")
+	 private Integer idClientes;
+	    
+	 @Column(name = "Nombre")
+	 private String nombre;
+	    
+	 @Column(name = "Apellidos")
+	 private String apellidos;
+	    
+	 @Column(name = "Telefono")
+	 private String telefono;
+	    
+	 @Column(name = "Email")
+	 private String email;
+	    
+	 @Column(name = "Password")
+	 private String password;
+
+	 @OneToMany(mappedBy = "cliente")
+	 private List<CitasEntity> citas;
+	    
+	 @Column(name = "Activo")
+	 private Integer activo;
     
 	public ClientesEntity() {
 		super();
