@@ -23,7 +23,7 @@ import com.itextpdf.layout.element.Table;
 @Component
 public class CitasService implements ICitasService{
 	
-    String des = "..\\RegistroDeCitas.pdf";
+    String des = "..\\..\\RegistroDeCitas.pdf";
 
 	@Autowired
 	ICitasDAO citasDAOImpl;
@@ -32,7 +32,17 @@ public class CitasService implements ICitasService{
 	public List<CitasDTO> buscarCitas(Integer id, String fecha, Integer cliente, Integer tatuador, Integer tatuajes,
 			Integer activo) throws ClassNotFoundException, SQLException {
 		
-		return citasDAOImpl.buscarCitas(id, fecha, cliente, tatuador, tatuajes, activo);
+		List<CitasDTO> citas = citasDAOImpl.buscarCitas(id, fecha, cliente, tatuador, tatuajes, activo);
+		
+		System.out.println(citas + "patata");
+		
+		try {
+			generarPdfCitas(citas);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return citas;
 	}
 
 	@Override
@@ -84,6 +94,8 @@ public class CitasService implements ICitasService{
 		float[] columnWidths = {1,2,2,2,3,2,1,2};
 		Table table = new Table(columnWidths);
 		table.setWidth(150);
+		
+		System.out.println("patata");
 		
 		document.add(new Paragraph("Registro de citas: "));
 		
