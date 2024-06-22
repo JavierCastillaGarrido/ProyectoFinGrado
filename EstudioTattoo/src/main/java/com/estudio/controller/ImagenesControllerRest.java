@@ -27,7 +27,7 @@ public class ImagenesControllerRest {
 	
 	/********************************* LISTAR IMAGENES ******************************************/
 
-	@GetMapping(value="imagenes",params= {"idImagen","tatuador","descripcion","imagenes"})
+	@GetMapping(value="/imagenes",params= {"idImagen","tatuador","descripcion","imagenes"})
 	public List<ImagenesDTO> obtenerImagenesConFiltros(
 			@RequestParam (value="idImagen",required=false) Integer idImagen,
 			@RequestParam (value="tatuador",required=false) Integer tatuador,
@@ -42,7 +42,7 @@ public class ImagenesControllerRest {
 
 	//http://localhost:8080/tiendaTattoos/imagenes/2
 	
-	@GetMapping(value="imagenes/{idImagen}")
+	@GetMapping(value="/imagenes/{idImagen}")
 	public ResponseEntity<ImagenesEntity> obtenerImagenesPorId(@PathVariable("idImagen")Integer idImagen){
 		
 		ImagenesEntity img = imagenesRepository.findById(idImagen).get();
@@ -53,7 +53,7 @@ public class ImagenesControllerRest {
 	
 	//http://localhost:8080/tiendaTattoos/imagenes
 	
-	@GetMapping("imagenes")
+	@GetMapping("/imagenes")
 	public Iterable<ImagenesEntity> obtenerTodosImagenes() {
 		
 		Iterable<ImagenesEntity> img = imagenesRepository.findAll();

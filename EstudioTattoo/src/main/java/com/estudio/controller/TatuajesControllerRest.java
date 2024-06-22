@@ -35,7 +35,7 @@ public class TatuajesControllerRest {
 	
 	/********************************* LISTAR TATUAJES ******************************************/
 	
-	@GetMapping(value = "tatuajes", params = {"idTatuajes", "descripcion", "color", "tamano", "precio"})
+	@GetMapping(value = "/tatuajes", params = {"idTatuajes", "descripcion", "color", "tamano", "precio"})
 	public List<TatuajesDTO> obtenerTatuajesConFiltros(
 			@RequestParam (value="idTatuajes",required=false)Integer idTatuajes,
 			@RequestParam (value="descripcion",required=false)String descripcion,
@@ -50,7 +50,7 @@ public class TatuajesControllerRest {
 	
 	//http://localhost:8080/tiendaTattoos/tatuajes/2
 	
-	@GetMapping(value="tatuajes/{idTatuajes}")
+	@GetMapping(value="/tatuajes/{idTatuajes}")
 	public ResponseEntity<TatuajesEntity> obtenerTatuajesPorId(@PathVariable("idTatuajes")Integer idTatuajes){
 		
 		TatuajesEntity tatu = tatuajesRepository.findById(idTatuajes).get();
@@ -61,7 +61,7 @@ public class TatuajesControllerRest {
 	
 	//http://localhost:8080/tiendaTattoos/tatuajes
 	
-	@GetMapping(value="tatuajes")
+	@GetMapping(value="/tatuajes")
 	public Iterable<TatuajesEntity> obtenerTodosTatuajes(){
 		
 		Iterable<TatuajesEntity> tatu = tatuajesRepository.findAll();
@@ -72,7 +72,7 @@ public class TatuajesControllerRest {
 	
 	/********************************* INSERTAR TATUAJES ******************************************/
 
-	@PostMapping("tatuajes")
+	@PostMapping("/tatuajes")
 	public ResponseEntity insertarTatuaje(@RequestBody TatuajesEntity tatuajes)throws ClassNotFoundException, SQLException, NamingException {
 		
 		Integer resul = tatuajesService.insertarTatuajes(tatuajes.getDescripcion(), tatuajes.getColor().toString(), tatuajes.getTamano(), tatuajes.getPrecio());
@@ -87,7 +87,7 @@ public class TatuajesControllerRest {
 	
 	/********************************* ACTUALIZAR TATUAJES ******************************************/
 
-	@PutMapping("tatuajes")
+	@PutMapping("/tatuajes")
 	public ResponseEntity actualizarTatuaje(@RequestBody TatuajesEntity tatuajes)throws ClassNotFoundException, SQLException, NamingException {
 		
 		Integer resul = tatuajesService.actualizarTatuajes(tatuajes.getIdTatuajes(), tatuajes.getDescripcion(), tatuajes.getColor().toString(), tatuajes.getTamano(), tatuajes.getPrecio());
@@ -101,7 +101,7 @@ public class TatuajesControllerRest {
 	
 	/********************************* 	CALCULAR PRECIO ******************************************/
 	
-	@PostMapping("tatuajes/calcularPrecio")
+	@PostMapping("/tatuajes/calcularPrecio")
 	public @ResponseBody Double calcularPrecio(ModelMap model, @RequestBody ColorTamanoDTO colorTamano)throws ClassNotFoundException, SQLException {
 		Integer color = colorTamano.getColor();
         double tamano = colorTamano.getTamano();

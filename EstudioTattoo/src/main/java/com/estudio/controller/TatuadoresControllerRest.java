@@ -33,7 +33,7 @@ public class TatuadoresControllerRest {
 	
 	/********************************* LISTAR TATUADORES ******************************************/
 
-	@GetMapping(value="tatuadores", params = {"idTatuadores","nombre","apellidos","email","especialidad","descripcion","activo"})
+	@GetMapping(value="/tatuadores", params = {"idTatuadores","nombre","apellidos","email","especialidad","descripcion","activo"})
 	public List<TatuadoresDTO> obtenerTatuadoresConFiltros(
 			@RequestParam (value="idTatuajes",required=false) Integer idTatuadores,
 			@RequestParam (value="nombre",required=false)String nombre,
@@ -49,7 +49,7 @@ public class TatuadoresControllerRest {
 		
 	}
 	
-	@GetMapping(value="tatuadores/{id}")
+	@GetMapping(value="/tatuadores/{id}")
 	public ResponseEntity<TatuadoresEntity> obtenerTatuadoresPorId(@PathVariable("idTatuadores")Integer idTatuadores){
 		
 		TatuadoresEntity tatuado = tatuadoresRepository.findById(idTatuadores).get();
@@ -58,7 +58,7 @@ public class TatuadoresControllerRest {
 		
 	}
 	
-	@GetMapping("tatuadores")
+	@GetMapping("/tatuadores")
 	public Iterable<TatuadoresEntity> obtenerTodosTatuadores() {
 		
 		Iterable<TatuadoresEntity> tatuado = tatuadoresRepository.findAll();
@@ -69,7 +69,7 @@ public class TatuadoresControllerRest {
 	
 	/********************************* INSERTAR TATUADORES ******************************************/
 
-	@PostMapping("tatuadores")
+	@PostMapping("/tatuadores")
 	public ResponseEntity insertarTatuadores (@RequestBody TatuadoresEntity tatuadores)throws ClassNotFoundException, SQLException, NamingException{
 		
 		Integer resul = tatuadoresService.insertarTatuador(tatuadores.getNombre(), tatuadores.getApellidos(), tatuadores.getEmail(), tatuadores.getEspecialidad(), tatuadores.getDescripcion(), tatuadores.getActivo());
@@ -83,7 +83,7 @@ public class TatuadoresControllerRest {
 	
 	/********************************* ACTUALIZAR TATUADORES ******************************************/
 
-	@PutMapping("tatuadores")
+	@PutMapping("/tatuadores")
 	public ResponseEntity actualizarTatuadores (@RequestBody TatuadoresEntity tatuadores)throws ClassNotFoundException, SQLException, NamingException{
 		
 		Integer resul = tatuadoresService.actualizarTatudor(tatuadores.getIdTatuadores(), tatuadores.getNombre(), tatuadores.getApellidos(), tatuadores.getEmail(), tatuadores.getEspecialidad(), tatuadores.getDescripcion(), tatuadores.getActivo());
@@ -97,7 +97,7 @@ public class TatuadoresControllerRest {
 	
 	/********************************* BORRAR TATUADORES ******************************************/
 	
-	@DeleteMapping("tatuadores/{id}")
+	@DeleteMapping("/tatuadores/{id}")
 	public ResponseEntity borrarTatuadores(@PathVariable("id") Integer id) throws ClassNotFoundException, SQLException, NamingException {
 		
 		Integer resultado = tatuadoresService.borrarTatuador(id);
