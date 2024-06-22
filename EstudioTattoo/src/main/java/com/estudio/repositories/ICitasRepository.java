@@ -12,8 +12,6 @@ import com.estudio.entities.CitasEntity;
 
 @Repository
 public interface ICitasRepository extends CrudRepository<CitasEntity, Integer>{
-
-	/* IS NULL OR = si viene el parametro como null lo ignora y no realiza la comprobacion y filtra por el resto */
 	
 	@Query(value = "SELECT new com.estudio.dtos.ClientesDTO "
 			   + "(ce.idCitas, ce.fecha, cle.idClientes, te.idTatuadores, tae.idTatuajes, ce.activo)"

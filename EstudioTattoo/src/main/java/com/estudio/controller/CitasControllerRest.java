@@ -32,8 +32,17 @@ public class CitasControllerRest {
 	ICitasService citasService;
 	
 	/********************************* LISTAR CITAS ******************************************/
+	
+	@GetMapping("/citas")
+	public Iterable<CitasEntity> obtenerTodosCitas() {
+		
+		Iterable<CitasEntity> cita = citasRepository.findAll();
+		
+		return cita;
+		
+	}
 
-	@GetMapping(value="citas", params = {"idCitas","fecha","cliente","tatuador","tatuajes","activo"})
+	@GetMapping(value="/citas", params = {"idCitas","fecha","cliente","tatuador","tatuajes","activo"})
 	public List<CitasDTO> obtenerCitasConFiltros(
 			@RequestParam (value="idCitas",required=false) Integer idCitas,
 			@RequestParam (value="fecha",required=false)String fecha,
@@ -50,7 +59,7 @@ public class CitasControllerRest {
 	
 	//http://localhost:8080/tiendaTattoos/citas
 	
-	@GetMapping(value="citas/{idCitas}")
+	@GetMapping(value="/citas/{idCitas}")
 	public ResponseEntity<CitasEntity> obtenerCitasPorId(@PathVariable("idCitas")Integer idCitas){
 		
 		CitasEntity cita = citasRepository.findById(idCitas).get();
@@ -61,18 +70,10 @@ public class CitasControllerRest {
 	
 	//http://localhost:8080/tiendaTattoos/citas
 	
-	@GetMapping("citas")
-	public Iterable<CitasEntity> obtenerTodosCitas() {
-		
-		Iterable<CitasEntity> cita = citasRepository.findAll();
-		
-		return cita;
-		
-	}
 	
 	/********************************* INSERTAR CITAS ******************************************/
 
-	@PostMapping("citas")
+	@PostMapping("/citas")
 	public ResponseEntity insertarCitas (@RequestBody CitasEntity citas)throws ClassNotFoundException, SQLException, NamingException{
 		
 		Integer resul = citasService.insertarCitas(citas.getFecha(), citas.getCliente().getIdClientes(), citas.getTatuador().getIdTatuadores(), citas.getTatuajes().getIdTatuajes(), citas.getActivo());
@@ -86,7 +87,7 @@ public class CitasControllerRest {
 	
 	/********************************* ACTUALIZAR CITAS ******************************************/
 
-	@PutMapping("citas")
+	@PutMapping("/citas")
 	public ResponseEntity actualizarCitas (@RequestBody CitasEntity citas)throws ClassNotFoundException, SQLException, NamingException{
 		
 		Integer resul = citasService.actualizarCitas(citas.getIdCitas(), citas.getFecha(), citas.getCliente().getIdClientes(), citas.getTatuador().getIdTatuadores(), citas.getTatuajes().getIdTatuajes(), citas.getActivo());
@@ -100,7 +101,7 @@ public class CitasControllerRest {
 	
 	/********************************* BORRAR CITAS ******************************************/
 	
-	@DeleteMapping("citas/{id}")
+	@DeleteMapping("/citas/{id}")
 	public ResponseEntity borrarCitas(@PathVariable("id") Integer id) throws ClassNotFoundException, SQLException, NamingException {
 		
 		Integer resultado = citasService.borrarCitas(id);

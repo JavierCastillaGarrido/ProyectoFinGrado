@@ -32,7 +32,7 @@ public class ClientesControllerRest {
 	
 	/********************************* LISTAR CLIENTES ******************************************/
 
-	@GetMapping(value="clientes", params = {"idClientes","nombre","apellidos","telefono","email","password"})
+	@GetMapping(value="/clientes", params = {"idClientes","nombre","apellidos","telefono","email","password"})
 	public List<ClientesDTO> obtenerClientesConFiltros(
 			@RequestParam (value="idClientes",required=false) Integer idClientes,
 			@RequestParam (value="nombre",required=false)String nombre,
@@ -49,7 +49,7 @@ public class ClientesControllerRest {
 	
 	//http://localhost:8080/tiendaTattoos/clientes/2
 	
-	@GetMapping(value="clientes/{idClientes}")
+	@GetMapping(value="/clientes/{idClientes}")
 	public ResponseEntity<ClientesEntity> obtenerClientesPorId(@PathVariable("idClientes")Integer idClientes){
 		
 		ClientesEntity cliente = clientesRepository.findById(idClientes).get();
@@ -60,7 +60,7 @@ public class ClientesControllerRest {
 	
 	//http://localhost:8080/tiendaTattoos/clientes
 	
-	@GetMapping("clientes")
+	@GetMapping("/clientes")
 	public Iterable<ClientesEntity> obtenerTodosClientes() {
 		
 		Iterable<ClientesEntity> cliente = clientesRepository.findAll();
@@ -71,7 +71,7 @@ public class ClientesControllerRest {
 	
 	/********************************* INSERTAR CLIENTES ******************************************/
 
-	@PostMapping("clientes")
+	@PostMapping("/clientes")
 	public ResponseEntity insertarClientes (@RequestBody ClientesEntity clientes)throws ClassNotFoundException, SQLException, NamingException{
 		
 		Integer resul = clientesService.insertarClientes(clientes.getNombre(), clientes.getApellidos(), clientes.getTelefono(), clientes.getEmail(), clientes.getPassword());
@@ -85,7 +85,7 @@ public class ClientesControllerRest {
 	
 	/********************************* ACTUALIZAR TATUADORES ******************************************/
 
-	@PutMapping("clientes")
+	@PutMapping("/clientes")
 	public ResponseEntity actualizarClientes (@RequestBody ClientesEntity clientes)throws ClassNotFoundException, SQLException, NamingException{
 		
 		Integer resul = clientesService.actualizarClientes(clientes.getIdClientes(), clientes.getNombre(), clientes.getApellidos(), clientes.getTelefono(), clientes.getEmail(), clientes.getPassword());
