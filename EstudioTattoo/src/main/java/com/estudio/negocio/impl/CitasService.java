@@ -83,9 +83,9 @@ public class CitasService implements ICitasService{
 		Document document = new Document(pdfDoc);
 		
 		document.setMargins(20, 20, 20, 20);
-		float[] columnWidths = {1,2,2,2,3,2,1,2};
+		float[] columnWidths = {1,5,2,2,10,2,1,2};
 		Table table = new Table(columnWidths);
-		table.setWidth(150);
+		table.setWidth(200);
 		
 		System.out.println("patata");
 		
