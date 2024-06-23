@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import com.estudio.dao.ICitasDAO;
 import com.estudio.dtos.CitasDTO;
 import com.estudio.entities.CitasEntity;
-import com.estudio.entities.ClientesEntity;
-import com.estudio.entities.TatuadoresEntity;
 import com.estudio.entities.TatuajesEntity;
 import com.estudio.negocio.ICitasService;
 import com.estudio.negocio.ITatuajesService;
@@ -45,10 +43,10 @@ public class CitasService implements ICitasService{
 	}
 
 	@Override
-	public Integer insertarCitas(String fecha, ClientesEntity cliente, TatuadoresEntity tatuador, TatuajesEntity tatuajes, Integer activo)
+	public Integer insertarCitas(String fecha, Integer cliente, Integer tatuador, Integer tatuajes, Integer activo)
 			throws ClassNotFoundException, SQLException {
 		
-		Integer inse = citasDAOImpl.insertarCitas(fecha, cliente.getIdClientes(), tatuador.getIdTatuadores(), tatuajes.getIdTatuajes(), activo);
+		Integer inse = citasDAOImpl.insertarCitas(fecha, cliente, tatuador, tatuajes, activo);
 		
 		Iterable<CitasEntity> citas = citasRepository.findAll();
 		
@@ -95,6 +93,8 @@ public class CitasService implements ICitasService{
 		Table table = new Table(columnWidths);
 		table.setWidth(200);
 		
+		System.out.println("patata");
+		
 		document.add(new Paragraph("Registro de citas: "));
 		
 		table.addHeaderCell(new Cell().add(new Paragraph("Id Cita")));
@@ -111,7 +111,7 @@ public class CitasService implements ICitasService{
 	        table.addCell(new Cell().add(new Paragraph(cita.getFecha())));
 	        table.addCell(new Cell().add(new Paragraph(cita.getCliente().getNombre() )));
 	        table.addCell(new Cell().add(new Paragraph(cita.getTatuador().getNombre() )));
-	        table.addCell(new Cell().add(new Paragraph(cita.getTatuajes().getDescripcion())));
+	        table.addCell(new Cell().add(new Paragraph(cita.getTatuajes().getDescripcion() )));
 	        
 	        String tamano = "" + cita.getTatuajes().getTamano();
 	        table.addCell(new Cell().add(new Paragraph(tamano)));
