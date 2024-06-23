@@ -269,7 +269,7 @@
                     })
                     .catch((error) => console.error('Error:', error));
                 
-                
+                alert("Cita pedida correctamente");
             }
         },
         created(){
