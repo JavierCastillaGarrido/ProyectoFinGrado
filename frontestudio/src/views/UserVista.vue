@@ -51,6 +51,7 @@
       props: {},
       data() {
         return { 
+            cliente: [],
             listaCitas: [],
             listaMostrar: [],
             listaTatuadores: [], 
@@ -77,20 +78,39 @@
                 this.descrip = item.tatuajes.descripcion;
             },
             async rellenarListaCitas(){
-                await fetch('http://localhost:8080/tiendaTattoos/citas')
+
+                let urlClie = "http://localhost:8080/tiendaTattoos/clientes?id=&nombre=&apellidos=&telefono=&email=" + this.email + "&pass=";
+                console.log(urlClie);
+                await fetch(urlClie)
+                    .then(response => response.json())
+                    .then(json => this.cliente = json);
+
+                let urlCita = "http://localhost:8080/tiendaTattoos/citas?idCitas=&fecha=&activo=&cliente=" + this.cliente.idCliente + "&tatuador=&tatuajes="
+
+                await fetch(urlCita)
                     .then(response => response.json())
                     .then(json => this.listaCitas = json);
-                    
-                for (let i = 0; i < this.listaCitas.length; i++) {
-                    console.log(this.listaCitas[i])
-                    if ((this.listaCitas[i].cliente.email) === this.email) {
-                        this.listaMostrar.push(this.listaCitas[i]);
-                    }
-                }
 
-                fetch('http://localhost:8080/tiendaTattoos/tatuadores')
-                    .then(response => response.json())
-                    .then(json => this.listaTatuadores = json);
+                
+                let lista;
+                for (let i = 0; i < this.listaCitas.length; i++){
+                    await fetch('http://localhost:8080/tiendaTattoos/tatuadores/' + this.listaCitas[i].tatuador)
+                        .then(response => response.json())
+                        .then(json => lista = json);
+
+                    this.listaTatuadores.push(lista);
+
+                    await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + this.listaCitas[i].tatuajes)
+                        .then(response => response.json())
+                        .then(json => lista = json);
+
+                    this.listaTatuajes.push(lista);
+                }
+                    
+                this.listaCitas.cliente = this.cliente;
+                this.listaCitas.tatuador = this.listaTatuadores;
+                this.listaCitas.tatuajes = this.listaTatuajes;
+                this.listaMostrar = this.listaCitas;
 
             },
             editarCita(){
@@ -136,6 +156,7 @@
             },
         },   
         created() {
+            console.log(this.$route.params.email);
             this.email = this.$route.params.email;
             this.rellenarListaCitas();
             let hoy = new Date();
