@@ -19,29 +19,30 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "clientes")
 public class ClientesEntity {
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 @Column(name = "ID_Clientes")
-	 private Integer idClientes;
-	    
-	 @Column(name = "Nombre")
-	 private String nombre;
-	    
-	 @Column(name = "Apellidos")
-	 private String apellidos;
-	    
-	 @Column(name = "Telefono")
-	 private String telefono;
-	    
-	 @Column(name = "Email")
-	 private String email;
-	    
-	 @Column(name = "Password")
-	 private String password;
 
-	 @OneToMany(mappedBy = "cliente")
-	 @JsonBackReference
-	 private List<CitasEntity> citas;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_Clientes")
+    private Integer idClientes;
+    
+    @Column(name = "Nombre")
+    private String nombre;
+    
+    @Column(name = "Apellidos")
+    private String apellidos;
+    
+    @Column(name = "Telefono")
+    private String telefono;
+    
+    @Column(name = "Email")
+    private String email;
+    
+    @Column(name = "Password")
+    private String password;
+
+    @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference(value="cliente-citas")
+    private List<CitasEntity> citas;
     
 	public ClientesEntity() {
 		super();

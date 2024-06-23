@@ -28,20 +28,20 @@ public class CitasEntity {
     
     @ManyToOne
     @JoinColumn(name="ID_Clientes")
-    @JsonManagedReference
+    @JsonBackReference(value="cliente-citas")
     private ClientesEntity cliente;
     
     @ManyToOne
     @JoinColumn(name="ID_Tatuadores")
-    @JsonManagedReference
+    @JsonBackReference(value="tatuador-citas")
     private TatuadoresEntity tatuador;
     
     @ManyToOne
     @JoinColumn(name="ID_Tatuajes")
-    @JsonManagedReference
+    @JsonBackReference(value="tatuajes-citas")
     private TatuajesEntity tatuajes;
     
-    @JoinColumn(name="Activo")
+    @Column(name="Activo")
     private Integer activo;
 
 	public CitasEntity() {

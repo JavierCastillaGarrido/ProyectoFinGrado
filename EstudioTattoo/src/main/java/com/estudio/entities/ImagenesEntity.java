@@ -1,5 +1,6 @@
 package com.estudio.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -15,21 +16,22 @@ import jakarta.persistence.Table;
 @Table(name="imagenestatus")
 public class ImagenesEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_Imagen")
-	private Integer idImagen;
-	
-	@ManyToOne
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_Imagen")
+    private Integer idImagen;
+    
+    @ManyToOne
     @JoinColumn(name="ID_Tatuadores")
-    @JsonManagedReference
+    @JsonBackReference(value="tatuador-imagenes")
     private TatuadoresEntity tatuador;
-	
-	@Column(name = "Descripcion")
+    
+    @Column(name = "Descripcion")
     private String descripcion;
-	
+    
     @Column(name = "Imagenes")
     private String imagenes;
+
     
 	public ImagenesEntity() {
 		super();

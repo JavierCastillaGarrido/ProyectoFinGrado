@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 @Table(name = "tatuajes")
 public class TatuajesEntity {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_Tatuajes")
     private Integer idTatuajes;
@@ -38,7 +38,7 @@ public class TatuajesEntity {
     private double precio;
     
     @OneToMany(mappedBy = "tatuajes")
-    @JsonBackReference
+    @JsonManagedReference(value="tatuajes-citas")
     private List<CitasEntity> citas;
 	
 	public TatuajesEntity() {

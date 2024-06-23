@@ -43,8 +43,12 @@ public class TatuadoresEntity {
     private Integer activo;
     
     @OneToMany(mappedBy = "tatuador")
-    @JsonBackReference
+    @JsonManagedReference(value="tatuador-citas")
     private List<CitasEntity> citas;
+
+    @OneToMany(mappedBy = "tatuador")
+    @JsonManagedReference(value="tatuador-imagenes")
+    private List<ImagenesEntity> imagenes;
 	
 	public TatuadoresEntity() {
 		super();
