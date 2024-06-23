@@ -34,16 +34,6 @@ public class CitasService implements ICitasService{
 	public List<CitasDTO> buscarCitas(Integer id, String fecha, Integer cliente, Integer tatuador, Integer tatuajes,
 			Integer activo) throws ClassNotFoundException, SQLException {
 		
-		Iterable<CitasEntity> citas = citasRepository.findAll();
-		
-		System.out.println(citas + "patata");
-		
-		try {
-			generarPdfCitas(citas);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		return citasDAOImpl.buscarCitas(id, fecha, cliente, tatuador, tatuajes, activo);
 	}
 
