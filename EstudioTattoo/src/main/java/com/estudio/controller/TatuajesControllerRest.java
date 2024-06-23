@@ -37,30 +37,15 @@ public class TatuajesControllerRest {
 	
 	@GetMapping(value = "/tatuajes", params = {"idTatuajes", "descripcion", "color", "tamano", "precio"})
 	public List<TatuajesDTO> obtenerTatuajesConFiltros(
-	        @RequestParam(value="idTatuajes", required=false) Integer idTatuajes,
-	        @RequestParam(value="descripcion", required=false) String descripcion,
-	        @RequestParam(value="color", required=false) String color,
-	        @RequestParam(value="tamano", required=false) String tamanoStr,
-	        @RequestParam(value="precio", required=false) String precioStr) {
-	    
-	    double tamano = 0.0;
-	    double precio = 0.0;
-	    
-	    if (tamanoStr != null && !tamanoStr.isEmpty()) {
-	        tamano = Double.parseDouble(tamanoStr);
-	    }
-	    
-	    if (precioStr != null && !precioStr.isEmpty()) {
-	        precio = Double.parseDouble(precioStr);
-	    }
-	    
-	    if (color == null || color.isEmpty()) {
-	        color = "0";
-	    }
-	    
-	    List<TatuajesDTO> tatu = tatuajesRepository.buscarTatuajes(idTatuajes, descripcion, color, tamano, precio);
-	    
-	    return tatu;
+			@RequestParam (value="idTatuajes",required=false)Integer idTatuajes,
+			@RequestParam (value="descripcion",required=false)String descripcion,
+			@RequestParam (value="color",required=false)String color,
+			@RequestParam (value="tamano",required=false)double tamano,
+			@RequestParam (value="precio",required=false)double precio) {
+		
+		List<TatuajesDTO> tatu = tatuajesRepository.buscarTatuajes(idTatuajes, descripcion, color, tamano, precio);
+		
+		return tatu;
 	}
 	
 	//http://localhost:8080/tiendaTattoos/tatuajes/2
