@@ -22,7 +22,7 @@ import com.itextpdf.layout.element.Table;
 @Component
 public class CitasService implements ICitasService{
 	
-    String des = "..\\RegistroDeCitas.pdf";
+    String des = "..\\Registros\\RegistroDeCitas.pdf";
 
 	@Autowired
 	ICitasDAO citasDAOImpl;
