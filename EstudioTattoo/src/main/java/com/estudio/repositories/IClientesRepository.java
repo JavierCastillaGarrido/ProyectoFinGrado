@@ -13,7 +13,7 @@ import com.estudio.entities.ClientesEntity;
 @Repository
 public interface IClientesRepository extends CrudRepository<ClientesEntity, Integer>{
 
-    @Query("SELECT new com.estudio.dtos.ClientesDTO "
+    @Query(value = "SELECT new com.estudio.dtos.ClientesDTO "
          + "(ce.idClientes, ce.nombre, ce.apellidos, ce.telefono, ce.email, ce.password) "
          + "FROM ClientesEntity ce "
          + "WHERE (:id IS NULL OR ce.idClientes = :id) "

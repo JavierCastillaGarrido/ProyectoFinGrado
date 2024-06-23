@@ -50,8 +50,6 @@ public class CitasControllerRest {
 			@RequestParam (value="tatuador",required=false)Integer tatuador,
 			@RequestParam (value="tatuajes",required=false)Integer tatuajes,
 			@RequestParam (value="activo",required=false)Integer activo) throws ClassNotFoundException, SQLException{
-				
-		System.out.println(fecha);
 		
 		List<CitasDTO> cita = citasService.buscarCitas(idCitas, fecha, cliente, tatuador, tatuajes, activo);
 		
@@ -78,9 +76,6 @@ public class CitasControllerRest {
 	@PostMapping("/citas")
 	public ResponseEntity insertarCitas (@RequestBody CitasEntity citas)throws ClassNotFoundException, SQLException, NamingException{
 		
-		
-		System.out.println("HOLA" + citas);
-		
 		Integer resul = citasService.insertarCitas(citas.getFecha(), citas.getCliente().getIdClientes(), citas.getTatuador().getIdTatuadores(), citas.getTatuajes().getIdTatuajes(), citas.getActivo());
 		
 		if (resul >=1) {			
@@ -94,8 +89,8 @@ public class CitasControllerRest {
 
 	@PutMapping("/citas")
 	public ResponseEntity actualizarCitas (@RequestBody CitasEntity citas)throws ClassNotFoundException, SQLException, NamingException{
-		
-		Integer resul = citasService.actualizarCitas(citas.getIdCitas(), citas.getFecha(), citas.getCliente().getIdClientes(), citas.getTatuador().getIdTatuadores(), citas.getTatuajes().getIdTatuajes(), citas.getActivo());
+		System.out.println("==================================== ENTRO ======================================");
+		Integer resul = citasService.actualizarCitas(citas.getIdCitas(), citas.getFecha(), citas.getCliente().getIdClientes(), citas.getTatuador().getIdTatuadores(), citas.getTatuajes(), citas.getActivo());
 		
 		if (resul >=1) {			
 			return new ResponseEntity<>("Cita actualizada correctamente", HttpStatus.OK);

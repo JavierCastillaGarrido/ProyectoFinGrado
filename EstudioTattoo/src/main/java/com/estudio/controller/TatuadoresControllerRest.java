@@ -43,13 +43,20 @@ public class TatuadoresControllerRest {
 			@RequestParam (value="descripcion",required=false)String descripcion,
 			@RequestParam (value="activo",required=false)Integer activo){
 		
+		if ("".equals(nombre)) nombre = null;
+        if ("".equals(apellidos)) apellidos = null;
+        if ("".equals(email)) email = null;
+        if ("".equals(especialidad)) especialidad = null;
+        if ("".equals(descripcion)) descripcion = null;
+		
+		
 		List<TatuadoresDTO> tatuado = tatuadoresRepository.buscarTatuadores(idTatuadores, nombre, apellidos, email, especialidad, descripcion, activo);
 		
 		return tatuado;
 		
 	}
 	
-	@GetMapping(value="/tatuadores/{id}")
+	@GetMapping(value="/tatuadores/{idTatuadores}")
 	public ResponseEntity<TatuadoresEntity> obtenerTatuadoresPorId(@PathVariable("idTatuadores")Integer idTatuadores){
 		
 		TatuadoresEntity tatuado = tatuadoresRepository.findById(idTatuadores).get();

@@ -43,6 +43,9 @@ public class TatuajesControllerRest {
 			@RequestParam (value="tamano",required=false)double tamano,
 			@RequestParam (value="precio",required=false)double precio) {
 		
+		if ("".equals(descripcion)) descripcion = null;
+        if ("".equals(color)) color = null;
+		
 		List<TatuajesDTO> tatu = tatuajesRepository.buscarTatuajes(idTatuajes, descripcion, color, tamano, precio);
 		
 		return tatu;

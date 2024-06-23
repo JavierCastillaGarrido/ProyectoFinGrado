@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 import com.estudio.dao.ICitasDAO;
 import com.estudio.dtos.CitasDTO;
 import com.estudio.entities.CitasEntity;
+import com.estudio.entities.TatuajesEntity;
 import com.estudio.negocio.ICitasService;
+import com.estudio.negocio.ITatuajesService;
 import com.estudio.repositories.ICitasRepository;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -26,6 +28,9 @@ public class CitasService implements ICitasService{
 
 	@Autowired
 	ICitasDAO citasDAOImpl;
+	
+	@Autowired
+	ITatuajesService tatuajesService;
 	
 	@Autowired
 	private ICitasRepository citasRepository;
@@ -55,10 +60,11 @@ public class CitasService implements ICitasService{
 	}
 
 	@Override
-	public Integer actualizarCitas(Integer id, String fecha, Integer cliente, Integer tatuador, Integer tatuajes,
+	public Integer actualizarCitas(Integer id, String fecha, Integer cliente, Integer tatuador, TatuajesEntity tatuajes,
 			Integer activo) throws ClassNotFoundException, SQLException {
 		
-		Integer actua = citasDAOImpl.actualizarCitas(id, fecha, cliente, tatuador, tatuajes, activo);
+		Integer actua = citasDAOImpl.actualizarCitas(id, fecha, cliente, tatuador, tatuajes.getIdTatuajes(), activo);
+		Integer actual = tatuajesService.actualizarTatuajes(tatuajes.getIdTatuajes(), tatuajes.getDescripcion(), tatuajes.getColor().toString(), tatuajes.getTamano(), tatuajes.getPrecio());
 		
 		Iterable<CitasEntity> citas = citasRepository.findAll();
 		

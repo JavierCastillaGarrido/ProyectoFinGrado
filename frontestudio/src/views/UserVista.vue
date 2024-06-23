@@ -19,7 +19,7 @@
                         <td> {{ item.idCitas }} </td>
                         <td> {{ item.fecha }} </td>
                         <td> {{ item.cliente.nombre }} </td>
-                        <td> {{ item.tatuador.nombre }} </td>
+                        <td> {{ item.tatuador.nombre  }} </td>
                         <td> {{ item.tatuajes.descripcion }} </td>
                         <td> {{ item.tatuajes.tamano }} cm</td>
                         <td> {{ item.tatuajes.precio }} €</td>
@@ -29,16 +29,18 @@
                 <div v-if="boolean" class="formularioEditCita">
                     <label for="fecha">Nueva Fecha:</label><br>
                     <input type="date" name="fecha" id="fecha" required v-model="fecha" :min="fechaHoy" @change="comprobarFecha()"> <br><br>
+
                     <label for="tatuador">Tatuador:</label> <br>
                     <select name="tatuador" id="tatuador" v-model="tatuador" required>
                         <option v-for="item in listaTatuadores" :key="item.idTatuadores" :value="item.nombre"> {{ item.nombre }}</option>
                     </select> <br><br>
+
                     <label for="descripcion">Descripción:</label><br>
                     <textarea name="descrip" id="descrip" cols="33" rows="3" v-model="descrip" required placeholder="Un dragon en el hombro/ una flor en la muñeca"></textarea> <br><br>
                     <label for="tamano">Tamaño:</label><br>
                     <input type="number" required v-model="tamano" placeholder="ejem: 5.2" min="0"> <br><br>
                     <label for="color">Color:</label><br>
-                    <input type="checkbox" name="color" id="color" v-model="color" :checked="color"> <br><br>
+                    <input type="checkbox" name="color" id="color" v-model="color" > <br><br>
                     <button type="button" class="editCita" @click="editarCita()">Editar Cita</button>
                 </div>
             </div>
@@ -54,7 +56,7 @@
             cliente: [],
             listaCitas: [],
             listaMostrar: [],
-            listaTatuadores: [], 
+            listaTatuadores: [],
             email:"",
             fecha:"",
             tatuador: "",
@@ -68,7 +70,7 @@
         },
         methods: {
             mostrarFormuEdit(item){
-                this.boolean = true;
+                this.boolean = true;             
                 this.CitaSelec = item;
                 this.fecha = item.fecha;
                 this.tatuador = item.tatuador.nombre;
@@ -79,42 +81,55 @@
             },
             async rellenarListaCitas(){
 
-                let urlClie = "http://localhost:8080/tiendaTattoos/clientes?id=&nombre=&apellidos=&telefono=&email=" + this.email + "&pass=";
-                console.log(urlClie);
-                await fetch(urlClie)
+                await fetch('http://localhost:8080/tiendaTattoos/tatuadores')
                     .then(response => response.json())
-                    .then(json => this.cliente = json);
+                    .then(json => this.listaTatuadores = json);
 
-                let urlCita = "http://localhost:8080/tiendaTattoos/citas?idCitas=&fecha=&activo=&cliente=" + this.cliente.idCliente + "&tatuador=&tatuajes="
+                let urlClie = "http://localhost:8080/tiendaTattoos/clientes?id=&nombre=&apellidos=&telefono=&email=" + this.email + "&pass=";
+                await fetch(urlClie)
+                .then(response => response.json())
+                .then(json => this.cliente = json);
+
+                let urlCita = "http://localhost:8080/tiendaTattoos/citas?idCitas=&fecha=&activo=&cliente=" + (this.cliente[0].idClientes) + "&tatuador=&tatuajes="
 
                 await fetch(urlCita)
                     .then(response => response.json())
                     .then(json => this.listaCitas = json);
 
                 
-                let lista;
                 for (let i = 0; i < this.listaCitas.length; i++){
+
+                    
+                    let listaTatuadores = [] 
+                    let listaTatuajes = [];
+
                     await fetch('http://localhost:8080/tiendaTattoos/tatuadores/' + this.listaCitas[i].tatuador)
                         .then(response => response.json())
-                        .then(json => lista = json);
+                        .then(json => {
+                            listaTatuadores.push(json);
+                        });
 
-                    this.listaTatuadores.push(lista);
+                    
 
                     await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + this.listaCitas[i].tatuajes)
                         .then(response => response.json())
-                        .then(json => lista = json);
-
-                    this.listaTatuajes.push(lista);
+                        .then(json => {
+                            listaTatuajes.push(json);
+                        });
+        
+                    this.listaMostrar.push({
+                            idCitas : this.listaCitas[i].idCitas,
+                            fecha : this.listaCitas[i].fecha,
+                            cliente : this.cliente[0],
+                            tatuador : listaTatuadores[0],
+                            tatuajes : listaTatuajes[0]
+                    })
                 }
-                    
-                this.listaCitas.cliente = this.cliente;
-                this.listaCitas.tatuador = this.listaTatuadores;
-                this.listaCitas.tatuajes = this.listaTatuajes;
-                this.listaMostrar = this.listaCitas;
+                
+
 
             },
             editarCita(){
-
                 this.CitaSelec.fecha = this.fecha;
                 for (let i = 0; i < this.listaTatuadores.length; i++) {
                     if (this.listaTatuadores[i].nombre === this.tatuador) {
@@ -125,6 +140,37 @@
                 this.CitaSelec.tatuajes.descripcion = this.descrip;
                 this.CitaSelec.tatuajes.tamano = this.tamano;
                 this.CitaSelec.tatuajes.color = (this.color == true) ? 1 : 0;
+                this.CitaSelec.cliente.email = this.email;
+                this.CitaSelec.activo = 1;
+//                 {
+//     "idCitas": 1,
+//     "fecha": "2024-12-11",
+//     "activo": 1,
+//     "cliente": {
+//         "idClientes": 1,
+//         "nombre": "Juan",
+//         "apellidos": "García",
+//         "telefono": "123456789",
+//         "email": "juangarcia@example.com",
+//         "password": "clave123"
+//     },
+//     "tatuador": {
+//         "idTatuadores": 2,
+//         "nombre": "Carlos",
+//         "apellidos": "Gómez",
+//         "email": "carlosgomez@example.com",
+//         "especialidad": "Blackwork",
+//         "descripcion": "Carlos Gómez es un destacado tatuador especializado en el estilo de Blackwork. Con una carrera que abarca una década, Carlos ha desarrollado una maestría única en el uso de tinta negra para crear tatuajes impactantes y duraderos. Su enfoque se caracteriza por la precisión en los detalles y la profundidad de los contrastes, logrando piezas que van desde patrones geométricos y mandalas hasta escenas complejas y abstractas. Carlos encuentra su inspiración en el arte tribal, el diseño contemporáneo y la naturaleza, fusionando estos elementos para ofrecer tatuajes que son tanto poderosos como elegantes. Su habilidad para trabajar con sombras, líneas gruesas y finas, y espacios negativos permite que cada tatuaje sea una obra de arte personalizada, adaptada a la visión y deseos de cada cliente.",
+//         "activo": 1
+//     },
+//     "tatuajes": {
+//         "idTatuajes": 3,
+//         "descripcion": "Calavera",
+//         "color": 1,
+//         "tamano": 20.0,
+//         "precio": 120.0
+//     }
+// }
 
                 fetch('http://localhost:8080/tiendaTattoos/citas', {
                         method: 'PUT',
@@ -139,7 +185,19 @@
                 })
                 .catch((error) => console.error('Error:', error));
 
-                this.boolean = false;
+                this.cliente = [],
+                this.listaCitas= [],
+                this.listaMostrar= [],
+                this.listaTatuadores= [],
+                this.email="",
+                this.fecha="",
+                this.tatuador= "",
+                this.tamano= "",
+                this.color= null,
+                this.descrip= "",
+                this.CitaSelec= "",
+                this.boolean= false,
+                this.rellenarListaCitas();
             },
             comprobarFecha(){
                 if(this.boolean) {
@@ -156,7 +214,6 @@
             },
         },   
         created() {
-            console.log(this.$route.params.email);
             this.email = this.$route.params.email;
             this.rellenarListaCitas();
             let hoy = new Date();
