@@ -82,6 +82,7 @@
                     .then(json => this.listaCitas = json);
                     
                 for (let i = 0; i < this.listaCitas.length; i++) {
+                    console.log(this.listaCitas[i])
                     if ((this.listaCitas[i].cliente.email) === this.email) {
                         this.listaMostrar.push(this.listaCitas[i]);
                     }

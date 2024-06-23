@@ -32,20 +32,23 @@ public class ClientesControllerRest {
 	
 	/********************************* LISTAR CLIENTES ******************************************/
 
-	@GetMapping(value="/clientes", params = {"idClientes","nombre","apellidos","telefono","email","password"})
-	public List<ClientesDTO> obtenerClientesConFiltros(
-			@RequestParam (value="idClientes",required=false) Integer idClientes,
-			@RequestParam (value="nombre",required=false)String nombre,
-			@RequestParam (value="apellidos",required=false)String apellidos,
-			@RequestParam (value="telefono",required=false)String telefono,
-			@RequestParam (value="email",required=false)String email,
-			@RequestParam (value="password",required=false)String password){
-		
-		List<ClientesDTO> cliente = clientesRepository.buscarClientes(idClientes, nombre, apellidos, telefono, email, password);
-		
-		return cliente;
-		
-	}
+	 @GetMapping(value = "/clientes", params = {"id", "nombre", "apellidos", "telefono", "email", "pass"})
+	    public List<ClientesDTO> obtenerClientesConFiltros(
+	            @RequestParam(value = "id", required = false) Integer id,
+	            @RequestParam(value = "nombre", required = false) String nombre,
+	            @RequestParam(value = "apellidos", required = false) String apellidos,
+	            @RequestParam(value = "telefono", required = false) String telefono,
+	            @RequestParam(value = "email", required = false) String email,
+	            @RequestParam(value = "pass", required = false) String password) {
+
+	        if ("".equals(nombre)) nombre = null;
+	        if ("".equals(apellidos)) apellidos = null;
+	        if ("".equals(telefono)) telefono = null;
+	        if ("".equals(email)) email = null;
+	        if ("".equals(password)) password = null;
+
+	        return clientesRepository.buscarClientes(id, nombre, apellidos, telefono, email, password);
+	    }
 	
 	//http://localhost:8080/tiendaTattoos/clientes/2
 	

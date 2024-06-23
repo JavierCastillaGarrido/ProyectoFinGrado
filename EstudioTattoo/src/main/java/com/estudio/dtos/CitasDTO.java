@@ -1,7 +1,5 @@
 package com.estudio.dtos;
 
-import java.text.SimpleDateFormat;
-
 public class CitasDTO {
 
 	private Integer idCitas;
@@ -15,9 +13,7 @@ public class CitasDTO {
 			Integer tatuajes, Integer activo) {
 		super();
 		this.idCitas = idCitas;
-		SimpleDateFormat formatoFecha  = new SimpleDateFormat("yyyy-MM-dd");
-		String fechaF = formatoFecha.format(fecha);
-		this.fecha = fechaF;
+		this.fecha = fecha;
 		this.cliente = cliente;
 		this.tatuador = tatuador;
 		this.tatuajes = tatuajes;

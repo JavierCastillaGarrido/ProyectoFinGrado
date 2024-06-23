@@ -13,23 +13,20 @@ import com.estudio.entities.ClientesEntity;
 @Repository
 public interface IClientesRepository extends CrudRepository<ClientesEntity, Integer>{
 
-	/* IS NULL OR = si viene el parametro como null lo ignora y no realiza la comprobacion y filtra por el resto */
-	
-	@Query(value = "SELECT new com.estudio.dtos.ClientesDTO "
-			   + "(ce.idClientes, ce.nombre, ce.apellidos, ce.telefono, ce.email, ce.password)"
-			   + " FROM com.estudio.entities.ClientesEntity ce "
-			   + "					WHERE (:id IS NULL OR ce.idClientes = :id) "
-			   + " 					AND ce.nombre LIKE CONCAT ('%', :nombre, '%') "
-			   + " 					AND ce.apellidos LIKE CONCAT ('%', :apellidos, '%') "
-			   + " 					AND ce.telefono LIKE CONCAT ('%', :telefono, '%') "
-			   + " 					AND ce.email LIKE CONCAT ('%', :email, '%') "
-			   + " 					AND ce.password LIKE CONCAT ('%', :pass, '%') ")
-	public List<ClientesDTO> buscarClientes(
-		@Param("id") Integer id,
-		@Param("nombre") String nombre,
-		@Param("apellidos") String apellidos,
-		@Param("telefono") String telefono,
-		@Param("email") String email,
-		@Param("pass") String password);
-	
+    @Query("SELECT new com.estudio.dtos.ClientesDTO "
+         + "(ce.idClientes, ce.nombre, ce.apellidos, ce.telefono, ce.email, ce.password) "
+         + "FROM ClientesEntity ce "
+         + "WHERE (:id IS NULL OR ce.idClientes = :id) "
+         + "AND (:nombre IS NULL OR ce.nombre LIKE CONCAT('%', :nombre, '%')) "
+         + "AND (:apellidos IS NULL OR ce.apellidos LIKE CONCAT('%', :apellidos, '%')) "
+         + "AND (:telefono IS NULL OR ce.telefono LIKE CONCAT('%', :telefono, '%')) "
+         + "AND (:email IS NULL OR ce.email LIKE CONCAT('%', :email, '%')) "
+         + "AND (:pass IS NULL OR ce.password LIKE CONCAT('%', :pass, '%'))")
+    List<ClientesDTO> buscarClientes(
+        @Param("id") Integer id,
+        @Param("nombre") String nombre,
+        @Param("apellidos") String apellidos,
+        @Param("telefono") String telefono,
+        @Param("email") String email,
+        @Param("pass") String password);
 }
