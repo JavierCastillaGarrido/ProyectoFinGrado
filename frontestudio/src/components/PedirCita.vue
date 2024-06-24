@@ -155,7 +155,7 @@
 
                 if (regis){
 
-                    let clienteSele = this.listaClientes[(nuevaCita.cliente)-1]
+                    let clienteSele = this.listaClientes[(nuevaCita.cliente)]
 
                     cliente = {
                         idClientes: nuevaCita.cliente,
@@ -198,8 +198,9 @@
                     .then(data => console.log('Success:', data))
                     .catch((error) => console.error('Error:', error));
 
-                    
-                    let respuCli = await fetch('http://localhost:8080/tiendaTattoos/clientes/' + this.listaClientes.length);
+                    await this.rellenarListas();
+
+                    let respuCli = await fetch('http://localhost:8080/tiendaTattoos/clientes/' + (this.listaClientes.length+1));
                     let nuevoCliente = await respuCli.json();
                     nuevaCita.cliente = nuevoCliente.idClientes;
                     
@@ -233,7 +234,7 @@
 
                 await this.rellenarListas();
 
-                let respuTatu = await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + (this.listaTatuajes.length));
+                let respuTatu = await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + (this.listaTatuajes.length+1));
                 let nuevoTatu = await respuTatu.json();
                 nuevaCita.tatuajes = nuevoTatu.idTatuajes;
 
@@ -269,7 +270,7 @@
                     })
                     .catch((error) => console.error('Error:', error));
                 
-                
+                    this.rellenarListas();
             }
         },
         created(){

@@ -142,35 +142,6 @@
                 this.CitaSelec.tatuajes.color = (this.color == true) ? 1 : 0;
                 this.CitaSelec.cliente.email = this.email;
                 this.CitaSelec.activo = 1;
-//                 {
-//     "idCitas": 1,
-//     "fecha": "2024-12-11",
-//     "activo": 1,
-//     "cliente": {
-//         "idClientes": 1,
-//         "nombre": "Juan",
-//         "apellidos": "García",
-//         "telefono": "123456789",
-//         "email": "juangarcia@example.com",
-//         "password": "clave123"
-//     },
-//     "tatuador": {
-//         "idTatuadores": 2,
-//         "nombre": "Carlos",
-//         "apellidos": "Gómez",
-//         "email": "carlosgomez@example.com",
-//         "especialidad": "Blackwork",
-//         "descripcion": "Carlos Gómez es un destacado tatuador especializado en el estilo de Blackwork. Con una carrera que abarca una década, Carlos ha desarrollado una maestría única en el uso de tinta negra para crear tatuajes impactantes y duraderos. Su enfoque se caracteriza por la precisión en los detalles y la profundidad de los contrastes, logrando piezas que van desde patrones geométricos y mandalas hasta escenas complejas y abstractas. Carlos encuentra su inspiración en el arte tribal, el diseño contemporáneo y la naturaleza, fusionando estos elementos para ofrecer tatuajes que son tanto poderosos como elegantes. Su habilidad para trabajar con sombras, líneas gruesas y finas, y espacios negativos permite que cada tatuaje sea una obra de arte personalizada, adaptada a la visión y deseos de cada cliente.",
-//         "activo": 1
-//     },
-//     "tatuajes": {
-//         "idTatuajes": 3,
-//         "descripcion": "Calavera",
-//         "color": 1,
-//         "tamano": 20.0,
-//         "precio": 120.0
-//     }
-// }
 
                 fetch('http://localhost:8080/tiendaTattoos/citas', {
                         method: 'PUT',
