@@ -22,7 +22,7 @@
                         <label for="color">Color:</label><br>
                         <input type="checkbox" name="color" id="color" v-model="color" :on-change="calcularPrecio()"> <br><br>
                         <label for="tamano">Tamaño:</label><br>
-                        <input type="number" required v-model="tamano" placeholder="ejem: 5.2" :on-change="calcularPrecio()" min="0"> <br><br>
+                        <input type="number" required v-model="tamano" placeholder="ejem: 5.2" :on-change="calcularPrecio()" min="0.1"> <br><br>
                         <label for="precio">Precio Total:</label> <br>
                         <input type="text" name="precio" id="precio" v-model="precio" disabled>
                     </div>
