@@ -2,45 +2,47 @@
     <div class="divformulario">
         <h1 class="tituloPag">Formulario Citas</h1>
         <div class="formulario">
-            <div class="info">
-                <div class="infoclient">
-                    <h2>Información cliente</h2>
-                    <label for="nombrec">Nombre: </label><br>
-                    <input type="text" name="nombrec" id="nombrec" v-model="nombrec" required> <br><br>
-                    <label for="apellidos">Apellidos: </label><br>
-                    <input type="text" name="apellidos" id="apellidos" v-model="apellidos" required> <br><br>
-                    <label for="telefono">Teléfono: </label><br>
-                    <input type="tel" name="telefono" id="telefono" v-model="telefono" required> <br><br>
-                    <label for="email">Correo electronico: </label><br>
-                    <input type="email" name="email" id="email" v-model="email" required> <br><br>
+            <form @submit.prevent="pedirCita()">
+                <div class="info">
+                    <div class="infoclient">
+                        <h2>Información cliente</h2>
+                        <label for="nombrec">Nombre: </label><br>
+                        <input type="text" name="nombrec" id="nombrec" v-model="nombrec" required> <br><br>
+                        <label for="apellidos">Apellidos: </label><br>
+                        <input type="text" name="apellidos" id="apellidos" v-model="apellidos" required> <br><br>
+                        <label for="telefono">Teléfono: </label><br>
+                        <input type="tel" name="telefono" id="telefono" v-model="telefono" required> <br><br>
+                        <label for="email">Correo electronico: </label><br>
+                        <input type="email" name="email" id="email" v-model="email" required> <br><br>
+                    </div>
+                    <div class="infoTatus">
+                        <h2>Información Tatuaje</h2>
+                        <label for="descrip">Descripción del tatuaje: </label><br>
+                        <textarea name="descrip" id="descrip" cols="33" rows="3" v-model="descrip" required placeholder="Un dragon en el hombro/ una flor en la muñeca"></textarea> <br><br>
+                        <label for="color">Color:</label><br>
+                        <input type="checkbox" name="color" id="color" v-model="color" :on-change="calcularPrecio()"> <br><br>
+                        <label for="tamano">Tamaño:</label><br>
+                        <input type="number" required v-model="tamano" placeholder="ejem: 5.2" :on-change="calcularPrecio()" min="0"> <br><br>
+                        <label for="precio">Precio Total:</label> <br>
+                        <input type="text" name="precio" id="precio" v-model="precio" disabled>
+                    </div>
+                    <div class="infoCitas">
+                        <h2>Información Cita</h2>
+                        <label for="tatuador">Nombre del Tatudor:</label><br>
+                        <select name="tatuador" id="tatuador" v-if="(nomTatuador == '')" v-model="nomTatuador" required>
+                            <option value="" selected disabled>Seleccione una tatuador</option>
+                            <option v-for="item in listaTatuadores" :key="item.idTatuadores" :value="item.nombre"> {{ item.nombre }}</option>
+                        </select>  
+                        <select name="tatuador" id="tatuador" v-if="(nomTatuador != '')" required>
+                            <option :value="nomTatuador" selected >{{ nomTatuador }}</option>
+                        </select> <br><br> 
+            
+                        <label for="fecha">Fecha de Cita:</label><br>
+                        <input type="date" name="fecha" id="fecha" required v-model="fecha" :min="fechaHoy" :on-change="comprobarFecha()">
+                    </div>
                 </div>
-                <div class="infoTatus">
-                    <h2>Información Tatuaje</h2>
-                    <label for="descrip">Descripción del tatuaje: </label><br>
-                    <textarea name="descrip" id="descrip" cols="33" rows="3" v-model="descrip" required placeholder="Un dragon en el hombro/ una flor en la muñeca"></textarea> <br><br>
-                    <label for="color">Color:</label><br>
-                    <input type="checkbox" name="color" id="color" v-model="color" :on-change="calcularPrecio()"> <br><br>
-                    <label for="tamano">Tamaño:</label><br>
-                    <input type="number" required v-model="tamano" placeholder="ejem: 5.2" :on-change="calcularPrecio()" min="0"> <br><br>
-                    <label for="precio">Precio Total:</label> <br>
-                    <input type="text" name="precio" id="precio" v-model="precio" disabled>
-                </div>
-                <div class="infoCitas">
-                    <h2>Información Cita</h2>
-                    <label for="tatuador">Nombre del Tatudor:</label><br>
-                    <select name="tatuador" id="tatuador" v-if="(nomTatuador == '')" v-model="nomTatuador" required>
-                        <option value="" selected disabled>Seleccione una tatuador</option>
-                        <option v-for="item in listaTatuadores" :key="item.idTatuadores" :value="item.nombre"> {{ item.nombre }}</option>
-                    </select>  
-                    <select name="tatuador" id="tatuador" v-if="(nomTatuador != '')" required>
-                        <option :value="nomTatuador" selected >{{ nomTatuador }}</option>
-                    </select> <br><br> 
-        
-                    <label for="fecha">Fecha de Cita:</label><br>
-                    <input type="date" name="fecha" id="fecha" required v-model="fecha" :min="fechaHoy" :on-change="comprobarFecha()">
-                </div>
-            </div>
-            <button type="button" class="botonCita" @click="pedirCita() ">Pedir cita</button>
+                <button type="submit" class="botonCita">Pedir cita</button>
+            </form>
         </div>
     </div>
 </template>
