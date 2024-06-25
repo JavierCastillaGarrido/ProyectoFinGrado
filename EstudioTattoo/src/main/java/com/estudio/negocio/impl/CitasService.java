@@ -50,6 +50,8 @@ public class CitasService implements ICitasService{
 		
 		Iterable<CitasEntity> citas = citasRepository.findAll();
 		
+		System.out.println("===========================Service=====================================================================================================");
+		
 		try {
 			generarPdfCitas(citas);
 		}catch (Exception e) {

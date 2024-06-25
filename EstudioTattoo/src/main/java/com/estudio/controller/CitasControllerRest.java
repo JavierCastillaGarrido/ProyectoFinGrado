@@ -76,6 +76,8 @@ public class CitasControllerRest {
 	@PostMapping("/citas")
 	public ResponseEntity insertarCitas (@RequestBody CitasEntity citas)throws ClassNotFoundException, SQLException, NamingException{
 		
+		System.out.println("=================================================================================================================================");
+		
 		Integer resul = citasService.insertarCitas(citas.getFecha(), citas.getCliente().getIdClientes(), citas.getTatuador().getIdTatuadores(), citas.getTatuajes().getIdTatuajes(), citas.getActivo());
 		
 		if (resul >=1) {			
