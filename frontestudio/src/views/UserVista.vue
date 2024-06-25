@@ -72,6 +72,7 @@
             mostrarFormuEdit(item){
                 this.boolean = true;             
                 this.CitaSelec = item;
+
                 this.fecha = item.fecha;
                 this.tatuador = item.tatuador.nombre;
                 this.tamano = item.tatuajes.tamano;
@@ -90,7 +91,9 @@
                 .then(response => response.json())
                 .then(json => this.cliente = json);
 
-                let urlCita = "http://localhost:8080/tiendaTattoos/citas?idCitas=&fecha=&activo=&cliente=" + (this.cliente[0].idClientes) + "&tatuador=&tatuajes="
+                this.cliente = this.cliente[0];
+
+                let urlCita = "http://localhost:8080/tiendaTattoos/citas?idCitas=&fecha=&activo=&cliente=" + (this.cliente.idClientes) + "&tatuador=&tatuajes="
 
                 await fetch(urlCita)
                     .then(response => response.json())
@@ -120,7 +123,7 @@
                     this.listaMostrar.push({
                             idCitas : this.listaCitas[i].idCitas,
                             fecha : this.listaCitas[i].fecha,
-                            cliente : this.cliente[0],
+                            cliente : this.cliente,
                             tatuador : listaTatuadores[0],
                             tatuajes : listaTatuajes[0]
                     })
@@ -130,31 +133,41 @@
 
             },
             editarCita(){
+
                 this.CitaSelec.fecha = this.fecha;
+
                 for (let i = 0; i < this.listaTatuadores.length; i++) {
                     if (this.listaTatuadores[i].nombre === this.tatuador) {
                         this.CitaSelec.tatuador = this.listaTatuadores[i];
                         break;
                     }
                 }
+
                 this.CitaSelec.tatuajes.descripcion = this.descrip;
                 this.CitaSelec.tatuajes.tamano = this.tamano;
                 this.CitaSelec.tatuajes.color = (this.color == true) ? 1 : 0;
-                this.CitaSelec.cliente.email = this.email;
                 this.CitaSelec.activo = 1;
 
                 fetch('http://localhost:8080/tiendaTattoos/citas', {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(this.CitaSelec)
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.CitaSelec)
                 })
-                .then(response => response.json())
-                .then(data => {console.log('Success:', data)
-                    alert("Cita editada correctamente, Muchas gracias.")
+                .then(response => response.text())  
+                .then(text => {
+                    if (text === 'Cita actualizada correctamente') {
+                        alert("Cita editada correctamente, Muchas gracias.");
+                    } else {
+                        console.error('Unexpected response:', text);  
+                        alert("Error al editar la cita. Por favor, inténtelo de nuevo.");
+                    }
                 })
-                .catch((error) => console.error('Error:', error));
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert("Error al editar la cita. Por favor, inténtelo de nuevo.");
+                });
 
                 this.cliente = [],
                 this.listaCitas= [],

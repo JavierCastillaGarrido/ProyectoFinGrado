@@ -130,7 +130,7 @@
                 }
             },
 
-            async pedirCita(){
+            pedirCita(){
 
                 var nuevaCita = {
                     fecha: this.fecha,
@@ -166,16 +166,25 @@
                         password: clienteSele.password
                     }
 
-                    await fetch('http://localhost:8080/tiendaTattoos/clientes', {
+                    fetch('http://localhost:8080/tiendaTattoos/clientes', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(cliente)
                     })
-                    .then(response => response.json())
-                    .then(data => console.log('Success:', data))
-                    .catch((error) => console.error('Error:', error));
+                    .then(response => response.text())  
+                    .then(text => {
+                        if (text === 'Cliente actualizado correctamente') {
+                            console.log(text)
+                        } else {
+                            console.error('Unexpected response:', text);  
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert("Error al editar el Cliente. Por favor, inténtelo de nuevo.");
+                    });
 
                 }else{
 
@@ -187,21 +196,30 @@
                         password: prompt("Introduce una contraseña: ")
                     }
 
-                    await fetch('http://localhost:8080/tiendaTattoos/clientes', {
+                    fetch('http://localhost:8080/tiendaTattoos/clientes', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(cliente)
                     })
-                    .then(response => response.json())
-                    .then(data => console.log('Success:', data))
-                    .catch((error) => console.error('Error:', error));
+                    .then(response => response.text())  
+                    .then(text => {
+                        if (text === 'Cliente insertado correctamente') {
+                            console.log(text)
+                        } else {
+                            console.error('Unexpected response:', text);  
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert("Error al insertar el Cliente. Por favor, inténtelo de nuevo.");
+                    });
 
-                    await this.rellenarListas();
+                    this.rellenarListas();
 
-                    let respuCli = await fetch('http://localhost:8080/tiendaTattoos/clientes/' + (this.listaClientes.length+1));
-                    let nuevoCliente = await respuCli.json();
+                    let respuCli = fetch('http://localhost:8080/tiendaTattoos/clientes/' + (this.listaClientes.length+1));
+                    let nuevoCliente = respuCli.json();
                     nuevaCita.cliente = nuevoCliente.idClientes;
                     
                 }
@@ -221,21 +239,30 @@
                     precio: this.precio,
                 };
 
-                await fetch('http://localhost:8080/tiendaTattoos/tatuajes', {
+                fetch('http://localhost:8080/tiendaTattoos/tatuajes', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(tatuaje)
                     })
-                    .then(response => response.json())
-                    .then(data => console.log('Success:', data))
-                    .catch((error) => console.error('Error f:', error));
+                    .then(response => response.text())  
+                    .then(text => {
+                        if (text === 'Tatuaje insertado correctamente') {
+                            console.log(text)
+                        } else {
+                            console.error('Unexpected response:', text);  
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert("Error al insertar el Tatuaje. Por favor, inténtelo de nuevo.");
+                    });
 
-                await this.rellenarListas();
+                this.rellenarListas();
 
-                let respuTatu = await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + (this.listaTatuajes.length+1));
-                let nuevoTatu = await respuTatu.json();
+                let respuTatu = fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + (this.listaTatuajes.length+1));
+                let nuevoTatu = respuTatu.json();
                 nuevaCita.tatuajes = nuevoTatu.idTatuajes;
 
                 this.descrip = "",
@@ -256,19 +283,29 @@
 
                 this.fecha = "";
                 this.nomTatuador = "";
+
+                console.log(nuevaCita);
                 
-                await fetch('http://localhost:8080/tiendaTattoos/citas', {
+                fetch('http://localhost:8080/tiendaTattoos/citas', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(nuevaCita)
                     })
-                    .then(response => response.json())
-                    .then(data => {console.log('Success:', data)
-                        alert("Cita pedida correctamente, Muchas gracias.")
+                    .then(response => response.text())  
+                    .then(text => {
+                        if (text === 'Cita insertada correctamente') {
+                            console.log(text)
+                            alert(text);
+                        } else {
+                            console.error('Unexpected response:', text);  
+                        }
                     })
-                    .catch((error) => console.error('Error:', error));
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert("Error al insertar la Cita. Por favor, inténtelo de nuevo.");
+                    });
                 
                     this.rellenarListas();
             }

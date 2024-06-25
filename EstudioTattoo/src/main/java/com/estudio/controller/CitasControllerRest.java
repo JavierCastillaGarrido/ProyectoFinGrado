@@ -89,7 +89,6 @@ public class CitasControllerRest {
 
 	@PutMapping("/citas")
 	public ResponseEntity actualizarCitas (@RequestBody CitasEntity citas)throws ClassNotFoundException, SQLException, NamingException{
-		System.out.println("==================================== ENTRO ======================================");
 		Integer resul = citasService.actualizarCitas(citas.getIdCitas(), citas.getFecha(), citas.getCliente().getIdClientes(), citas.getTatuador().getIdTatuadores(), citas.getTatuajes(), citas.getActivo());
 		
 		if (resul >=1) {			
