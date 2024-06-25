@@ -49,9 +49,7 @@ public class CitasService implements ICitasService{
 		Integer inse = citasDAOImpl.insertarCitas(fecha, cliente, tatuador, tatuajes, activo);
 		
 		Iterable<CitasEntity> citas = citasRepository.findAll();
-		
-		System.out.println("===========================Service=====================================================================================================");
-		
+				
 		try {
 			generarPdfCitas(citas);
 		}catch (Exception e) {
@@ -109,8 +107,8 @@ public class CitasService implements ICitasService{
 	    for (CitasEntity cita : citas) {
 	        table.addCell(new Cell().add(new Paragraph(cita.getIdCitas().toString())));
 	        table.addCell(new Cell().add(new Paragraph(cita.getFecha())));
-	        table.addCell(new Cell().add(new Paragraph(cita.getCliente().getNombre() )));
-	        table.addCell(new Cell().add(new Paragraph(cita.getTatuador().getNombre() )));
+	        table.addCell(new Cell().add(new Paragraph(cita.getCliente().getNombre())));
+	        table.addCell(new Cell().add(new Paragraph(cita.getTatuador().getNombre())));
 	        table.addCell(new Cell().add(new Paragraph(cita.getTatuajes().getDescripcion() )));
 	        
 	        String tamano = "" + cita.getTatuajes().getTamano();
