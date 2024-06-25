@@ -13,7 +13,7 @@
                         <th>Descripción</th>
                         <th>Tamaño</th>
                         <th>Precio</th>
-                        <th>Editar Fecha Cita</th>
+                        <th>Editar Cita</th>
                     </tr>
                     <tr class="citas" v-for="(item, index) in listaMostrar" :key="index">
                         <td> {{ item.idCitas }} </td>
@@ -72,7 +72,6 @@
             mostrarFormuEdit(item){
                 this.boolean = true;             
                 this.CitaSelec = item;
-
                 this.fecha = item.fecha;
                 this.tatuador = item.tatuador.nombre;
                 this.tamano = item.tatuajes.tamano;
@@ -92,6 +91,11 @@
                 .then(json => this.cliente = json);
 
                 this.cliente = this.cliente[0];
+
+                localStorage.setItem("nombre", this.cliente.nombre);
+                localStorage.setItem("apellidos", this.cliente.apellidos);
+                localStorage.setItem("telefono", this.cliente.telefono);
+                localStorage.setItem("email", this.cliente.email);
 
                 let urlCita = "http://localhost:8080/tiendaTattoos/citas?idCitas=&fecha=&activo=&cliente=" + (this.cliente.idClientes) + "&tatuador=&tatuajes="
 

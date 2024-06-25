@@ -314,6 +314,14 @@
             this.rellenarListas();
             this.nomTatuador = this.nombreTatuadores;
 
+            let nombreCliente = localStorage.getItem("nombre");
+            if (nombreCliente != null){
+                this.nombrec = localStorage.getItem("nombre");
+                this.apellidos = localStorage.getItem("apellidos");
+                this.telefono = localStorage.getItem("telefono");
+                this.email = localStorage.getItem("email");
+            }
+
             let hoy = new Date();
             let dia = String(hoy.getDate()).padStart(2, '0');
             let mes = String(hoy.getMonth() + 1).padStart(2, '0');

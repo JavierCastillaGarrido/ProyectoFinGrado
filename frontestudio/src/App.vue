@@ -40,41 +40,43 @@
 import login from "./components/LoginComponent.vue";
 
 export default {
-  components:{
+  components: {
     login
   },
   data() {
     return {
       login: false,
       mostrar: true,
-      mostrarlog: false, 
+      mostrarlog: false,
       texto: "Login",
       email: ""
     };
   },
   methods: {
-    cambiarLogin(email){
+    cambiarLogin(email) {
       this.email = email;
       this.login = true;
       this.texto = "User";
-      this.mostrar = false;
+      this.mostrar = true;
       this.mostrarlog = false;
-      this.$router.push({name:"User", params: {email: this.email}});
+      this.$router.push({ name: "User", params: { email: this.email } });
     },
-    async cambiarVistaLogeado(boolean){
+    async cambiarVistaLogeado(boolean) {
       if (boolean === 1) {
-        this.mostrar = false;
-        this.mostrarlog = true;
-      }else{
-        if (!this.mostrar){
-          this.mostrar = true;
+        if (!this.login) {
+          this.mostrar = false;
+          this.mostrarlog = true;
+        } else {
+          this.$router.push({ name: "User", params: { email: this.email } });
         }
+      } else {
+        this.mostrar = true;
         this.mostrarlog = false;
       }
     }
   },
-  created(){
-       this.email = "";
+  created() {
+    this.email = "";
   }
 };
 </script>
