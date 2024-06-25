@@ -20,8 +20,8 @@
       </nav> 
     </div>
     <div id="vistas">
-      <router-view v-if="mostrar"/>
-      <login v-if="mostrarlog" @usuarioLogeado="cambiarLogin"></login>
+      <router-view v-if="mostrar" @logout="cerrarSesion"/>
+      <login v-if="mostrarlog" @usuarioLogeado="cambiarLogin" ></login>
     </div>
     <div id="footer">
       <div class="copy">
@@ -39,6 +39,7 @@
 <script>
 import login from "./components/LoginComponent.vue";
 
+
 export default {
   components: {
     login
@@ -53,6 +54,16 @@ export default {
     };
   },
   methods: {
+    cerrarSesion(texto) {
+      console.log(texto);
+      this.login = false;
+      this.mostrar = true;
+      this.mostrarlog = false;
+      this.texto = "Login";
+      this.email = "";
+      localStorage.clear();
+      this.$router.push('/login');
+    },
     cambiarLogin(email) {
       this.email = email;
       this.login = true;
@@ -77,6 +88,7 @@ export default {
   },
   created() {
     this.email = "";
+    localStorage.clear();
   }
 };
 </script>

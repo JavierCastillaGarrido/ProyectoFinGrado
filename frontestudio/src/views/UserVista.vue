@@ -1,6 +1,9 @@
 <template>
     <div id="containerUser">
         <h1 class="tituloPag">Zona de User</h1>
+        <div class="botonLogout">
+            <button @click="$emit('logout')">Log out</button>
+        </div>
         <div class="fondoCitas">
             <div class="listadoCitas">
                 <h2>Citas del User</h2>
@@ -91,50 +94,50 @@
                 .then(json => this.cliente = json);
 
                 this.cliente = this.cliente[0];
-
-                localStorage.setItem("nombre", this.cliente.nombre);
-                localStorage.setItem("apellidos", this.cliente.apellidos);
-                localStorage.setItem("telefono", this.cliente.telefono);
-                localStorage.setItem("email", this.cliente.email);
-
-                let urlCita = "http://localhost:8080/tiendaTattoos/citas?idCitas=&fecha=&activo=&cliente=" + (this.cliente.idClientes) + "&tatuador=&tatuajes="
-
-                await fetch(urlCita)
-                    .then(response => response.json())
-                    .then(json => this.listaCitas = json);
-
+                if (this.cliente) {
+                    localStorage.setItem("nombre", this.cliente.nombre);
+                    localStorage.setItem("apellidos", this.cliente.apellidos);
+                    localStorage.setItem("telefono", this.cliente.telefono);
+                    localStorage.setItem("email", this.cliente.email);
+                    localStorage.setItem("password", this.cliente.password);
                 
-                for (let i = 0; i < this.listaCitas.length; i++){
+
+                    let urlCita = "http://localhost:8080/tiendaTattoos/citas?idCitas=&fecha=&activo=&cliente=" + (this.cliente.idClientes) + "&tatuador=&tatuajes="
+
+                    await fetch(urlCita)
+                        .then(response => response.json())
+                        .then(json => this.listaCitas = json);
 
                     
-                    let listaTatuadores = [] 
-                    let listaTatuajes = [];
+                    for (let i = 0; i < this.listaCitas.length; i++){
 
-                    await fetch('http://localhost:8080/tiendaTattoos/tatuadores/' + this.listaCitas[i].tatuador)
-                        .then(response => response.json())
-                        .then(json => {
-                            listaTatuadores.push(json);
-                        });
+                        
+                        let listaTatuadores = [] 
+                        let listaTatuajes = [];
 
-                    
+                        await fetch('http://localhost:8080/tiendaTattoos/tatuadores/' + this.listaCitas[i].tatuador)
+                            .then(response => response.json())
+                            .then(json => {
+                                listaTatuadores.push(json);
+                            });
 
-                    await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + this.listaCitas[i].tatuajes)
-                        .then(response => response.json())
-                        .then(json => {
-                            listaTatuajes.push(json);
-                        });
-        
-                    this.listaMostrar.push({
-                            idCitas : this.listaCitas[i].idCitas,
-                            fecha : this.listaCitas[i].fecha,
-                            cliente : this.cliente,
-                            tatuador : listaTatuadores[0],
-                            tatuajes : listaTatuajes[0]
-                    })
+                        
+
+                        await fetch('http://localhost:8080/tiendaTattoos/tatuajes/' + this.listaCitas[i].tatuajes)
+                            .then(response => response.json())
+                            .then(json => {
+                                listaTatuajes.push(json);
+                            });
+            
+                        this.listaMostrar.push({
+                                idCitas : this.listaCitas[i].idCitas,
+                                fecha : this.listaCitas[i].fecha,
+                                cliente : this.cliente,
+                                tatuador : listaTatuadores[0],
+                                tatuajes : listaTatuajes[0]
+                        })
+                    }
                 }
-                
-
-
             },
             editarCita(){
 
@@ -177,7 +180,6 @@
                 this.listaCitas= [],
                 this.listaMostrar= [],
                 this.listaTatuadores= [],
-                this.email="",
                 this.fecha="",
                 this.tatuador= "",
                 this.tamano= "",
@@ -199,7 +201,7 @@
                 }else{
                     this.boolean = true;
                 }
-            },
+            }
         },   
         created() {
             this.email = this.$route.params.email;
@@ -232,6 +234,27 @@
 
 .listadoCitas h2{
     text-align: center;
+}
+
+.botonLogout{
+    text-align: center;
+    height: 5%;
+    margin-bottom: 2%;
+}
+
+.botonLogout button {
+  padding: 1% 4%;
+  color: white;
+  background-color: rgba(51, 51, 51, 0.8);
+  transition: 1s;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botonLogout button:hover{
+  transition: 1s;
+  background-color: #fd5437;
 }
 
 table{

@@ -93,8 +93,6 @@ public class CitasService implements ICitasService{
 		Table table = new Table(columnWidths);
 		table.setWidth(200);
 		
-		System.out.println("patata");
-		
 		document.add(new Paragraph("Registro de citas: "));
 		
 		table.addHeaderCell(new Cell().add(new Paragraph("Id Cita")));
